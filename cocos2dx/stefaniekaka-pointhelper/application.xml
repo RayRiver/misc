@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<application xmlns="http://ns.adobe.com/air/application/3.1">
+  <id>0</id>
+  <versionNumber>1.0.3</versionNumber>
+  <filename>PointHelper</filename>
+  <name>PointHelper</name>
+  <initialWindow>
+    <title>PointHelper</title>
+    <content>PointHelper.swf</content>
+    <systemChrome>standard</systemChrome>
+    <transparent>false</transparent>
+    <visible>false</visible>
+    <minimizable>true</minimizable>
+    <maximizable>false</maximizable>
+    <resizable>false</resizable>
+  </initialWindow>
+  <!-- 
+	More options:
+	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
+	-->
+  <icon>
+    <image16x16>icons/坐标点选取工具16.png</image16x16>
+    <image29x29>icons/坐标点选取工具29.png</image29x29>
+    <image32x32>icons/坐标点选取工具32.png</image32x32>
+    <image36x36>icons/坐标点选取工具36.png</image36x36>
+    <image48x48>icons/坐标点选取工具48.png</image48x48>
+    <image57x57>icons/坐标点选取工具57.png</image57x57>
+    <image72x72>icons/坐标点选取工具72.png</image72x72>
+    <image128x128>icons/坐标点选取工具128.png</image128x128>
+    <image512x512>icons/坐标点选取工具512.png</image512x512>
+  </icon>
+  <supportedProfiles>desktop</supportedProfiles>
+  <description>这是个类似VertexHelper的工具, 感谢VertexHelper作者.
+Ver 1.0.2 
+- 增加了对 Mac 程序菜单的支持;
+
+Ver 1.0.3 
+- 修改了 Mac 程序菜单的Bug;
+- 增加锚点模式, 锚点模式使用时, 必须是一行一列;
+- 布局调整;</description>
+  <versionLabel>1.0.3</versionLabel>
+  <copyright>Copyright 2013, Zhenyu Yao All rights reserved.</copyright>
+  <fileTypes>
+    <fileType>
+      <name>Metadata</name>
+      <extension>cpt</extension>
+      <contentType>Text</contentType>
+      <icon>
+        <image16x16>icons/cpt16.png</image16x16>
+        <image29x29>icons/cpt29.png</image29x29>
+        <image32x32>icons/cpt32.png</image32x32>
+        <image36x36>icons/cpt36.png</image36x36>
+        <image48x48>icons/cpt48.png</image48x48>
+        <image128x128>icons/cpt128.png</image128x128>
+        <image512x512>icons/cpt512.png</image512x512>
+      </icon>
+    </fileType>
+  </fileTypes>
+</application>

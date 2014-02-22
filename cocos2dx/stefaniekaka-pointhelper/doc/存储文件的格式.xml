@@ -1,0 +1,38 @@
+<root>
+	<Metadata row="2" col="2">
+		
+		<Content>
+		</Content>
+		
+		<Row>
+			<Col>
+				<Point x="-100" y="100"/>
+				<Point x="-100" y="-100"/>
+				<Point x="100" y="-100"/>
+				<Point x="100" y="100"/>
+			</Col>
+			<Col>
+				<Point x="-100" y="100"/>
+				<Point x="-100" y="-100"/>
+				<Point x="100" y="-100"/>
+				<Point x="100" y="100"/>
+			</Col>
+		</Row>
+		
+		<Row>
+			<Col>
+				<Point x="-100" y="100"/>
+				<Point x="-100" y="-100"/>
+				<Point x="100" y="-100"/>
+				<Point x="100" y="100"/>
+			</Col>
+			<Col>
+				<Point x="-100" y="100"/>
+				<Point x="-100" y="-100"/>
+				<Point x="100" y="-100"/>
+				<Point x="100" y="100"/>
+			</Col>
+		</Row>
+		
+	</Metadata>
+</root>
