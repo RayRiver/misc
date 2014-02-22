@@ -7,6 +7,9 @@
 #include "VisibleRect.h"
 #include "B2Sprite.h"
 
+#include "Helicopter.h"
+#include "Barrier.h"
+
 #include "json/reader.h"
 
 using namespace std;
@@ -15,6 +18,14 @@ USING_NS_CC_EXT;
 USING_NS_CC;
 
 #define PTM_RATIO 32
+
+const float GRAVITY = -35.0f;
+const float CLIMB_FORCE = 90.0f;
+
+enum tags
+{
+	kTagScrollingLayer = 8888,
+};
 
 class b2Sprite : public Sprite
 {
@@ -111,10 +122,15 @@ Box2dTest::~Box2dTest()
 		delete m_debugDraw;
 		m_debugDraw = nullptr;
 	}
+
+	for_each(m_barriers.begin(), m_barriers.end(), [](Barrier *barrier) {
+	});
+	m_barriers.clear();
+
 	if (m_world) 
 	{
-		delete m_world;
-		m_world = nullptr;
+	//	delete m_world;
+	//	m_world = nullptr;
 	}
 }
 
@@ -137,13 +153,38 @@ bool Box2dTest::init()
 	// Box2D
 	this->initPhysics();
 
+	for (size_t i = 0; i < 20; ++i)
+	{
+		m_future_barriers.push_back(Point((i+1)*visibleSize.width, 400));
+	}
+
+	//auto scrolling_layer = Layer::create();
+	//this->addChild(scrolling_layer, 0, kTagScrollingLayer);
+
 
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 	auto listener = EventListenerTouchAllAtOnce::create();
 	//listener->setSwallowTouches(true);
 
+	auto heli = Helicopter::createBody(m_world, Point(300, 200), PTM_RATIO);
+	this->addChild(heli, 0, 99999);
+
+	listener->onTouchesBegan = [=](const vector<Touch *> &touches, Event *event)
+	{
+		heli->setFlying(true);
+		return;
+		auto body = heli->getB2Body();
+		body->ApplyForce(b2Vec2(0, 200.0f), body->GetWorldCenter(), true);
+	};
+
 	listener->onTouchesEnded = [=](const vector<Touch *> &touches, Event *event)
 	{
+		heli->setFlying(false);
+		return;
+		auto body = heli->getB2Body();
+		body->ApplyForce(b2Vec2_zero, body->GetWorldCenter(), true);
+		return;
+
 		log("onTouchesEnded %d", event->getCurrentTarget()->getTag());	
 		for (auto touch : touches)
 		{
@@ -183,6 +224,71 @@ void Box2dTest::update( float dt )
 		node->update(dt);
 	}
 	*/
+
+	auto heli = dynamic_cast<Helicopter *>(this->getChildByTag(99999));
+	if (heli->getFlying())
+	{
+		auto body = heli->getB2Body();
+//		body->ApplyForce(b2Vec2(0.0f, -GRAVITY), body->GetWorldCenter(), true);
+//		body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
+		const b2Vec2 &v = body->GetLinearVelocity();
+		if (v.y < 12.0f)
+		{
+			body->ApplyLinearImpulse(b2Vec2(0.0f, 1.1f), body->GetWorldCenter(), true);
+		}
+	}
+	else
+	{
+		auto body = heli->getB2Body();
+		body->ApplyForce(b2Vec2(0.0f, GRAVITY), body->GetWorldCenter(), true);
+	}
+
+	m_distance += m_speed;
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Point origin = Director::getInstance()->getVisibleOrigin();
+	size_t count = 0;
+	for (list<Point>::iterator it = m_future_barriers.begin(); it != m_future_barriers.end(); ++it)
+	{
+		auto p = *it;
+		if (p.x - m_distance < origin.x + visibleSize.width)
+		{
+			++count;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	//auto scrolling_layer = dynamic_cast<Layer *>(this->getChildByTag(kTagScrollingLayer));
+
+	for (size_t i = 0; i < count; ++i)
+	{
+		auto p = m_future_barriers.front();
+		m_future_barriers.pop_front();
+		auto barrier = Barrier::createBody(m_world, Point(p.x-m_distance, p.y), PTM_RATIO);
+		barrier->setMapPosition(p);
+		this->addChild(barrier);
+		m_barriers.push_back(barrier);
+	}
+
+//	Point p = Point(scrolling_layer->getPositionX()-m_speed, barrier->getMapPosition().y);
+//	scrolling_layer->setPositionX(scrolling_layer->getPositionX() - m_speed);
+
+	for (list<Barrier *>::iterator it = m_barriers.begin(); it != m_barriers.end(); ++it)
+	{
+		auto barrier = *it;
+		if (barrier->getPositionX() < origin.x)
+		{
+			this->removeChild(barrier);
+			m_barriers.remove(barrier);
+			break;
+		}
+
+		Point p = Point(barrier->getMapPosition().x - m_distance, barrier->getMapPosition().y);
+		barrier->setPosition(p);
+	}
 }
 
 void Box2dTest::draw()
@@ -210,6 +316,7 @@ void Box2dTest::draw()
 
 void Box2dTest::BeginContact( b2Contact *contact )
 {
+	//b2ContactListener::BeginContact(contact);
 	log("BeginContact");
 	if (contact)
 	{
@@ -218,19 +325,20 @@ void Box2dTest::BeginContact( b2Contact *contact )
 
 void Box2dTest::EndContact( b2Contact *contact )
 {
+	//b2ContactListener::EndContact(contact);
 	log("EndContact");
 }
 
 void Box2dTest::PreSolve( b2Contact *contact, const b2Manifold *oldManifold )
 {
 	log("PreSolve");
-	B2_NOT_USED(contact);
-	B2_NOT_USED(oldManifold);
+	//b2ContactListener::PreSolve(contact, oldManifold);
 }
 
 void Box2dTest::PostSolve( b2Contact *contact, const b2ContactImpulse *impulse )
 {
 	log("PostSolve");
+	//b2ContactListener::PostSolve(contact, impulse);
 }
 
 
@@ -291,15 +399,15 @@ void Box2dTest::initPhysics()
 {
 	// box2d world
 	b2Vec2 gravity;
-	gravity.Set(0.0f, -9.8f);
+	gravity.Set(0.0f, 0.0f);
 	m_world = new b2World(gravity);
 	m_world->SetAllowSleeping(true);
 	m_world->SetContinuousPhysics(true);
 
 	// contact listener
-	auto m_contactListener = new b2ContactListener();
-	m_world->SetContactListener(m_contactListener);
-	//m_world->SetContactListener(this);
+	//auto m_contactListener = new b2ContactListener();
+	//m_world->SetContactListener(m_contactListener);
+	m_world->SetContactListener(this);
 
 	// debug draw
 	this->setPhysicsDebug(true);
@@ -322,12 +430,12 @@ void Box2dTest::initPhysics()
 	groundBody->CreateFixture(&groundBox,0);
 
 	// left
-	groundBox.Set(b2Vec2(VisibleRect::leftTop().x/PTM_RATIO,VisibleRect::leftTop().y/PTM_RATIO), b2Vec2(VisibleRect::leftBottom().x/PTM_RATIO,VisibleRect::leftBottom().y/PTM_RATIO));
-	groundBody->CreateFixture(&groundBox,0);
+	//groundBox.Set(b2Vec2(VisibleRect::leftTop().x/PTM_RATIO,VisibleRect::leftTop().y/PTM_RATIO), b2Vec2(VisibleRect::leftBottom().x/PTM_RATIO,VisibleRect::leftBottom().y/PTM_RATIO));
+	//groundBody->CreateFixture(&groundBox,0);
 
 	// right
-	groundBox.Set(b2Vec2(VisibleRect::rightBottom().x/PTM_RATIO,VisibleRect::rightBottom().y/PTM_RATIO), b2Vec2(VisibleRect::rightTop().x/PTM_RATIO,VisibleRect::rightTop().y/PTM_RATIO));
-	groundBody->CreateFixture(&groundBox,0);
+	//groundBox.Set(b2Vec2(VisibleRect::rightBottom().x/PTM_RATIO,VisibleRect::rightBottom().y/PTM_RATIO), b2Vec2(VisibleRect::rightTop().x/PTM_RATIO,VisibleRect::rightTop().y/PTM_RATIO));
+	//groundBody->CreateFixture(&groundBox,0);
 }
 
 
@@ -364,6 +472,10 @@ b2Vec2 *getPolygonVertexes(const char *jsonFile, int &num)
 
 void Box2dTest::addPhysicsSprite( const Point &p )
 {
+	auto s = Helicopter::createBody(m_world, p, PTM_RATIO);
+	this->addChild(s);
+	return;
+
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);

@@ -9,6 +9,9 @@
 #include "renderer/CCRenderer.h"
 #include "renderer/CCCustomCommand.h"
 
+#include <list>
+
+class Barrier;
 class Box2dTest : public cocos2d::Layer, public b2ContactListener
 {
 public:
@@ -39,6 +42,12 @@ public:
 protected:
 	kmMat4 m_modelViewMV;
 	cocos2d::CustomCommand m_customCommand;
+
+	float m_distance = 0.0f;
+	float m_speed = 5.0f;
+
+	std::list<cocos2d::Point> m_future_barriers;
+	std::list<Barrier *> m_barriers;
 };
 
 #endif // __BOX2DTEST_SCENE_H__
