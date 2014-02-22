@@ -158,8 +158,8 @@ bool Box2dTest::init()
 		m_future_barriers.push_back(Point((i+1)*visibleSize.width, 400));
 	}
 
-	//auto scrolling_layer = Layer::create();
-	//this->addChild(scrolling_layer, 0, kTagScrollingLayer);
+	auto scrolling_layer = Layer::create();
+	this->addChild(scrolling_layer, 0, kTagScrollingLayer);
 
 
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -245,6 +245,17 @@ void Box2dTest::update( float dt )
 
 	m_distance += m_speed;
 
+
+	auto scrolling_layer = dynamic_cast<Layer *>(this->getChildByTag(kTagScrollingLayer));
+	scrolling_layer->setPositionX(scrolling_layer->getPositionX() - m_speed);
+	auto pos = heli->getPosition();
+	auto gas = Sprite::create("CloseSelected.png");
+	gas->setPosition(Point(pos.x+m_distance, pos.y));
+	gas->setOpacity(123);
+	scrolling_layer->addChild(gas);
+
+
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
 	size_t count = 0;
@@ -261,7 +272,6 @@ void Box2dTest::update( float dt )
 		}
 	}
 
-	//auto scrolling_layer = dynamic_cast<Layer *>(this->getChildByTag(kTagScrollingLayer));
 
 	for (size_t i = 0; i < count; ++i)
 	{
@@ -273,8 +283,7 @@ void Box2dTest::update( float dt )
 		m_barriers.push_back(barrier);
 	}
 
-//	Point p = Point(scrolling_layer->getPositionX()-m_speed, barrier->getMapPosition().y);
-//	scrolling_layer->setPositionX(scrolling_layer->getPositionX() - m_speed);
+
 
 	for (list<Barrier *>::iterator it = m_barriers.begin(); it != m_barriers.end(); ++it)
 	{
