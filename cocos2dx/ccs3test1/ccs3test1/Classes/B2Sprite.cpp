@@ -7,6 +7,7 @@ B2Sprite::B2Sprite()
 : _ignoreBodyRotation(false)
 , _pB2Body(nullptr)
 , _PTMRatio(0.0f)
+, m_type(0)
 {}
 
 B2Sprite* B2Sprite::create()

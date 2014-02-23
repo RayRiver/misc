@@ -11,6 +11,8 @@
 
 #include <list>
 
+#include "Helicopter.h"
+
 class Barrier;
 class Box2dTest : public cocos2d::Layer, public b2ContactListener
 {
@@ -26,6 +28,7 @@ public:
 	virtual void update(float dt);
 	virtual void draw();
 
+
 	virtual void BeginContact(b2Contact *contact);
 	virtual void EndContact(b2Contact *contact);
 	virtual void PreSolve(b2Contact *contact, const b2Manifold *oldManifold);
@@ -39,6 +42,8 @@ public:
 	CC_SYNTHESIZE(b2World *, m_world, World);
 	CC_SYNTHESIZE(b2Draw *, m_debugDraw, DebugDraw);
 
+	CC_SYNTHESIZE_RETAIN(Helicopter *, m_player, Player);
+
 protected:
 	kmMat4 m_modelViewMV;
 	cocos2d::CustomCommand m_customCommand;
@@ -46,7 +51,14 @@ protected:
 	float m_distance = 0.0f;
 	float m_speed = 5.0f;
 
-	std::list<cocos2d::Point> m_future_barriers;
+	bool m_bAlive = true;
+
+	std::list<cocos2d::Sprite *> m_tails;
+
+
+	std::list<cocos2d::Rect> m_future_barriers;
+	int m_nTotalBarriers;
+
 	std::list<Barrier *> m_barriers;
 };
 

@@ -25,80 +25,15 @@ const float CLIMB_FORCE = 90.0f;
 enum tags
 {
 	kTagScrollingLayer = 8888,
+	kTagDistance,
 };
 
-class b2Sprite : public Sprite
+enum SPRITE_TYPE
 {
-public:
-	CC_SYNTHESIZE(b2Body *, m_body, Body);
-	CC_SYNTHESIZE(b2World *, m_world, World);
-	CC_SYNTHESIZE(int, m_type, Type);
-
-	static b2Sprite* create(b2World *world);
-	virtual bool init(b2World *world);
-	virtual void update(float dt);
-	virtual void setPosition(const Point &pos);
+	kSpriteTypePlayer,
+	kSpriteTypeBarrier,
 };
 
-b2Sprite *b2Sprite::create(b2World *world)
-{
-	b2Sprite *sprite = new b2Sprite();
-	if (sprite && sprite->init(world))
-	{
-		sprite->autorelease();
-		return sprite;
-	}
-	CC_SAFE_DELETE(sprite);
-	return nullptr;
-}
-
-bool b2Sprite::init(b2World *world)
-{
-	if (!Sprite::init())
-	{
-		return false;
-	}
-
-	m_world = world;
-	CCASSERT(m_world, "b2Sprite init: world == nullptr");
-	this->initWithFile("CloseSelected.png");
-
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	m_body = m_world->CreateBody(&bodyDef);
-
-	b2CircleShape circle;
-	circle.m_radius = 20.0f;
-
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &circle;
-	fixtureDef.density = 1.0f;
-	fixtureDef.restitution = 0.7f;
-	fixtureDef.friction = 0.4f;
-
-	m_body->CreateFixture(&fixtureDef);
-
-	return true;
-}
-
-void b2Sprite::update(float dt)
-{
-	if (m_body && isVisible())
-	{
-		const b2Vec2 &pos = m_body->GetPosition();
-		setPosition(CCPoint(pos.x, pos.y));
-	}
-}
-
-void b2Sprite::setPosition(const Point &pos)
-{
-	Sprite::setPosition(pos);
-
-	if (m_body)
-	{
-		m_body->SetTransform(b2Vec2(pos.x, pos.y), m_body->GetAngle());
-	}
-}
 
 Scene* Box2dTest::createScene()
 {
@@ -150,13 +85,20 @@ bool Box2dTest::init()
 	auto button = (uilayer->getChildByName("Button_22"));
 	button->addTouchEventListener(this, toucheventselector(Box2dTest::debugButton));
 
+	LabelBMFont *lbl = LabelBMFont::create("", "fonts/arial-unicode-26.fnt"); 
+	addChild(lbl, 0, kTagDistance);
+	lbl->setAnchorPoint(Point(0, 1));
+	lbl->setPosition(Point(origin.x, origin.y + visibleSize.height));
+
+
 	// Box2D
 	this->initPhysics();
 
-	for (size_t i = 0; i < 20; ++i)
-	{
-		m_future_barriers.push_back(Point((i+1)*visibleSize.width, 400));
-	}
+	//for (size_t i = 0; i < 1; ++i)
+	//{
+	//	m_future_barriers.push_back(Rect((i+1)*visibleSize.width, 400, 10/PTM_RATIO, 80/PTM_RATIO));
+	//}
+	m_nTotalBarriers = 0;
 
 	auto scrolling_layer = Layer::create();
 	this->addChild(scrolling_layer, 0, kTagScrollingLayer);
@@ -168,19 +110,25 @@ bool Box2dTest::init()
 
 	auto heli = Helicopter::createBody(m_world, Point(300, 200), PTM_RATIO);
 	this->addChild(heli, 0, 99999);
+	heli->setType(kSpriteTypePlayer);
+	m_player = heli;
 
 	listener->onTouchesBegan = [=](const vector<Touch *> &touches, Event *event)
 	{
+		if (!m_bAlive) return;
 		heli->setFlying(true);
 		return;
+
 		auto body = heli->getB2Body();
 		body->ApplyForce(b2Vec2(0, 200.0f), body->GetWorldCenter(), true);
 	};
 
 	listener->onTouchesEnded = [=](const vector<Touch *> &touches, Event *event)
 	{
+		if (!m_bAlive) return;
 		heli->setFlying(false);
 		return;
+
 		auto body = heli->getB2Body();
 		body->ApplyForce(b2Vec2_zero, body->GetWorldCenter(), true);
 		return;
@@ -201,6 +149,8 @@ bool Box2dTest::init()
 
     return true;
 }
+
+
 
 void Box2dTest::update( float dt )
 {
@@ -226,11 +176,11 @@ void Box2dTest::update( float dt )
 	*/
 
 	auto heli = dynamic_cast<Helicopter *>(this->getChildByTag(99999));
-	if (heli->getFlying())
+	if (m_bAlive && heli->getFlying())
 	{
 		auto body = heli->getB2Body();
-//		body->ApplyForce(b2Vec2(0.0f, -GRAVITY), body->GetWorldCenter(), true);
-//		body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
+		//		body->ApplyForce(b2Vec2(0.0f, -GRAVITY), body->GetWorldCenter(), true);
+		//		body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
 		const b2Vec2 &v = body->GetLinearVelocity();
 		if (v.y < 12.0f)
 		{
@@ -243,26 +193,90 @@ void Box2dTest::update( float dt )
 		body->ApplyForce(b2Vec2(0.0f, GRAVITY), body->GetWorldCenter(), true);
 	}
 
-	m_distance += m_speed;
+	if (!m_bAlive) return;
 
+	m_distance += m_speed;
+	LabelBMFont* lbl = (LabelBMFont*)getChildByTag(kTagDistance);
+	char s[64];
+	sprintf(s, "distance: %.0f", m_distance/10);
+	lbl->setString(s);
+
+	if (m_speed < 50.0f)
+	{
+		m_speed = 5.0f + m_distance / 1000.0f;
+
+	}
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Point origin = Director::getInstance()->getVisibleOrigin();
 
 	auto scrolling_layer = dynamic_cast<Layer *>(this->getChildByTag(kTagScrollingLayer));
 	scrolling_layer->setPositionX(scrolling_layer->getPositionX() - m_speed);
 	auto pos = heli->getPosition();
-	auto gas = Sprite::create("CloseSelected.png");
-	gas->setPosition(Point(pos.x+m_distance, pos.y));
-	gas->setOpacity(123);
-	scrolling_layer->addChild(gas);
+
+	static int frames = 0;
+	++frames;
+
+	if (frames % 5 == 0)
+	{
+		auto tail = Sprite::create("CloseSelected.png");
+		tail->setPosition(Point(pos.x + m_distance, pos.y));
+		//tail->setOpacity(200);
+		scrolling_layer->addChild(tail);
+		m_tails.push_back(tail);
+		
+		frames = 0;
+	}
+
+
+	int delete_count = 0;
+	for (list<Sprite *>::iterator it = m_tails.begin(); it != m_tails.end(); ++it)
+	{
+		auto tail = *it;
+		if (tail->getPositionX() - m_distance < origin.x)
+		{
+			++delete_count;
+			continue;
+		}
+		else
+		{
+			break;
+		}
+	}
+	for (int i = 0; i < delete_count; ++i)
+	{
+		auto tail = m_tails.front();
+		m_tails.pop_front();
+		scrolling_layer->removeChild(tail);
+		//tail->release();
+	}
+	for (list<Sprite *>::iterator it = m_tails.begin(); it != m_tails.end(); ++it)
+	{
+		auto tail = *it;
+		tail->setOpacity((tail->getOpacity()*0.99));
+		tail->setScale(tail->getScale()*0.99);
+	}
+
+
+	if (m_future_barriers.size() < 10)
+	{
+		size_t insert_count = 10 - m_future_barriers.size();
+		for (size_t i = 0; i < insert_count; ++i)
+		{
+			int y = rand()%400 + 100;
+			int h = rand()%100 + 100;
+			m_future_barriers.push_back(Rect((m_nTotalBarriers + 1 + i)*visibleSize.width, (float)y, 30.0/PTM_RATIO, ((float)h)/PTM_RATIO));
+		}
+		m_nTotalBarriers += insert_count;
+	}
 
 
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Point origin = Director::getInstance()->getVisibleOrigin();
 	size_t count = 0;
-	for (list<Point>::iterator it = m_future_barriers.begin(); it != m_future_barriers.end(); ++it)
+	for (list<Rect>::iterator it = m_future_barriers.begin(); it != m_future_barriers.end(); ++it)
 	{
 		auto p = *it;
-		if (p.x - m_distance < origin.x + visibleSize.width)
+		if (p.origin.x - m_distance < origin.x + visibleSize.width)
 		{
 			++count;
 		}
@@ -277,10 +291,11 @@ void Box2dTest::update( float dt )
 	{
 		auto p = m_future_barriers.front();
 		m_future_barriers.pop_front();
-		auto barrier = Barrier::createBody(m_world, Point(p.x-m_distance, p.y), PTM_RATIO);
-		barrier->setMapPosition(p);
+		auto barrier = Barrier::createBody(m_world, Point(p.origin.x-m_distance, p.origin.y), p.size, PTM_RATIO);
+		barrier->setMapPosition(p.origin);
 		this->addChild(barrier);
 		m_barriers.push_back(barrier);
+		barrier->setType(kSpriteTypeBarrier);
 	}
 
 
@@ -327,8 +342,31 @@ void Box2dTest::BeginContact( b2Contact *contact )
 {
 	//b2ContactListener::BeginContact(contact);
 	log("BeginContact");
-	if (contact)
+	if (m_bAlive && contact)
 	{
+		auto body_a = contact->GetFixtureA()->GetBody();
+		auto body_b = contact->GetFixtureB()->GetBody();
+
+		b2Body *body;
+		if (body_a == m_player->getB2Body())
+		{
+			body = body_b;
+		}
+		else if (body_b == m_player->getB2Body())
+		{
+			body = body_a;
+		}
+		else
+		{
+			return;
+		}
+
+		m_bAlive = false;
+		auto particle = ParticleExplosion::create();
+		auto scrolling_layer = dynamic_cast<Layer *>(this->getChildByTag(kTagScrollingLayer));
+		particle->setPositionX(m_player->getPositionX() + m_distance);
+		particle->setPositionY(m_player->getPositionY());
+		scrolling_layer->addChild(particle);
 	}
 }
 
@@ -359,7 +397,14 @@ void Box2dTest::debugButton( cocos2d::Object *obj, cocos2d::gui::TouchEventType 
 	switch(eventType)
 	{
 	case TouchEventType::TOUCH_EVENT_ENDED:
-		this->setPhysicsDebug(!this->isPhysicsDebug());
+		if (m_bAlive)
+		{
+			this->setPhysicsDebug(!this->isPhysicsDebug());
+		}
+		else
+		{
+			Director::getInstance()->replaceScene(Box2dTest::createScene());
+		}
 		break;
 	default:
 		break;
@@ -433,6 +478,7 @@ void Box2dTest::initPhysics()
 	// bottom
 	groundBox.Set(b2Vec2(VisibleRect::leftBottom().x/PTM_RATIO,VisibleRect::leftBottom().y/PTM_RATIO), b2Vec2(VisibleRect::rightBottom().x/PTM_RATIO,VisibleRect::rightBottom().y/PTM_RATIO));
 	groundBody->CreateFixture(&groundBox,0);
+	
 
 	// top
 	groundBox.Set(b2Vec2(VisibleRect::leftTop().x/PTM_RATIO,VisibleRect::leftTop().y/PTM_RATIO), b2Vec2(VisibleRect::rightTop().x/PTM_RATIO,VisibleRect::rightTop().y/PTM_RATIO));

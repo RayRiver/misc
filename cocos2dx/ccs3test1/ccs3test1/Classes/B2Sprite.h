@@ -78,6 +78,8 @@ public:
     virtual void setRotation(float fRotation) override;
     virtual const kmMat4& getNodeToParentTransform() const override;
 
+	CC_SYNTHESIZE(int, m_type, Type);
+
 protected:
     const cocos2d::Point& getPosFromPhysics() const;
 

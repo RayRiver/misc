@@ -15,7 +15,7 @@ Helicopter *Helicopter::createBody(b2World *world, const cocos2d::Point &point, 
 	circle.m_radius = 20.0f / fPTMRatio;
 
 	b2FixtureDef fixtureDef;
-	fixtureDef.isSensor = false;	// important
+	fixtureDef.isSensor = true;	// important
 	fixtureDef.shape = &circle;
 	fixtureDef.density = 1.0f;
 	fixtureDef.restitution = 0.7f;
