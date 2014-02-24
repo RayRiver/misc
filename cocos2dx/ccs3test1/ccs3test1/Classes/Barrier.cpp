@@ -26,7 +26,7 @@ Barrier *Barrier::createBody(b2World *world, const cocos2d::Point &point, const 
 	body->CreateFixture(&fixtureDef);
 
 	auto sprite = new Barrier;
-	if (sprite && sprite->initWithFile("CloseSelected.png"))
+	if (sprite && sprite->init())
 	{
 		sprite->autorelease();
 	}

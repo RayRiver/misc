@@ -54,7 +54,7 @@ protected:
 	bool m_bAlive;
 
 	std::list<cocos2d::Sprite *> m_tails;
-
+	cocos2d::SpriteBatchNode *m_tailsBatchNode;
 
 	std::list<cocos2d::Rect> m_future_barriers;
 	int m_nTotalBarriers;

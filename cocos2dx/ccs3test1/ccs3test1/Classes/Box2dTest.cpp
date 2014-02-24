@@ -49,6 +49,7 @@ Box2dTest::Box2dTest()
 	, m_distance(0.0f)
 	, m_speed(5.0f)
 	, m_bAlive(true)
+	, m_tailsBatchNode(nullptr)
 {
 
 }
@@ -206,7 +207,7 @@ void Box2dTest::update( float dt )
 
 	if (m_speed < 50.0f)
 	{
-		m_speed = 5.0f + m_distance / 1000.0f;
+		m_speed = 5.0f + m_distance / 3000.0f;
 
 	}
 
@@ -217,42 +218,37 @@ void Box2dTest::update( float dt )
 	scrolling_layer->setPositionX(scrolling_layer->getPositionX() - m_speed);
 	auto pos = heli->getPosition();
 
+
+	// 生成尾气
 	static int frames = 0;
 	++frames;
-
 	if (frames % 5 == 0)
 	{
-		auto tail = Sprite::create("CloseSelected.png");
+		const int capacity = 10;
+
+		if (!m_tailsBatchNode)
+		{
+			m_tailsBatchNode = SpriteBatchNode::create("CloseSelected.png", capacity);
+			m_tailsBatchNode->setPosition(Point::ZERO);
+			scrolling_layer->addChild(m_tailsBatchNode);
+		}
+
+		if (m_tailsBatchNode->getChildrenCount() >= capacity)
+		{
+			auto tail = m_tails.front();
+			m_tails.pop_front();
+			m_tailsBatchNode->removeChild(tail, true);
+		}
+
+		auto tail = Sprite::createWithTexture(m_tailsBatchNode->getTexture());
 		tail->setPosition(Point(pos.x + m_distance, pos.y));
-		//tail->setOpacity(200);
-		scrolling_layer->addChild(tail);
+		m_tailsBatchNode->addChild(tail);
 		m_tails.push_back(tail);
 		
 		frames = 0;
 	}
 
-
-	int delete_count = 0;
-	for (list<Sprite *>::iterator it = m_tails.begin(); it != m_tails.end(); ++it)
-	{
-		auto tail = *it;
-		if (tail->getPositionX() - m_distance < origin.x)
-		{
-			++delete_count;
-			continue;
-		}
-		else
-		{
-			break;
-		}
-	}
-	for (int i = 0; i < delete_count; ++i)
-	{
-		auto tail = m_tails.front();
-		m_tails.pop_front();
-		scrolling_layer->removeChild(tail);
-		//tail->release();
-	}
+	// 尾气逐渐消失
 	for (list<Sprite *>::iterator it = m_tails.begin(); it != m_tails.end(); ++it)
 	{
 		auto tail = *it;
@@ -268,7 +264,7 @@ void Box2dTest::update( float dt )
 		{
 			int y = rand()%400 + 100;
 			int h = rand()%100 + 100;
-			m_future_barriers.push_back(Rect((m_nTotalBarriers + 1 + i)*visibleSize.width, (float)y, 30.0/PTM_RATIO, ((float)h)/PTM_RATIO));
+			m_future_barriers.push_back(Rect((m_nTotalBarriers + 2 + i)*visibleSize.width*0.66, (float)y, 30.0/PTM_RATIO, ((float)h)/PTM_RATIO));
 		}
 		m_nTotalBarriers += insert_count;
 	}
