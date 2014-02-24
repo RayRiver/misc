@@ -48,10 +48,10 @@ protected:
 	kmMat4 m_modelViewMV;
 	cocos2d::CustomCommand m_customCommand;
 
-	float m_distance = 0.0f;
-	float m_speed = 5.0f;
+	float m_distance;
+	float m_speed;
 
-	bool m_bAlive = true;
+	bool m_bAlive;
 
 	std::list<cocos2d::Sprite *> m_tails;
 

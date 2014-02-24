@@ -68,10 +68,10 @@ EdgeBox * EdgeBox::createBody(b2World *world, const cocos2d::Point &point, float
 
 	auto body = world->CreateBody(&bodyDef);
 	b2PolygonShape shape;
-	b2Vec2 verts[] = {
-		{1.0f, 1.0f},
-	};
-	shape.Set(verts, 4);
+	//b2Vec2 verts[] = {
+	//	{1.0f, 1.0f}
+	//};
+	//shape.Set(verts, 4);
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.isSensor = true;	// important

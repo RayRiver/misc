@@ -46,6 +46,9 @@ Scene* Box2dTest::createScene()
 Box2dTest::Box2dTest()
 	: m_world(nullptr)
 	, m_debugDraw(nullptr)
+	, m_distance(0.0f)
+	, m_speed(5.0f)
+	, m_bAlive(true)
 {
 
 }
