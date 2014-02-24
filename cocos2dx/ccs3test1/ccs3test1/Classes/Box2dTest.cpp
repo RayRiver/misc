@@ -26,6 +26,8 @@ enum tags
 {
 	kTagScrollingLayer = 8888,
 	kTagDistance,
+	kTagBestRecord,
+	kTagTryAgain,
 };
 
 enum SPRITE_TYPE
@@ -84,15 +86,25 @@ bool Box2dTest::init()
     Point origin = Director::getInstance()->getVisibleOrigin();
 
 	// add test ui
-	auto uilayer = cocostudio::GUIReader::getInstance()->widgetFromJsonFile("ui_test.json");
-	this->addChild(uilayer);
-	auto button = (uilayer->getChildByName("Button_22"));
-	button->addTouchEventListener(this, toucheventselector(Box2dTest::debugButton));
+	//auto uilayer = cocostudio::GUIReader::getInstance()->widgetFromJsonFile("ui_test.json");
+	//this->addChild(uilayer);
+	//auto button = (uilayer->getChildByName("Button_22"));
+	//button->addTouchEventListener(this, toucheventselector(Box2dTest::debugButton));
 
 	LabelBMFont *lbl = LabelBMFont::create("", "fonts/arial-unicode-26.fnt"); 
 	addChild(lbl, 0, kTagDistance);
 	lbl->setAnchorPoint(Point(0, 1));
 	lbl->setPosition(Point(origin.x, origin.y + visibleSize.height));
+
+	LabelBMFont *lbl_bestrecord = LabelBMFont::create("", "fonts/arial-unicode-26.fnt");
+	addChild(lbl_bestrecord, 0, kTagBestRecord);
+	lbl_bestrecord->setAnchorPoint(Point(1, 1));
+	lbl_bestrecord->setPosition(Point(origin.x + visibleSize.width, origin.y + visibleSize.height));
+	
+	float distance = UserDefault::getInstance()->getFloatForKey("best_record");
+	char s[64];
+	sprintf(s, "Best Record: %d", (int)(distance/10));
+	lbl_bestrecord->setString(s);
 
 
 	// Box2D
@@ -205,6 +217,8 @@ void Box2dTest::update( float dt )
 	char s[64];
 	sprintf(s, "distance: %.0f", m_distance/10);
 	lbl->setString(s);
+
+
 
 	if (m_speed < 50.0f)
 	{
@@ -391,6 +405,30 @@ void Box2dTest::BeginContact( b2Contact *contact )
 		scrolling_layer->addChild(particle);
 
 		// ¼ÇÂ¼·ÖÊý
+		float distance = UserDefault::getInstance()->getFloatForKey("best_record");
+		if (m_distance > distance)
+		{
+			UserDefault::getInstance()->setFloatForKey("best_record", m_distance);
+
+			auto lbl = dynamic_cast<LabelBMFont *>(this->getChildByTag(kTagBestRecord));
+			char s[64];
+			sprintf(s, "Best Record: %d", (int)(distance / 10));
+			lbl->setString(s);
+		}
+
+		Size visibleSize = Director::getInstance()->getVisibleSize();
+		Point origin = Director::getInstance()->getVisibleOrigin();
+
+		// add a "close" icon to exit the progress. it's an autorelease object
+		auto closeItem = MenuItemFont::create("TRY AGAIN", [](Object *obj) {
+			Director::getInstance()->replaceScene(Box2dTest::createScene());
+		});
+		closeItem->setPosition(Point(origin.x + visibleSize.width/2, origin.y + visibleSize.height/2));
+
+		// create menu, it's an autorelease object
+		auto menu = Menu::create(closeItem, NULL);
+		menu->setPosition(Point::ZERO);
+		this->addChild(menu, 10, kTagTryAgain);
 	}
 }
 
@@ -436,7 +474,6 @@ void Box2dTest::debugButton( cocos2d::Object *obj, cocos2d::gui::TouchEventType 
 
 
 }
-
 bool Box2dTest::isPhysicsDebug()
 {
 	if (m_debugDraw && m_debugDraw->GetFlags() != 0)
