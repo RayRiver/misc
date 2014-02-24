@@ -98,6 +98,7 @@ bool Box2dTest::init()
 	// Box2D
 	this->initPhysics();
 
+
 	//for (size_t i = 0; i < 1; ++i)
 	//{
 	//	m_future_barriers.push_back(Rect((i+1)*visibleSize.width, 400, 10/PTM_RATIO, 80/PTM_RATIO));
@@ -222,7 +223,7 @@ void Box2dTest::update( float dt )
 	// 生成尾气
 	static int frames = 0;
 	++frames;
-	if (frames % 5 == 0)
+	if (frames % 4 == 0)
 	{
 		const int capacity = 10;
 
@@ -256,15 +257,37 @@ void Box2dTest::update( float dt )
 		tail->setScale(tail->getScale()*0.99);
 	}
 
-
+	// 随机生成障碍物规则
 	if (m_future_barriers.size() < 10)
 	{
 		size_t insert_count = 10 - m_future_barriers.size();
 		for (size_t i = 0; i < insert_count; ++i)
 		{
-			int y = rand()%400 + 100;
-			int h = rand()%100 + 100;
-			m_future_barriers.push_back(Rect((m_nTotalBarriers + 2 + i)*visibleSize.width*0.66, (float)y, 30.0/PTM_RATIO, ((float)h)/PTM_RATIO));
+			int min_h = visibleSize.height / 6;
+			int max_h = visibleSize.height * 2/3 / 2;
+			int h = rand() % (max_h-min_h) + min_h;
+
+			int min_y, max_y, y;
+			if (h > visibleSize.height / 4)
+			{
+				y = rand() % 2;
+				if (y)
+				{
+					y = h;
+				}
+				else
+				{
+					y = visibleSize.height - h;
+				}
+			}
+			else
+			{
+				min_y = h;
+				max_y = visibleSize.height - h;
+				y = rand() % (max_y-min_y) + min_y;
+			}
+
+			m_future_barriers.push_back(Rect((m_nTotalBarriers + 2 + i)*visibleSize.width*0.8, (float)y, 30.0/PTM_RATIO, ((float)h)/PTM_RATIO));
 		}
 		m_nTotalBarriers += insert_count;
 	}
@@ -366,6 +389,8 @@ void Box2dTest::BeginContact( b2Contact *contact )
 		particle->setPositionX(m_player->getPositionX() + m_distance);
 		particle->setPositionY(m_player->getPositionY());
 		scrolling_layer->addChild(particle);
+
+		// 记录分数
 	}
 }
 
