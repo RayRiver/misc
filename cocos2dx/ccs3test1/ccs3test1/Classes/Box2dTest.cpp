@@ -130,6 +130,12 @@ bool Box2dTest::init()
 	heli->setType(kSpriteTypePlayer);
 	m_player = heli;
 
+	extern bool g_bRakNetTestOK;
+	if (g_bRakNetTestOK)
+	{
+		heli->setColor(Color3B(255,0,0));
+	}
+
 	listener->onTouchesBegan = [=](const vector<Touch *> &touches, Event *event)
 	{
 		if (!m_bAlive) return;

@@ -22,6 +22,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libExtensions", "..\cocos2d
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libBox2D", "..\cocos2d\external\Box2D\proj.win32\Box2D.vcxproj", "{929480E7-23C0-4DF6-8456-096D71547116}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libraknet", "..\cocos2d\external\raknet\proj.win32\raknet.vcxproj", "{38727D17-95AF-4373-A20D-5C1299887393}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -60,6 +62,10 @@ Global
 		{929480E7-23C0-4DF6-8456-096D71547116}.Debug|Win32.Build.0 = Debug|Win32
 		{929480E7-23C0-4DF6-8456-096D71547116}.Release|Win32.ActiveCfg = Release|Win32
 		{929480E7-23C0-4DF6-8456-096D71547116}.Release|Win32.Build.0 = Release|Win32
+		{38727D17-95AF-4373-A20D-5C1299887393}.Debug|Win32.ActiveCfg = Debug|Win32
+		{38727D17-95AF-4373-A20D-5C1299887393}.Debug|Win32.Build.0 = Debug|Win32
+		{38727D17-95AF-4373-A20D-5C1299887393}.Release|Win32.ActiveCfg = Release|Win32
+		{38727D17-95AF-4373-A20D-5C1299887393}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
