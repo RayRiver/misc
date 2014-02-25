@@ -30,6 +30,7 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../cocos2d
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../cocos2d/cocos
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../cocos2d/cocos/editor-support
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../cocos2d/extensions
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../cocos2d/external/raknet
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
@@ -37,6 +38,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += box2d_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extension_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocostudio_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_gui_static
+LOCAL_WHOLE_STATIC_LIBRARIES += raknet_static
 
 
 include $(BUILD_SHARED_LIBRARY)
@@ -51,4 +53,6 @@ $(call import-module,Box2D)
 $(call import-module,extensions)
 $(call import-module,gui)
 $(call import-module,editor-support/cocostudio)
+$(call import-module,raknet)
+
 
