@@ -12,7 +12,7 @@ Barrier *Barrier::createBody(b2World *world, const cocos2d::Point &point, const 
 
 	auto body = world->CreateBody(&bodyDef);
 	b2PolygonShape shape;
-	shape.SetAsBox(size.width, size.height);
+	shape.SetAsBox(size.width / fPTMRatio, size.height / fPTMRatio);
 	//b2CircleShape shape;
 	//shape.m_radius = 20.0f / fPTMRatio;
 
@@ -36,6 +36,7 @@ Barrier *Barrier::createBody(b2World *world, const cocos2d::Point &point, const 
 		return nullptr;
 	}
 
+	sprite->setContentSize(size);
 	sprite->setB2Body(body);
 	sprite->setPTMRatio(fPTMRatio);
 	sprite->setPosition(point);

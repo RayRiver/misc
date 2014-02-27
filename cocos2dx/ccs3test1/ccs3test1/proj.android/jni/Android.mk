@@ -6,7 +6,7 @@ LOCAL_MODULE := cocos2dcpp_shared
 
 LOCAL_MODULE_FILENAME := libcocos2dcpp
 
-LOCAL_SRC_FILES := hellocpp/main.cpp \
+#LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
                    ../../Classes/B2Sprite.cpp \
                    ../../Classes/Barrier.cpp \
@@ -22,8 +22,8 @@ define walk
 endef
 
 # ±éÀúClassesÄ¿Â¼
-#LOCAL_SRC_FILES := $(call walk, $(LOCAL_PATH)/../../Classes)
-#LOCAL_SRC_FILES += hellocpp/main.cpp 
+LOCAL_SRC_FILES := $(call walk, $(LOCAL_PATH)/../../Classes)
+LOCAL_SRC_FILES += hellocpp/main.cpp 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../cocos2d

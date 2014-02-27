@@ -28,7 +28,6 @@ public:
 	virtual void update(float dt);
 	virtual void draw();
 
-
 	virtual void BeginContact(b2Contact *contact);
 	virtual void EndContact(b2Contact *contact);
 	virtual void PreSolve(b2Contact *contact, const b2Manifold *oldManifold);
@@ -38,6 +37,8 @@ public:
 	void setPhysicsDebug(bool bPhysicsDebug);
 	void initPhysics();
 	void addPhysicsSprite(const cocos2d::Point &pos);
+
+	void autoFly();
 
 	CC_SYNTHESIZE(b2World *, m_world, World);
 	CC_SYNTHESIZE(b2Draw *, m_debugDraw, DebugDraw);
@@ -60,6 +61,8 @@ protected:
 	int m_nTotalBarriers;
 
 	std::list<Barrier *> m_barriers;
+
+	float m_target_x, m_target_y;
 };
 
 #endif // __BOX2DTEST_SCENE_H__

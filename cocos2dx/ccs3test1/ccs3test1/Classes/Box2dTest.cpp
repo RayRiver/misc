@@ -12,6 +12,8 @@
 
 #include "json/reader.h"
 
+#include "HelloWorldScene.h"
+
 using namespace std;
 using namespace cocos2d::gui;
 USING_NS_CC_EXT;
@@ -21,6 +23,10 @@ USING_NS_CC;
 
 const float GRAVITY = -35.0f;
 const float CLIMB_FORCE = 90.0f;
+
+const float RISE_ACCELERATION = 1.1f;
+const float FALL_ACCELERATION = -0.8f;
+const float MAX_RISE_VELOCITY = 12.0f;
 
 enum tags
 {
@@ -52,6 +58,8 @@ Box2dTest::Box2dTest()
 	, m_speed(5.0f)
 	, m_bAlive(true)
 	, m_tailsBatchNode(nullptr)
+	, m_target_x(0.0f)
+	, m_target_y(0.0f)
 {
 
 }
@@ -152,7 +160,7 @@ bool Box2dTest::init()
 		heli->setFlying(false);
 		return;
 
-		auto body = heli->getB2Body();
+		auto body = heli->getB2Body(); 
 		body->ApplyForce(b2Vec2_zero, body->GetWorldCenter(), true);
 		return;
 
@@ -198,22 +206,30 @@ void Box2dTest::update( float dt )
 	}
 	*/
 
+	extern bool g_bAutoPlay;
+	if (g_bAutoPlay)
+	{
+		autoFly();
+	}
+
 	auto heli = dynamic_cast<Helicopter *>(this->getChildByTag(99999));
+	//auto heli = m_player;
 	if (m_bAlive && heli->getFlying())
 	{
 		auto body = heli->getB2Body();
 		//		body->ApplyForce(b2Vec2(0.0f, -GRAVITY), body->GetWorldCenter(), true);
 		//		body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
 		const b2Vec2 &v = body->GetLinearVelocity();
-		if (v.y < 12.0f)
+		if (v.y < MAX_RISE_VELOCITY)
 		{
-			body->ApplyLinearImpulse(b2Vec2(0.0f, 1.1f), body->GetWorldCenter(), true);
+			body->ApplyLinearImpulse(b2Vec2(0.0f, RISE_ACCELERATION), body->GetWorldCenter(), true);
 		}
 	}
 	else
 	{
 		auto body = heli->getB2Body();
-		body->ApplyForce(b2Vec2(0.0f, GRAVITY), body->GetWorldCenter(), true);
+		//body->ApplyForce(b2Vec2(0.0f, GRAVITY), body->GetWorldCenter(), true);
+		body->ApplyLinearImpulse(b2Vec2(0.0f, FALL_ACCELERATION), body->GetWorldCenter(), true);
 	}
 
 	if (!m_bAlive) return;
@@ -307,7 +323,7 @@ void Box2dTest::update( float dt )
 				y = rand() % (max_y-min_y) + min_y;
 			}
 
-			m_future_barriers.push_back(Rect((m_nTotalBarriers + 2 + i)*visibleSize.width*0.8, (float)y, 30.0/PTM_RATIO, ((float)h)/PTM_RATIO));
+			m_future_barriers.push_back(Rect((m_nTotalBarriers + 2 + i)*visibleSize.width*0.8, (float)y, 10.0, (float)h));
 		}
 		m_nTotalBarriers += insert_count;
 	}
@@ -377,6 +393,12 @@ void Box2dTest::draw()
 	};
 	Director::getInstance()->getRenderer()->addCommand(&m_customCommand);
 
+
+	glLineWidth(1);
+	DrawPrimitives::drawSolidRect(Point(m_target_x-5,m_target_y-5), Point(m_target_x+5,m_target_y+5), Color4F(0,100,0,100));
+	CHECK_GL_ERROR_DEBUG();
+
+
 	kmGLPopMatrix();
 }
 
@@ -426,13 +448,19 @@ void Box2dTest::BeginContact( b2Contact *contact )
 		Point origin = Director::getInstance()->getVisibleOrigin();
 
 		// add a "close" icon to exit the progress. it's an autorelease object
-		auto closeItem = MenuItemFont::create("TRY AGAIN", [](Object *obj) {
+		auto retryItem = MenuItemFont::create("TRY AGAIN", [](Object *obj) {
 			Director::getInstance()->replaceScene(Box2dTest::createScene());
 		});
-		closeItem->setPosition(Point(origin.x + visibleSize.width/2, origin.y + visibleSize.height/2));
+		retryItem->setPosition(Point(origin.x + visibleSize.width/2, origin.y + visibleSize.height/2));
+
+		auto closeItem = MenuItemFont::create("Return to Menu", [](Object *obj) {
+			Director::getInstance()->replaceScene(HelloWorld::createScene());
+		});
+		closeItem->setAnchorPoint(Point(1,0));
+		closeItem->setPosition(Point(origin.x + visibleSize.width, origin.y));
 
 		// create menu, it's an autorelease object
-		auto menu = Menu::create(closeItem, NULL);
+		auto menu = Menu::create(retryItem, closeItem, NULL);
 		menu->setPosition(Point::ZERO);
 		this->addChild(menu, 10, kTagTryAgain);
 	}
@@ -645,6 +673,93 @@ void Box2dTest::addPhysicsSprite( const Point &p )
 	sprite->setPTMRatio(PTM_RATIO);
 	sprite->setPosition(p);
 
+
+}
+
+void Box2dTest::autoFly()
+{
+	if (!m_bAlive) return;
+
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Point origin = Director::getInstance()->getVisibleOrigin();
+
+	// get target y
+	float target_x = 0.0f;
+	float target_y = 0.0f;
+	if (m_barriers.size() == 0)
+	{
+		target_x = origin.x + visibleSize.width;
+		target_y = origin.y + visibleSize.height / 2;
+	}
+	else
+	{
+		// get next barrier
+		Barrier *barrier = nullptr;
+		for (list<Barrier *>::iterator it=m_barriers.begin(); it!=m_barriers.end(); ++it)
+		{
+			auto b = *it;
+			if (b->getPositionX() > m_player->getPositionX())
+			{
+				barrier = b;
+				break;	
+			}
+		}
+
+		if (barrier == nullptr)
+		{
+			target_x = origin.x + visibleSize.width;
+			target_y = origin.y + visibleSize.height / 2;
+		}
+		else
+		{
+			auto point = barrier->getPosition();
+			auto size = barrier->getContentSize();
+			int top_space = origin.y + visibleSize.height - (point.y + size.height / 2);
+			if (top_space < 0) top_space = 0;
+			int bottom_space = point.y - size.height / 2 - origin.y;
+			if (bottom_space < 0) bottom_space = 0;
+
+			target_x = point.x;
+			if (top_space > bottom_space)
+			{
+				target_y = point.y + size.height / 2 + top_space / 2;
+			}
+			else
+			{
+				target_y = point.y - size.height / 2 - bottom_space / 2;
+			}
+		}
+
+	}
+	m_target_x = target_x;
+	m_target_y = target_y;
+
+	float dx = target_x - m_player->getPositionX();
+	float dy = target_y - m_player->getPositionY();
+	float v = m_player->getB2Body()->GetLinearVelocity().y;
+	if (dy > 0)
+	{
+		if (dy - v > RISE_ACCELERATION)
+		{
+			m_player->setFlying(true);
+		}
+		else
+		{
+			m_player->setFlying(false);
+		}
+	}
+	else 
+	{
+		if (dy - v > FALL_ACCELERATION)
+		{
+			m_player->setFlying(true);
+		}
+		else
+		{
+			m_player->setFlying(false);
+		}
+	}
 
 }
 

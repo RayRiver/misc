@@ -31,7 +31,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	raknet_test();
 
     // create a scene. it's an autorelease object
-    auto scene = Box2dTest::createScene();
+    auto scene = HelloWorld::createScene();
 
     // run
     director->runWithScene(scene);

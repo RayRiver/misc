@@ -2,9 +2,13 @@
 
 #include <algorithm>
 
+#include "Box2dTest.h"
+
 using namespace std;
 using namespace cocos2d::gui;
 USING_NS_CC;
+
+bool g_bAutoPlay = false;
 
 Scene* HelloWorld::createScene()
 {
@@ -37,6 +41,38 @@ bool HelloWorld::init()
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
+
+	{
+		auto item1 = MenuItemFont::create("Play", [](Object *obj) {
+			g_bAutoPlay = false;
+			Director::getInstance()->replaceScene(Box2dTest::createScene());
+		});
+		item1->setPosition(Point(origin.x + visibleSize.width/2, origin.y + visibleSize.height * 3/4));
+
+		auto item2 = MenuItemFont::create("Auto Play", [](Object *obj) {
+			g_bAutoPlay = true;
+			Director::getInstance()->replaceScene(Box2dTest::createScene());
+		});
+		item2->setPosition(Point(origin.x + visibleSize.width/2, origin.y + visibleSize.height * 1/2));
+
+		auto item3 = MenuItemFont::create("Exit", [](Object *obj) {
+			Director::getInstance()->end();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+			exit(0);
+#endif
+		});
+		item3->setPosition(Point(origin.x + visibleSize.width/2, origin.y + visibleSize.height * 1/4));
+
+
+
+
+		// create menu, it's an autorelease object
+		auto menu = Menu::create(item1, item2, item3, NULL);
+		menu->setPosition(Point::ZERO);
+		this->addChild(menu);
+	}
+
+	return true;
 
 	// add physics border
 	auto edgeSp = Sprite::create();
