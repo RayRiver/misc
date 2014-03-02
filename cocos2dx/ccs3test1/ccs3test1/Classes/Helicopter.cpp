@@ -15,7 +15,7 @@ Helicopter *Helicopter::createBody(b2World *world, const cocos2d::Point &point, 
 	circle.m_radius = 20.0f / fPTMRatio;
 
 	b2FixtureDef fixtureDef;
-	fixtureDef.isSensor = true;	// important
+	fixtureDef.isSensor = false;	// important
 	fixtureDef.shape = &circle;
 	fixtureDef.density = 1.0f;
 	fixtureDef.restitution = 0.7f;
@@ -34,11 +34,16 @@ Helicopter *Helicopter::createBody(b2World *world, const cocos2d::Point &point, 
 		return nullptr;
 	}
 
+	body->SetUserData(heli);
+
 	heli->setB2Body(body);
 	heli->setPTMRatio(fPTMRatio);
 	heli->setPosition(point);
 
+	heli->setType(kB2SpriteTypeHelicopter);
+	heli->setGroup(kB2SpriteTypeNone);
 	heli->setFlying(false);
+	heli->setVelocity(0.0f);
 
 	return heli;
 }

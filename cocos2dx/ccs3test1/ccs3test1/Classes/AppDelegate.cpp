@@ -1,4 +1,6 @@
 #include "AppDelegate.h"
+
+#include "Config.h"
 #include "HelloWorldScene.h"
 #include "Box2dTest.h"
 
@@ -27,8 +29,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
-	extern int raknet_test();
-	raknet_test();
+	//extern int raknet_test();
+	//raknet_test();
+
+	LOAD_CONFIG("global");	
+	//int x = 0;
+	//READ_CONFIG("global", "test", x);	
+	//log("xxx: %d", x);
 
     // create a scene. it's an autorelease object
     auto scene = HelloWorld::createScene();

@@ -1,10 +1,26 @@
 #ifndef __B2SPRITE_H__
 #define __B2SPRITE_H__
 
+#include <map>
+
 #include "cocos2d.h"
 
 struct cpBody;
 class b2Body;
+
+enum B2SPRITE_GROUP
+{
+	kB2SpriteGroupNone,
+	kB2SpriteGroupPlayer,
+	kB2SpriteGroupEnemy,
+};
+
+enum B2SPRITE_TYPE
+{
+	kB2SpriteTypeNone,
+	kB2SpriteTypeHelicopter,
+	kB2SpriteTypeBullet,
+};
 
 class B2Sprite : public cocos2d::Sprite
 {
@@ -78,6 +94,7 @@ public:
     virtual void setRotation(float fRotation) override;
     virtual const kmMat4& getNodeToParentTransform() const override;
 
+	CC_SYNTHESIZE(int, m_group, Group)
 	CC_SYNTHESIZE(int, m_type, Type);
 
 protected:

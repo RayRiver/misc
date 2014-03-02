@@ -12,6 +12,8 @@ public:
 	static Helicopter *createBody(b2World *world, const cocos2d::Point &point, float fPTMRatio);
 
 	CC_SYNTHESIZE(bool, m_bFlying, Flying);
+	CC_SYNTHESIZE(float, m_velocity, Velocity);
+	CC_SYNTHESIZE(cocos2d::Point, m_targetPoint, TargetPoint);
 };
 
 #endif // Helicopter_h__

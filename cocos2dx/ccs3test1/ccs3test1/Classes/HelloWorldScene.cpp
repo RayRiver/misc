@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "Box2dTest.h"
+#include "BattleScene.h"
 
 using namespace std;
 using namespace cocos2d::gui;
@@ -49,9 +50,10 @@ bool HelloWorld::init()
 		});
 		item1->setPosition(Point(origin.x + visibleSize.width/2, origin.y + visibleSize.height * 3/4));
 
-		auto item2 = MenuItemFont::create("Auto Play", [](Object *obj) {
-			g_bAutoPlay = true;
-			Director::getInstance()->replaceScene(Box2dTest::createScene());
+		auto item2 = MenuItemFont::create("Battle", [](Object *obj) {
+			//g_bAutoPlay = true;
+			//Director::getInstance()->replaceScene(Box2dTest::createScene());
+			Director::getInstance()->replaceScene(BattleScene::createScene());
 		});
 		item2->setPosition(Point(origin.x + visibleSize.width/2, origin.y + visibleSize.height * 1/2));
 

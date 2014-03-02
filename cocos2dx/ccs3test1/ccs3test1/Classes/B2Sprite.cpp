@@ -1,6 +1,7 @@
 #include "B2Sprite.h"
 #include "Box2D/Box2D.h"
 
+using namespace std;
 USING_NS_CC;
 
 B2Sprite::B2Sprite()

@@ -136,7 +136,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\B2Sprite.cpp" />
     <ClCompile Include="..\Classes\Barrier.cpp" />
+    <ClCompile Include="..\Classes\BattleScene.cpp" />
     <ClCompile Include="..\Classes\Box2dTest.cpp" />
+    <ClCompile Include="..\Classes\Bullet.cpp" />
+    <ClCompile Include="..\Classes\Config.cpp" />
     <ClCompile Include="..\Classes\GLES-Render.cpp" />
     <ClCompile Include="..\Classes\Helicopter.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
@@ -147,7 +150,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\B2Sprite.h" />
     <ClInclude Include="..\Classes\Barrier.h" />
+    <ClInclude Include="..\Classes\BattleScene.h" />
     <ClInclude Include="..\Classes\Box2dTest.h" />
+    <ClInclude Include="..\Classes\Bullet.h" />
+    <ClInclude Include="..\Classes\Config.h" />
     <ClInclude Include="..\Classes\GLES-Render.h" />
     <ClInclude Include="..\Classes\Helicopter.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />

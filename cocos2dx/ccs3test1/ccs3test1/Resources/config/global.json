@@ -1,0 +1,9 @@
+{
+	"PTM_RATIO": 32.0,
+
+	"RISE_ACCELERATION": 1.1,
+	"FALL_ACCELERATION": -0.8,
+	"MAX_RISE_VELOCITY": 12.0,
+
+	"end": 1 
+}
