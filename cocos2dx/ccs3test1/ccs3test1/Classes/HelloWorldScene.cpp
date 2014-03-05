@@ -4,6 +4,7 @@
 
 #include "Box2dTest.h"
 #include "BattleScene.h"
+#include "PhysicsTest.h"
 
 using namespace std;
 using namespace cocos2d::gui;
@@ -57,7 +58,9 @@ bool HelloWorld::init()
 		});
 		item2->setPosition(Point(origin.x + visibleSize.width/2, origin.y + visibleSize.height * 1/2));
 
-		auto item3 = MenuItemFont::create("Exit", [](Object *obj) {
+		auto item3 = MenuItemFont::create("Physics Test", [](Object *obj) {
+			Director::getInstance()->replaceScene(PhysicsTest::createScene());
+			return;
 			Director::getInstance()->end();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 			exit(0);
