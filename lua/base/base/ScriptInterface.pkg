@@ -1,0 +1,17 @@
+module sys
+{
+	void sys_sleep @ sleep(int msec);
+}
+
+module net
+{
+	void net_connect @ connect(const char *name, int port);
+	void net_disconnect @ disconnect();
+}
+
+module event
+{
+	void event_register @ register(const char *name, LUA_FUNCTION fn);
+	void event_unregister @ unregister(const char *name);
+	void event_call @ call(const char *name);
+}

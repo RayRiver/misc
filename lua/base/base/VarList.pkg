@@ -1,0 +1,21 @@
+class VarList
+{
+	VarList();
+
+	void addInt8(double val);
+	void addInt16(double val);
+	void addInt32(double val);
+	void addInt64(double val);
+	void addFloat(double val);
+	void addDouble(double val);
+	void addString(const char *val);
+
+	double toInt8(int index);
+	double toInt16(int index);
+	double toInt32(int index);
+	double toInt64(int index);
+	double toFloat(int index);
+	double toDouble(int index);
+	const char *toString(int index);
+};
+

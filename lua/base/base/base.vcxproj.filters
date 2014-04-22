@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="tools">
+      <UniqueIdentifier>{36ec3137-9e14-4dd7-9800-ebef9862e305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\tolua">
+      <UniqueIdentifier>{0123e834-0f3e-4898-9b13-eb72d365c0be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tolua">
+      <UniqueIdentifier>{db5d9abc-3456-4c57-a81c-115c23fc2f1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="classes">
+      <UniqueIdentifier>{6924e862-ea6b-4175-9b6e-e1a71c392ef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="script">
+      <UniqueIdentifier>{1ac78cd0-cd67-4bea-94a6-4e5bff78df2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="interface">
+      <UniqueIdentifier>{95cd539d-916b-4427-843e-6d4c3fe0fd41}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NetEngine.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="NetSocket.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadManager.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadObj.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="Sys.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="StreamBuffer.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="BitStream.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="tolua\tolua_is.c">
+      <Filter>tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="tolua\tolua_map.c">
+      <Filter>tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="tolua\tolua_push.c">
+      <Filter>tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="tolua\tolua_to.c">
+      <Filter>tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="tolua\tolua_event.c">
+      <Filter>tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="tolua\tolua_fix.c">
+      <Filter>tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="NetImp.cpp">
+      <Filter>classes</Filter>
+    </ClCompile>
+    <ClCompile Include="toluaInterface.cpp">
+      <Filter>tools\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptEngine.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="interface\sys_module.cpp">
+      <Filter>interface</Filter>
+    </ClCompile>
+    <ClCompile Include="interface\net_module.cpp">
+      <Filter>interface</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="VarList.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="Var.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="NetEngine.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="NetSocket.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="NetDef.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadManager.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadObj.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="Sys.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="StreamBuffer.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="BitStream.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="tolua\tolua++.h">
+      <Filter>tolua</Filter>
+    </ClInclude>
+    <ClInclude Include="tolua\tolua_event.h">
+      <Filter>tolua</Filter>
+    </ClInclude>
+    <ClInclude Include="tolua\tolua_fix.h">
+      <Filter>tolua</Filter>
+    </ClInclude>
+    <ClInclude Include="NetImp.h">
+      <Filter>classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptEngine.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptInterface.h">
+      <Filter>interface</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tolua_builder.bat">
+      <Filter>tools\tolua</Filter>
+    </None>
+    <None Include="tolua_builder.lua">
+      <Filter>tools\tolua</Filter>
+    </None>
+    <None Include="VarList.pkg">
+      <Filter>tools\tolua</Filter>
+    </None>
+    <None Include="toluaInterface.pkg">
+      <Filter>tools\tolua</Filter>
+    </None>
+    <None Include="script\main.lua">
+      <Filter>script</Filter>
+    </None>
+    <None Include="ScriptInterface.pkg">
+      <Filter>tools\tolua</Filter>
+    </None>
+  </ItemGroup>
+</Project>
