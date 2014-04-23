@@ -1,6 +1,6 @@
 /*
 ** Lua binding: toluaInterface
-** Generated automatically by tolua++-1.0.92 on 04/22/14 18:55:03.
+** Generated automatically by tolua++-1.0.92 on 04/23/14 19:08:01.
 */
 
 /****************************************************************************
@@ -31,7 +31,7 @@ extern "C" {
 #include "tolua_fix.h"
 }
 
-#include "ScriptInterface.h"
+#include "modules.h"
 #include "VarList.h"
 
 
@@ -54,179 +54,8 @@ static int tolua_collect_VarList (lua_State* tolua_S)
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- 
  tolua_usertype(tolua_S,"VarList");
 }
-
-/* function: sys_sleep */
-#ifndef TOLUA_DISABLE_tolua_toluaInterface_sys_sleep00
-static int tolua_toluaInterface_sys_sleep00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isnumber(tolua_S,1,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  int msec = ((int)  tolua_tonumber(tolua_S,1,0));
-  {
-   sys_sleep(msec);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'sleep'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: net_connect */
-#ifndef TOLUA_DISABLE_tolua_toluaInterface_net_connect00
-static int tolua_toluaInterface_net_connect00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
-  int port = ((int)  tolua_tonumber(tolua_S,2,0));
-  {
-   net_connect(name,port);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'connect'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: net_disconnect */
-#ifndef TOLUA_DISABLE_tolua_toluaInterface_net_disconnect00
-static int tolua_toluaInterface_net_disconnect00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isnoobj(tolua_S,1,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   net_disconnect();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'disconnect'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: event_register */
-#ifndef TOLUA_DISABLE_tolua_toluaInterface_event_register00
-static int tolua_toluaInterface_event_register00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
-  LUA_FUNCTION fn = (  toluafix_ref_function(tolua_S,2,0));
-  {
-   event_register(name,fn);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'register'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: event_unregister */
-#ifndef TOLUA_DISABLE_tolua_toluaInterface_event_unregister00
-static int tolua_toluaInterface_event_unregister00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
-  {
-   event_unregister(name);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'unregister'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: event_call */
-#ifndef TOLUA_DISABLE_tolua_toluaInterface_event_call00
-static int tolua_toluaInterface_event_call00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
-  {
-   event_call(name);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'call'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
 
 /* method: new of class  VarList */
 #ifndef TOLUA_DISABLE_tolua_toluaInterface_VarList_new00
@@ -761,21 +590,6 @@ TOLUA_API int tolua_toluaInterface_open (lua_State* tolua_S)
  tolua_reg_types(tolua_S);
  tolua_module(tolua_S,NULL,0);
  tolua_beginmodule(tolua_S,NULL);
-  tolua_module(tolua_S,"sys",0);
-  tolua_beginmodule(tolua_S,"sys");
-   tolua_function(tolua_S,"sleep",tolua_toluaInterface_sys_sleep00);
-  tolua_endmodule(tolua_S);
-  tolua_module(tolua_S,"net",0);
-  tolua_beginmodule(tolua_S,"net");
-   tolua_function(tolua_S,"connect",tolua_toluaInterface_net_connect00);
-   tolua_function(tolua_S,"disconnect",tolua_toluaInterface_net_disconnect00);
-  tolua_endmodule(tolua_S);
-  tolua_module(tolua_S,"event",0);
-  tolua_beginmodule(tolua_S,"event");
-   tolua_function(tolua_S,"register",tolua_toluaInterface_event_register00);
-   tolua_function(tolua_S,"unregister",tolua_toluaInterface_event_unregister00);
-   tolua_function(tolua_S,"call",tolua_toluaInterface_event_call00);
-  tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"VarList","VarList","",tolua_collect_VarList);
   #else

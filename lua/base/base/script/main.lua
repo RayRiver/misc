@@ -36,8 +36,16 @@ function test_net()
 	net.disconnect()
 end
 
+function test_event()
+    event.register("testevent1", function(a, b) print("hey you! " .. tostring(a) .. "," .. tostring(b)); return a+b end)
+    local ret = event.call("testevent1", 1, 2)
+    print("ret = " .. tostring(ret))
+    event.unregister("testevent1")
+end
+
 function main()
 	log("enter main...")
+    test_event()
 	--log(package.path)
 	--log(package.cpath)
 end

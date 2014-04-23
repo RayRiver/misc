@@ -7,6 +7,7 @@
 
 typedef int LUA_FUNCTION;
 
+class VarList;
 class ScriptEngine
 {
 private:
@@ -22,7 +23,9 @@ public:
 
 	void registerEvent(const char *name, LUA_FUNCTION fn);
 	void unregisterEvent(const char *name);
-	void callEvent(const char *name);
+	void callEvent(const char *name, const VarList &args, VarList &result);
+
+	LUA_FUNCTION getHandler(const char *name);
 
 private:
 	lua_State *m_luaState;

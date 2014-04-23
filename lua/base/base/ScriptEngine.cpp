@@ -4,6 +4,8 @@
 #include "lua.hpp"
 #include "tolua_fix.h"
 
+#include "VarList.h"
+
 ScriptEngine * ScriptEngine::instance()
 {
 	static ScriptEngine obj;
@@ -32,11 +34,14 @@ bool ScriptEngine::start()
 		}
 		luaL_openlibs(m_luaState);
 
+		extern void toluafix_open(lua_State* L);
+		toluafix_open(m_luaState);
+
 		extern int luaopen_toluaInterface (lua_State* tolua_S);
 		luaopen_toluaInterface(m_luaState);
 
-		//extern int luaopen_ScriptInterface(lua_State *L);
-		//luaopen_ScriptInterface(m_luaState);
+		extern int luaopen_ScriptInterface(lua_State *L);
+		luaopen_ScriptInterface(m_luaState);
 
 		int e = luaL_dofile(m_luaState, "script/main.lua");
 		if ( e ) {
@@ -74,12 +79,67 @@ void ScriptEngine::unregisterEvent( const char *name )
 	}
 }
 
-void ScriptEngine::callEvent( const char *name )
+void ScriptEngine::callEvent( const char *name, const VarList &args, VarList &result )
 {
 	FUNCTION_MAP::iterator it = m_functionMap.find(name);
 	if (it != m_functionMap.end())
 	{
 		LUA_FUNCTION nHandler = it->second;
+
+		toluafix_get_function_by_refid(m_luaState, nHandler);
+		if (lua_isfunction(m_luaState, -1))
+		{
+			for (size_t i=0; i<args.count(); ++i)
+			{
+				int type = args.get(i).getType();
+				switch (type)
+				{
+				case Var::BOOL:
+					lua_pushboolean(m_luaState, args.get(i).toBool() ? 1 : 0);
+					break;
+				case Var::INT:
+				case Var::INT64:
+				case Var::FLOAT:
+				case Var::NUMBER:
+					lua_pushnumber(m_luaState, args.get(i).toNumber());
+					break;
+				case Var::STRING:
+					lua_pushstring(m_luaState, args.get(i).toString());
+					break;
+				default:
+					break;
+				}
+			}
+			int error = lua_pcall(m_luaState, args.count(), 1, NULL);
+			if (error)
+			{
+				printf("[LUA ERROR] %s\n", lua_tostring(m_luaState, - 1));
+				lua_pop(m_luaState, 1); // remove error message from stack
+			}
+			else
+			{
+				// get return value
+				if (lua_isnumber(m_luaState, -1))
+				{
+					int ret = lua_tointeger(m_luaState, -1);
+					result.add(ret);
+				}
+				else if (lua_isboolean(m_luaState, -1))
+				{
+					int ret = lua_toboolean(m_luaState, -1);
+					result.add(ret);
+				}
+				else if (lua_isstring(m_luaState, -1))
+				{
+					const char *ret = lua_tostring(m_luaState, -1);
+					result.add(ret);
+				}
+
+				// remove return value from stack
+				lua_pop(m_luaState, 1);  
+			}
+		}
+
 		/*
 		// TODO
 		int ret = 0;
@@ -103,5 +163,15 @@ void ScriptEngine::callEvent( const char *name )
 		*/
 
 	}
+}
+
+LUA_FUNCTION ScriptEngine::getHandler( const char *name )
+{
+	FUNCTION_MAP::iterator it = m_functionMap.find(name);
+	if (it != m_functionMap.end())
+	{
+		return it->second;
+	}
+	return 0;
 }
 

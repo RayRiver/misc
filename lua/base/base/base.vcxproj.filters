@@ -24,9 +24,6 @@
     <Filter Include="script">
       <UniqueIdentifier>{1ac78cd0-cd67-4bea-94a6-4e5bff78df2d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="interface">
-      <UniqueIdentifier>{95cd539d-916b-4427-843e-6d4c3fe0fd41}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NetEngine.cpp">
@@ -80,11 +77,8 @@
     <ClCompile Include="ScriptEngine.cpp">
       <Filter>base</Filter>
     </ClCompile>
-    <ClCompile Include="interface\sys_module.cpp">
-      <Filter>interface</Filter>
-    </ClCompile>
-    <ClCompile Include="interface\net_module.cpp">
-      <Filter>interface</Filter>
+    <ClCompile Include="ScriptInterface.cpp">
+      <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,9 +127,6 @@
     <ClInclude Include="ScriptEngine.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="ScriptInterface.h">
-      <Filter>interface</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="tolua_builder.bat">
@@ -152,9 +143,6 @@
     </None>
     <None Include="script\main.lua">
       <Filter>script</Filter>
-    </None>
-    <None Include="ScriptInterface.pkg">
-      <Filter>tools\tolua</Filter>
     </None>
   </ItemGroup>
 </Project>
