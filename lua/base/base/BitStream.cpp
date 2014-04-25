@@ -90,8 +90,8 @@ int16_t BitStream::readInt16()
 {
 	int16_t val;
 	uint8_t *p = (uint8_t *)&val;
-	p[0] = m_buffer[m_read_pos];
-	p[1] = m_buffer[m_read_pos+1];
+	p[1] = m_buffer[m_read_pos];
+	p[0] = m_buffer[m_read_pos+1];
 	m_read_pos += sizeof(int16_t);
 	return val;
 }
@@ -100,10 +100,10 @@ int32_t BitStream::readInt32()
 {
 	int32_t val;
 	uint8_t *p = (uint8_t *)&val;
-	p[0] = m_buffer[m_read_pos];
-	p[1] = m_buffer[m_read_pos+1];
-	p[2] = m_buffer[m_read_pos+2];
-	p[3] = m_buffer[m_read_pos+3];
+	p[3] = m_buffer[m_read_pos];
+	p[2] = m_buffer[m_read_pos+1];
+	p[1] = m_buffer[m_read_pos+2];
+	p[0] = m_buffer[m_read_pos+3];
 	m_read_pos += sizeof(int32_t);
 	return val;
 }
@@ -112,14 +112,14 @@ int64_t BitStream::readInt64()
 {
 	int64_t val;
 	uint8_t *p = (uint8_t *)&val;
-	p[0] = m_buffer[m_read_pos];
-	p[1] = m_buffer[m_read_pos+1];
-	p[2] = m_buffer[m_read_pos+2];
-	p[3] = m_buffer[m_read_pos+3];
-	p[4] = m_buffer[m_read_pos+4];
-	p[5] = m_buffer[m_read_pos+5];
-	p[6] = m_buffer[m_read_pos+6];
-	p[7] = m_buffer[m_read_pos+7];
+	p[7] = m_buffer[m_read_pos];
+	p[6] = m_buffer[m_read_pos+1];
+	p[5] = m_buffer[m_read_pos+2];
+	p[4] = m_buffer[m_read_pos+3];
+	p[3] = m_buffer[m_read_pos+4];
+	p[2] = m_buffer[m_read_pos+5];
+	p[1] = m_buffer[m_read_pos+6];
+	p[0] = m_buffer[m_read_pos+7];
 	m_read_pos += sizeof(int64_t);
 	return val;
 }
@@ -128,10 +128,10 @@ float BitStream::readFloat()
 {
 	float val;
 	uint8_t *p = (uint8_t *)&val;
-	p[0] = m_buffer[m_read_pos];
-	p[1] = m_buffer[m_read_pos+1];
-	p[2] = m_buffer[m_read_pos+2];
-	p[3] = m_buffer[m_read_pos+3];
+	p[3] = m_buffer[m_read_pos];
+	p[2] = m_buffer[m_read_pos+1];
+	p[1] = m_buffer[m_read_pos+2];
+	p[0] = m_buffer[m_read_pos+3];
 	m_read_pos += sizeof(float);
 	return val;
 }
@@ -140,14 +140,14 @@ double BitStream::readDouble()
 {
 	double val;
 	uint8_t *p = (uint8_t *)&val;
-	p[0] = m_buffer[m_read_pos];
-	p[1] = m_buffer[m_read_pos+1];
-	p[2] = m_buffer[m_read_pos+2];
-	p[3] = m_buffer[m_read_pos+3];
-	p[4] = m_buffer[m_read_pos+4];
-	p[5] = m_buffer[m_read_pos+5];
-	p[6] = m_buffer[m_read_pos+6];
-	p[7] = m_buffer[m_read_pos+7];
+	p[7] = m_buffer[m_read_pos];
+	p[6] = m_buffer[m_read_pos+1];
+	p[5] = m_buffer[m_read_pos+2];
+	p[4] = m_buffer[m_read_pos+3];
+	p[3] = m_buffer[m_read_pos+4];
+	p[2] = m_buffer[m_read_pos+5];
+	p[1] = m_buffer[m_read_pos+6];
+	p[0] = m_buffer[m_read_pos+7];
 	m_read_pos += sizeof(double);
 	return val;
 }
@@ -175,8 +175,8 @@ void BitStream::writeInt16( int16_t val )
 {
 	reserve(m_write_pos + sizeof(int16_t));
 	uint8_t *p = (uint8_t *)&val;
-	m_buffer[m_write_pos+0] = p[0];
-	m_buffer[m_write_pos+1] = p[1];
+	m_buffer[m_write_pos+0] = p[1];
+	m_buffer[m_write_pos+1] = p[0];
 	m_write_pos += sizeof(int16_t);
 }
 
@@ -184,10 +184,10 @@ void BitStream::writeInt32( int32_t val )
 {
 	reserve(m_write_pos + sizeof(int32_t));
 	uint8_t *p = (uint8_t *)&val;
-	m_buffer[m_write_pos+0] = p[0];
-	m_buffer[m_write_pos+1] = p[1];
-	m_buffer[m_write_pos+2] = p[2];
-	m_buffer[m_write_pos+3] = p[3];
+	m_buffer[m_write_pos+0] = p[3];
+	m_buffer[m_write_pos+1] = p[2];
+	m_buffer[m_write_pos+2] = p[1];
+	m_buffer[m_write_pos+3] = p[0];
 	m_write_pos += sizeof(int32_t);
 }
 
@@ -195,14 +195,14 @@ void BitStream::writeInt64( int64_t val )
 {
 	reserve(m_write_pos + sizeof(int64_t));
 	uint8_t *p = (uint8_t *)&val;
-	m_buffer[m_write_pos+0] = p[0];
-	m_buffer[m_write_pos+1] = p[1];
-	m_buffer[m_write_pos+2] = p[2];
-	m_buffer[m_write_pos+3] = p[3];
-	m_buffer[m_write_pos+4] = p[4];
-	m_buffer[m_write_pos+5] = p[5];
-	m_buffer[m_write_pos+6] = p[6];
-	m_buffer[m_write_pos+7] = p[7];
+	m_buffer[m_write_pos+0] = p[7];
+	m_buffer[m_write_pos+1] = p[6];
+	m_buffer[m_write_pos+2] = p[5];
+	m_buffer[m_write_pos+3] = p[4];
+	m_buffer[m_write_pos+4] = p[3];
+	m_buffer[m_write_pos+5] = p[2];
+	m_buffer[m_write_pos+6] = p[1];
+	m_buffer[m_write_pos+7] = p[0];
 	m_write_pos += sizeof(int64_t);
 }
 
@@ -210,10 +210,10 @@ void BitStream::writeFloat( float val )
 {
 	reserve(m_write_pos + sizeof(float));
 	uint8_t *p = (uint8_t *)&val;
-	m_buffer[m_write_pos+0] = p[0];
-	m_buffer[m_write_pos+1] = p[1];
-	m_buffer[m_write_pos+2] = p[2];
-	m_buffer[m_write_pos+3] = p[3];
+	m_buffer[m_write_pos+0] = p[3];
+	m_buffer[m_write_pos+1] = p[2];
+	m_buffer[m_write_pos+2] = p[1];
+	m_buffer[m_write_pos+3] = p[0];
 	m_write_pos += sizeof(float);
 }
 
@@ -221,14 +221,14 @@ void BitStream::writeDouble( double val )
 {
 	reserve(m_write_pos + sizeof(double));
 	uint8_t *p = (uint8_t *)&val;
-	m_buffer[m_write_pos+0] = p[0];
-	m_buffer[m_write_pos+1] = p[1];
-	m_buffer[m_write_pos+2] = p[2];
-	m_buffer[m_write_pos+3] = p[3];
-	m_buffer[m_write_pos+4] = p[4];
-	m_buffer[m_write_pos+5] = p[5];
-	m_buffer[m_write_pos+6] = p[6];
-	m_buffer[m_write_pos+7] = p[7];
+	m_buffer[m_write_pos+0] = p[7];
+	m_buffer[m_write_pos+1] = p[6];
+	m_buffer[m_write_pos+2] = p[5];
+	m_buffer[m_write_pos+3] = p[4];
+	m_buffer[m_write_pos+4] = p[3];
+	m_buffer[m_write_pos+5] = p[2];
+	m_buffer[m_write_pos+6] = p[1];
+	m_buffer[m_write_pos+7] = p[0];
 	m_write_pos += sizeof(double);
 }
 

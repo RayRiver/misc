@@ -20,7 +20,7 @@ ScriptEngine::ScriptEngine()
 
 ScriptEngine::~ScriptEngine()
 {
-
+	stop();
 }
 
 bool ScriptEngine::start()
@@ -47,6 +47,8 @@ bool ScriptEngine::start()
 		if ( e ) {
 			printf("%s\n", lua_tostring(m_luaState, -1));
 			lua_pop(m_luaState, 1);
+			lua_close(m_luaState);
+			m_luaState = nullptr;
 			return false;
 		}
 
@@ -61,13 +63,42 @@ bool ScriptEngine::start()
 
 void ScriptEngine::stop()
 {
-	lua_close(m_luaState);
-	m_luaState = nullptr;
+	if (m_luaState)
+	{
+		lua_close(m_luaState);
+		m_luaState = nullptr;
+
+		for (FUNCTION_MAP::iterator it=m_functionMap.begin(); it!=m_functionMap.end(); ++it)
+		{
+			LUA_FUNCTION handler = it->second;
+			toluafix_remove_function_by_refid(m_luaState, handler);
+		}
+		m_functionMap.clear();
+	}
 }
 
-void ScriptEngine::registerEvent( const char *name, LUA_FUNCTION fn )
+void ScriptEngine::registerEvent( const char *name, int lua_function_index )
 {
-	m_functionMap[name] = fn;
+	LUA_FUNCTION handler = (LUA_FUNCTION)lua_topointer(m_luaState, lua_function_index);
+
+	FUNCTION_MAP::iterator it = m_functionMap.find(name);
+	if (it != m_functionMap.end())
+	{
+		printf("warnning: register the same name event: %s\n", name);
+		LUA_FUNCTION old_handler = m_functionMap[name];
+		
+		if (old_handler != handler)
+		{
+			// remove old function ref
+			toluafix_remove_function_by_refid(m_luaState, old_handler);
+		}
+	}
+
+	m_functionMap[name] = handler;
+
+	// ref function
+	toluafix_ref_function(m_luaState, lua_function_index, 0);
+
 }
 
 void ScriptEngine::unregisterEvent( const char *name )
@@ -76,6 +107,9 @@ void ScriptEngine::unregisterEvent( const char *name )
 	if (it != m_functionMap.end())
 	{
 		m_functionMap.erase(it);
+
+		LUA_FUNCTION handler = it->second;
+		toluafix_remove_function_by_refid(m_luaState, handler);
 	}
 }
 
@@ -89,7 +123,8 @@ void ScriptEngine::callEvent( const char *name, const VarList &args, VarList &re
 		toluafix_get_function_by_refid(m_luaState, nHandler);
 		if (lua_isfunction(m_luaState, -1))
 		{
-			for (size_t i=0; i<args.count(); ++i)
+			size_t count = args.count();
+			for (size_t i=0; i<count; ++i)
 			{
 				int type = args.get(i).getType();
 				switch (type)
@@ -165,13 +200,13 @@ void ScriptEngine::callEvent( const char *name, const VarList &args, VarList &re
 	}
 }
 
-LUA_FUNCTION ScriptEngine::getHandler( const char *name )
+LUA_FUNCTION ScriptEngine::getEventHandler( const char *name )
 {
 	FUNCTION_MAP::iterator it = m_functionMap.find(name);
 	if (it != m_functionMap.end())
 	{
 		return it->second;
 	}
-	return 0;
+	return INVALID_LUA_FUNCTION;
 }
 

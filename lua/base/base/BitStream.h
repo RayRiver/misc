@@ -14,6 +14,7 @@ public:
 	inline size_t size() { return m_write_pos; }
 	inline void clear() { m_read_pos = 0; m_write_pos = 0; }
 	void cut(size_t bytes);
+	inline bool isEnd() { return m_read_pos >= m_write_pos; } 
 
 	int8_t readInt8();
 	int16_t readInt16();

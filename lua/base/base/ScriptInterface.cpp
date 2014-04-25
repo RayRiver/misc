@@ -3,6 +3,7 @@
 #include "NetImp.h"
 #include "VarList.h"
 #include "ScriptEngine.h"
+#include "NetEngine.h"
 #include "tolua_fix.h"
 
 static int sys_sleep(lua_State *L)
@@ -18,6 +19,18 @@ static const luaL_Reg syslib[] =
 	"sleep", sys_sleep,
 	NULL, NULL
 };
+
+static int net_start(lua_State *L)
+{
+	NetEngine::instance()->start();
+	return 0;
+}
+
+static int net_stop(lua_State *L)
+{
+	NetEngine::instance()->stop();
+	return 0;
+}
 
 static int net_connect(lua_State *L)
 {
@@ -35,10 +48,21 @@ static int net_disconnect(lua_State *L)
 	return 0;
 }
 
+static int net_send(lua_State *L)
+{
+	::luaL_checktype(L, 1, LUA_TUSERDATA);
+	const VarList &args = *((VarList*)tolua_tousertype(L, 1, 0));
+	GetNetImp()->writePack(args);
+	return 0;
+}
+
 static const luaL_Reg netlib[] =
 {
+	"start", net_start,
+	"stop", net_stop,
 	"connect", net_connect,
 	"disconnect", net_disconnect,
+	"send", net_send,
 	NULL, NULL
 };
 
@@ -49,11 +73,7 @@ static int event_register(lua_State *L)
 
 	const char *name = lua_tostring(L, 1);
 
-	// add function ref
-	LUA_FUNCTION nHandler = toluafix_ref_function(L, 2, 0);
-	//LUA_FUNCTION nHandler = (LUA_FUNCTION)lua_topointer(L, 2);
-
-	ScriptEngine::instance()->registerEvent(name, nHandler);
+	ScriptEngine::instance()->registerEvent(name, 2);
 	return 0;
 }
 
@@ -62,13 +82,6 @@ static int event_unregister(lua_State *L)
 	::luaL_checktype(L, 1, LUA_TSTRING);
 	const char *name = lua_tostring(L, 1);
 	ScriptEngine::instance()->unregisterEvent(name);
-
-	// remove function ref
-	toluafix_get_function_by_refid(L, ScriptEngine::instance()->getHandler(name));
-	LUA_FUNCTION nHandler = lua_tointeger(L, 1);
-	toluafix_remove_function_by_refid(L, nHandler);
-	lua_pop(L, 1);
-
 	return 0;
 }
 

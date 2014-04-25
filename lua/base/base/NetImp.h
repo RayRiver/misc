@@ -4,9 +4,12 @@
 #include "NetSocket.h"
 
 class BitStream;
+class VarList;
 class NetImp : public NetSocket
 {
 public:
+	void writePack(const VarList &args);
+
 	virtual void onConnected();
 	virtual void onDisconnect();
 	virtual void onRead(BitStream &stream);

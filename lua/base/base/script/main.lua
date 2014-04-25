@@ -32,8 +32,8 @@ end
 
 function test_net()
 	net.connect("127.0.0.1", 60000)
-	sys.sleep(3000)
-	net.disconnect()
+	--sys.sleep(3000)
+	--net.disconnect()
 end
 
 function test_event()
@@ -41,13 +41,19 @@ function test_event()
     local ret = event.call("testevent1", 1, 2)
     print("ret = " .. tostring(ret))
     event.unregister("testevent1")
+
 end
 
 function main()
-	log("enter main...")
-    test_event()
-	--log(package.path)
-	--log(package.cpath)
+    package.path = package.path .. ";./script/?.lua"
+
+    require("classlib")
+    require("network")
+    require("logic")
+
+    network.init()
+
+    net.connect("192.168.6.227", 9090)
 end
 
 xpcall(main, __G__TRACKBACK__)

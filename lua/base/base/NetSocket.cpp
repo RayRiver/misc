@@ -3,6 +3,7 @@
 #include "NetDef.h"
 #include "ThreadObj.h"
 #include "ThreadManager.h"
+#include "Log.h"
 
 using namespace std;
 
@@ -116,8 +117,12 @@ void NetSocket::do_read()
 {
 	int ret = 0, bytes = 0;
 	do {
-		ret = ::recv(m_fd, (char *)m_read_buffer.buffer(), m_read_buffer.buffer_size()-m_read_buffer.size(), 0);
+		ret = ::recv(m_fd, (char *)m_read_buffer.buffer()+m_read_buffer.size(), m_read_buffer.buffer_size()-m_read_buffer.size(), 0);
 		if (ret <= 0) break;
+
+		Log("do_read:");
+		LogHex((char *)m_read_buffer.buffer()+m_read_buffer.size(), ret);
+
 		m_read_buffer.setWritePos(m_read_buffer.size()+ret);
 		bytes += ret;
 	} while (true);
@@ -148,12 +153,25 @@ void NetSocket::do_write()
 	}
 
 	int ret = 0, bytes = 0;
-	do {
-		ret = ::send(m_fd, (const char *)m_write_buffer.buffer(), m_write_buffer.size(), 0);
-		if (ret <= 0) break;
-		m_write_buffer.cut(ret);
-		bytes += ret;
-	} while(true);
+	int length = m_write_buffer.size();
+	ret = ::send(m_fd, (const char *)&length, sizeof(int), 0);
+	bytes += ret;
+	if (ret == sizeof(int))
+	{
+		Log("do_write header:");
+		LogHex((char *)&length, ret);
+
+		do {
+			ret = ::send(m_fd, (const char *)m_write_buffer.buffer(), m_write_buffer.size(), 0);
+			if (ret <= 0) break;
+
+			Log("do_write:");
+			LogHex((char *)m_write_buffer.buffer(), ret);
+
+			m_write_buffer.cut(ret);
+			bytes += ret;
+		} while(true);
+	}
 
 	if (bytes <= 0)
 	{
@@ -218,5 +236,6 @@ void NetSocket::write( unsigned char *buf, size_t len )
 	lock_guard<mutex> lock(m_write_mutex);	
 	m_write_stream.writeData(buf, len);
 }
+
 
 

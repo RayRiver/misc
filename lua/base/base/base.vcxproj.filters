@@ -80,6 +80,9 @@
     <ClCompile Include="ScriptInterface.cpp">
       <Filter>base</Filter>
     </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VarList.h">
@@ -127,6 +130,9 @@
     <ClInclude Include="ScriptEngine.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="tolua_builder.bat">
@@ -142,6 +148,18 @@
       <Filter>tools\tolua</Filter>
     </None>
     <None Include="script\main.lua">
+      <Filter>script</Filter>
+    </None>
+    <None Include="script\network.lua">
+      <Filter>script</Filter>
+    </None>
+    <None Include="script\logic.lua">
+      <Filter>script</Filter>
+    </None>
+    <None Include="script\packet.lua">
+      <Filter>script</Filter>
+    </None>
+    <None Include="script\classlib.lua">
       <Filter>script</Filter>
     </None>
   </ItemGroup>

@@ -58,6 +58,14 @@ void NetEngine::stop()
 {
 	if (m_bRunning)
 	{
+		{
+			lock_guard<mutex> lock(m_socks_mutex);
+			for (auto sock : m_socks)
+			{
+				sock->disconnect();
+			}
+		}
+
 		m_bRunning = false;
 		m_thread->join();	
 		delete m_thread;

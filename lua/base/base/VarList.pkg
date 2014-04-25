@@ -19,3 +19,4 @@ class VarList
 	const char *toString(int index);
 };
 
+

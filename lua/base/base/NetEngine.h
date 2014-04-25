@@ -15,6 +15,7 @@ public:
 	void start();
 	void stop();
 	void run();
+	inline bool isStarted() { return m_thread ? true : false; }
 
 	void add(NetSocket *sock);
 	void remove(NetSocket *sock);

@@ -6,6 +6,7 @@
 #include "lua.hpp"
 
 typedef int LUA_FUNCTION;
+#define INVALID_LUA_FUNCTION 0
 
 class VarList;
 class ScriptEngine
@@ -21,11 +22,11 @@ public:
 
 	inline lua_State *state() { return m_luaState; }
 
-	void registerEvent(const char *name, LUA_FUNCTION fn);
+	void registerEvent(const char *name, int lua_function_index);
 	void unregisterEvent(const char *name);
 	void callEvent(const char *name, const VarList &args, VarList &result);
 
-	LUA_FUNCTION getHandler(const char *name);
+	LUA_FUNCTION getEventHandler(const char *name);
 
 private:
 	lua_State *m_luaState;

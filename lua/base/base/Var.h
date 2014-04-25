@@ -19,6 +19,9 @@ public:
 		NUMBER,
 		BOOL,
 		INT64,
+
+		BYTE,
+		SHORT,
 	};
 
 private:
@@ -49,7 +52,21 @@ private:
 		return _strdup(s);
 	}
 
-	inline void set(int val)
+	inline void set(int8_t val)
+	{
+		this->clear();
+		m_type = Var::BYTE;
+		m_numberValue = val;
+	}
+
+	inline void set(int16_t val)
+	{
+		this->clear();
+		m_type = Var::SHORT;
+		m_numberValue = val;
+	}
+
+	inline void set(int32_t val)
 	{
 		this->clear();
 		m_type = Var::INT;
@@ -199,7 +216,7 @@ public:
 
 	inline bool isNumber() const
 	{
-		return m_type == Var::NUMBER || m_type == Var::INT || m_type == Var::INT64 || m_type == Var::FLOAT;
+		return m_type == Var::NUMBER || m_type == Var::BYTE || m_type == Var::SHORT || m_type == Var::INT || m_type == Var::INT64 || m_type == Var::FLOAT;
 	}
 
 	inline bool isString() const
@@ -213,7 +230,19 @@ public:
 		return m_boolValue;
 	}
 
-	inline int toInt() const
+	inline uint8_t toByte() const
+	{
+		assert(this->isNumber());
+		return (uint8_t)m_numberValue;
+	}
+
+	inline int16_t toShort() const
+	{
+		assert(this->isNumber());
+		return (int16_t)m_numberValue;
+	}
+
+	inline int32_t toInt() const
 	{
 		assert(this->isNumber());
 		return (int)m_numberValue;
@@ -244,7 +273,17 @@ public:
 	}
 
 
-	inline void operator = (int val)
+	inline void operator = (int8_t val)
+	{
+		this->set(val);
+	}
+
+	inline void operator = (int16_t val)
+	{
+		this->set(val);
+	}
+
+	inline void operator = (int32_t val)
 	{
 		this->set(val);
 	}
@@ -280,7 +319,19 @@ public:
 	}
 
 
-	inline bool operator == (int val) const
+	inline bool operator == (int8_t val) const
+	{
+		if (!this->isNumber()) return false;
+		return (int)m_numberValue == val;
+	}
+
+	inline bool operator == (int16_t val) const
+	{
+		if (!this->isNumber()) return false;
+		return (int)m_numberValue == val;
+	}
+
+	inline bool operator == (int32_t val) const
 	{
 		if (!this->isNumber()) return false;
 		return (int)m_numberValue == val;

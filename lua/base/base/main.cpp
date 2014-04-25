@@ -94,10 +94,6 @@ void test_varlist()
 
 void test_tolua()
 {
-	{
-		NetEngine::instance()->start();
-	}
-
 	lua_State *L = luaL_newstate();
 	luaL_openlibs(L);
 
@@ -116,12 +112,16 @@ void test_tolua()
 	// main loop
 	while (true)
 	{
-		NetEngine::instance()->update();
+		if (NetEngine::instance()->isStarted())
+		{
+			NetEngine::instance()->update();
+		}
 		Sys::sleep(100);
 	}
 
 	lua_close(L);
 
+	if (NetEngine::instance()->isStarted())
 	{
 		NetEngine::instance()->stop();
 	}
@@ -154,22 +154,38 @@ void test_bitstream()
 
 void script_main()
 {
-	NetEngine::instance()->start();
+	//NetEngine::instance()->start();
 	ScriptEngine::instance()->start();
 
 	// main loop
 	while (true)
 	{
-		NetEngine::instance()->update();
+		if (NetEngine::instance()->isStarted())
+		{
+			NetEngine::instance()->update();
+		}
 		Sys::sleep(100);
 	}
 
 	ScriptEngine::instance()->stop();
-	NetEngine::instance()->stop();
+	if (NetEngine::instance()->isStarted())
+	{
+		NetEngine::instance()->stop();
+	}
+}
+
+#include "Log.h"
+void test_log()
+{
+	Log("test log %d", 1);	
+	char buffer[32];
+	memset(buffer, 0x00, sizeof(buffer));
+	LogHex(buffer, sizeof(buffer));
 }
 
 int main(int argc, char* argv[])
 {
+	//test_log(); 
 	script_main();
 	system("pause");
 	return 0;

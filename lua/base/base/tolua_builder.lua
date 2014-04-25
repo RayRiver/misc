@@ -94,7 +94,6 @@ extern "C" {
 #include "tolua_fix.h"
 }
 
-#include "modules.h"
 #include "VarList.h"
 
 ]])
