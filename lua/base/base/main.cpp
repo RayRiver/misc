@@ -94,6 +94,7 @@ void test_varlist()
 
 void test_tolua()
 {
+	/*
 	lua_State *L = luaL_newstate();
 	luaL_openlibs(L);
 
@@ -125,7 +126,7 @@ void test_tolua()
 	{
 		NetEngine::instance()->stop();
 	}
-
+	*/
 }
 
 void test_bitstream()

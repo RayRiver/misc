@@ -49,9 +49,10 @@ function main()
 
     require("classlib")
     require("network")
-    require("logic")
+    require("nethandler")
 
     network.init()
+    nethandler.init()
 
     net.connect("192.168.6.227", 9090)
 end

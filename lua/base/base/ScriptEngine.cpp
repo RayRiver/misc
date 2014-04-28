@@ -2,7 +2,6 @@
 
 #include <assert.h>
 #include "lua.hpp"
-#include "tolua_fix.h"
 
 #include "VarList.h"
 
@@ -34,11 +33,12 @@ bool ScriptEngine::start()
 		}
 		luaL_openlibs(m_luaState);
 
-		extern void toluafix_open(lua_State* L);
-		toluafix_open(m_luaState);
+		//extern void toluafix_open(lua_State* L);
+		//toluafix_open(m_luaState);
 
-		extern int luaopen_toluaInterface (lua_State* tolua_S);
-		luaopen_toluaInterface(m_luaState);
+		//extern int luaopen_toluaInterface (lua_State* tolua_S);
+		//luaopen_toluaInterface(m_luaState);
+		LuaHelper::init(m_luaState);
 
 		extern int luaopen_ScriptInterface(lua_State *L);
 		luaopen_ScriptInterface(m_luaState);
@@ -71,7 +71,7 @@ void ScriptEngine::stop()
 		for (FUNCTION_MAP::iterator it=m_functionMap.begin(); it!=m_functionMap.end(); ++it)
 		{
 			LUA_FUNCTION handler = it->second;
-			toluafix_remove_function_by_refid(m_luaState, handler);
+			LuaHelper::removeRefFunction(m_luaState, handler);
 		}
 		m_functionMap.clear();
 	}
@@ -90,14 +90,14 @@ void ScriptEngine::registerEvent( const char *name, int lua_function_index )
 		if (old_handler != handler)
 		{
 			// remove old function ref
-			toluafix_remove_function_by_refid(m_luaState, old_handler);
+			LuaHelper::removeRefFunction(m_luaState, old_handler);
 		}
 	}
 
 	m_functionMap[name] = handler;
 
 	// ref function
-	toluafix_ref_function(m_luaState, lua_function_index, 0);
+	LuaHelper::addRefFunction(m_luaState, lua_function_index, 0);
 
 }
 
@@ -109,7 +109,7 @@ void ScriptEngine::unregisterEvent( const char *name )
 		m_functionMap.erase(it);
 
 		LUA_FUNCTION handler = it->second;
-		toluafix_remove_function_by_refid(m_luaState, handler);
+		LuaHelper::removeRefFunction(m_luaState, handler);
 	}
 }
 
@@ -120,7 +120,7 @@ void ScriptEngine::callEvent( const char *name, const VarList &args, VarList &re
 	{
 		LUA_FUNCTION nHandler = it->second;
 
-		toluafix_get_function_by_refid(m_luaState, nHandler);
+		LuaHelper::getRefFunction(m_luaState, nHandler);
 		if (lua_isfunction(m_luaState, -1))
 		{
 			size_t count = args.count();

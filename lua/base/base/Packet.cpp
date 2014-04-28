@@ -64,5 +64,3 @@ void Packet::send()
 {
 	GetNetImp()->writePack(m_args);
 }
-
-

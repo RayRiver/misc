@@ -5,15 +5,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="tools">
-      <UniqueIdentifier>{36ec3137-9e14-4dd7-9800-ebef9862e305}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="tools\tolua">
-      <UniqueIdentifier>{0123e834-0f3e-4898-9b13-eb72d365c0be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="tolua">
-      <UniqueIdentifier>{db5d9abc-3456-4c57-a81c-115c23fc2f1f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="base">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
@@ -47,29 +38,8 @@
     <ClCompile Include="BitStream.cpp">
       <Filter>base</Filter>
     </ClCompile>
-    <ClCompile Include="tolua\tolua_is.c">
-      <Filter>tolua</Filter>
-    </ClCompile>
-    <ClCompile Include="tolua\tolua_map.c">
-      <Filter>tolua</Filter>
-    </ClCompile>
-    <ClCompile Include="tolua\tolua_push.c">
-      <Filter>tolua</Filter>
-    </ClCompile>
-    <ClCompile Include="tolua\tolua_to.c">
-      <Filter>tolua</Filter>
-    </ClCompile>
-    <ClCompile Include="tolua\tolua_event.c">
-      <Filter>tolua</Filter>
-    </ClCompile>
-    <ClCompile Include="tolua\tolua_fix.c">
-      <Filter>tolua</Filter>
-    </ClCompile>
     <ClCompile Include="NetImp.cpp">
       <Filter>classes</Filter>
-    </ClCompile>
-    <ClCompile Include="toluaInterface.cpp">
-      <Filter>tools\tolua</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>classes</Filter>
@@ -84,6 +54,9 @@
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="Packet.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaHelper.cpp">
       <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>
@@ -118,15 +91,6 @@
     <ClInclude Include="BitStream.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="tolua\tolua++.h">
-      <Filter>tolua</Filter>
-    </ClInclude>
-    <ClInclude Include="tolua\tolua_event.h">
-      <Filter>tolua</Filter>
-    </ClInclude>
-    <ClInclude Include="tolua\tolua_fix.h">
-      <Filter>tolua</Filter>
-    </ClInclude>
     <ClInclude Include="NetImp.h">
       <Filter>classes</Filter>
     </ClInclude>
@@ -139,34 +103,22 @@
     <ClInclude Include="Packet.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="LuaHelper.h">
+      <Filter>base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="tolua_builder.bat">
-      <Filter>tools\tolua</Filter>
-    </None>
-    <None Include="tolua_builder.lua">
-      <Filter>tools\tolua</Filter>
-    </None>
-    <None Include="VarList.pkg">
-      <Filter>tools\tolua</Filter>
-    </None>
-    <None Include="toluaInterface.pkg">
-      <Filter>tools\tolua</Filter>
-    </None>
     <None Include="script\main.lua">
       <Filter>script</Filter>
     </None>
     <None Include="script\network.lua">
       <Filter>script</Filter>
     </None>
-    <None Include="script\logic.lua">
-      <Filter>script</Filter>
-    </None>
     <None Include="script\classlib.lua">
       <Filter>script</Filter>
     </None>
-    <None Include="Packet.pkg">
-      <Filter>tools\tolua</Filter>
+    <None Include="script\nethandler.lua">
+      <Filter>script</Filter>
     </None>
   </ItemGroup>
 </Project>

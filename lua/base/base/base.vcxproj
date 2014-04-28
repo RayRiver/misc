@@ -84,10 +84,10 @@
   <ItemGroup>
     <ClCompile Include="BitStream.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="LuaHelper.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="ScriptEngine.cpp" />
     <ClCompile Include="ScriptInterface.cpp" />
-    <ClCompile Include="toluaInterface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetEngine.cpp" />
     <ClCompile Include="NetImp.cpp" />
@@ -96,16 +96,11 @@
     <ClCompile Include="Sys.cpp" />
     <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="ThreadObj.cpp" />
-    <ClCompile Include="tolua\tolua_event.c" />
-    <ClCompile Include="tolua\tolua_fix.c" />
-    <ClCompile Include="tolua\tolua_is.c" />
-    <ClCompile Include="tolua\tolua_map.c" />
-    <ClCompile Include="tolua\tolua_push.c" />
-    <ClCompile Include="tolua\tolua_to.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitStream.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="LuaHelper.h" />
     <ClInclude Include="NetDef.h" />
     <ClInclude Include="NetEngine.h" />
     <ClInclude Include="NetImp.h" />
@@ -116,22 +111,14 @@
     <ClInclude Include="Sys.h" />
     <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="ThreadObj.h" />
-    <ClInclude Include="tolua\tolua++.h" />
-    <ClInclude Include="tolua\tolua_event.h" />
-    <ClInclude Include="tolua\tolua_fix.h" />
     <ClInclude Include="Var.h" />
     <ClInclude Include="VarList.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Packet.pkg" />
     <None Include="script\classlib.lua" />
-    <None Include="script\logic.lua" />
+    <None Include="script\nethandler.lua" />
     <None Include="script\main.lua" />
     <None Include="script\network.lua" />
-    <None Include="toluaInterface.pkg" />
-    <None Include="tolua_builder.bat" />
-    <None Include="tolua_builder.lua" />
-    <None Include="VarList.pkg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,8 +5,7 @@
 #include <map>
 #include "lua.hpp"
 
-typedef int LUA_FUNCTION;
-#define INVALID_LUA_FUNCTION 0
+#include "LuaHelper.h"
 
 class VarList;
 class ScriptEngine

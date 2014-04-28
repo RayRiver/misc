@@ -4,7 +4,7 @@ local m_function_map = {}
 
 local function onNetConnected()
     print("lua onNetConnected")
-    logic.login("wntest98", "")
+    nethandler.login("wntest98", "")
 end
 
 local function onNetDisconnect()
@@ -12,21 +12,17 @@ local function onNetDisconnect()
 end
 
 local function onNetReceive(id, ...)
-    print("lua onNetReceive")
+    print("lua onNetReceive id: " .. tostring(id))
 
     if m_function_map[id] then
-        m_function_map[id]()
+        m_function_map[id](unpack(arg))
     else
         log("undefined network protocol id: " .. tostring(id))
     end
 end
 
-m_function_map[0xA008] = function(...)
-    log("onNetReceiveLoginResp")
-end
-
-m_function_map[0xA006] = function(...)
-    log("onNetReceiveExistRole")
+network.register_handler = function(id, fn)
+    m_function_map[id] = fn
 end
 
 network.init = function()

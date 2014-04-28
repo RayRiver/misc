@@ -5,6 +5,122 @@
 #include "ScriptEngine.h"
 #include "NetEngine.h"
 #include "tolua_fix.h"
+#include "Packet.h"
+#include "LuaHelper.h"
+
+#define LUA_USERDATA_PACKET "lua_userdata_Packet"
+
+inline Packet *_checkPacketUserData(lua_State *L, int n)
+{
+	return *(Packet **)luaL_checkudata(L, n, LUA_USERDATA_PACKET);
+}
+
+static int Packet_new(lua_State *L)
+{
+	Packet **udata = (Packet **)lua_newuserdata(L, sizeof(Packet *));	
+	*udata = new Packet();
+	luaL_getmetatable(L, LUA_USERDATA_PACKET);
+	lua_setmetatable(L, -2);
+	return 1;
+}
+
+static int Packet_delete(lua_State *L)
+{
+	Packet *packet = _checkPacketUserData(L, 1);	
+	delete packet;
+	return 0;
+}
+
+static int Packet_addId(lua_State *L)
+{
+	Packet *packet = _checkPacketUserData(L, 1);		
+	LUA_NUMBER val = luaL_checknumber(L, 2);
+	packet->addId(val);
+	return 0;
+}
+
+static int Packet_addInt8(lua_State *L)
+{
+	Packet *packet = _checkPacketUserData(L, 1);		
+	LUA_NUMBER val = luaL_checknumber(L, 2);
+	packet->addInt8(val);
+	return 0;
+}
+
+static int Packet_addInt16(lua_State *L)
+{
+	Packet *packet = _checkPacketUserData(L, 1);		
+	LUA_NUMBER val = luaL_checknumber(L, 2);
+	packet->addInt16(val);
+	return 0;
+}
+
+static int Packet_addInt32(lua_State *L)
+{
+	Packet *packet = _checkPacketUserData(L, 1);		
+	LUA_NUMBER val = luaL_checknumber(L, 2);
+	packet->addInt32(val);
+	return 0;
+}
+
+static int Packet_addInt64(lua_State *L)
+{
+	Packet *packet = _checkPacketUserData(L, 1);		
+	LUA_NUMBER val = luaL_checknumber(L, 2);
+	packet->addInt64(val);
+	return 0;
+}
+
+static int Packet_addFloat(lua_State *L)
+{
+	Packet *packet = _checkPacketUserData(L, 1);		
+	LUA_NUMBER val = luaL_checknumber(L, 2);
+	packet->addFloat(val);
+	return 0;
+}
+
+static int Packet_addDouble(lua_State *L)
+{
+	Packet *packet = _checkPacketUserData(L, 1);		
+	LUA_NUMBER val = luaL_checknumber(L, 2);
+	packet->addDouble(val);
+	return 0;
+}
+
+static int Packet_addString(lua_State *L)
+{
+	Packet *packet = _checkPacketUserData(L, 1);		
+	const char *val = luaL_checkstring(L, 2);
+	packet->addString(val);
+	return 0;
+}
+
+static int Packet_send(lua_State *L)
+{
+	Packet *packet = _checkPacketUserData(L, 1);		
+	packet->send();
+	return 0;
+}
+
+static const luaL_Reg Packetlib[] =
+{
+	"new", Packet_new,
+	NULL, NULL
+};
+static const luaL_Reg Packetlib_m[] =
+{
+	"__gc", Packet_delete,
+	"addId", Packet_addId,
+	"addInt8", Packet_addInt8,
+	"addInt16", Packet_addInt16,
+	"addInt32", Packet_addInt32,
+	"addInt64", Packet_addInt64,
+	"addFloat", Packet_addFloat,
+	"addDouble", Packet_addDouble,
+	"addString", Packet_addString,
+	"send", Packet_send,
+	NULL, NULL
+};
 
 static int sys_sleep(lua_State *L)
 {
@@ -48,21 +164,12 @@ static int net_disconnect(lua_State *L)
 	return 0;
 }
 
-static int net_send(lua_State *L)
-{
-	::luaL_checktype(L, 1, LUA_TUSERDATA);
-	const VarList &args = *((VarList*)tolua_tousertype(L, 1, 0));
-	GetNetImp()->writePack(args);
-	return 0;
-}
-
 static const luaL_Reg netlib[] =
 {
 	"start", net_start,
 	"stop", net_stop,
 	"connect", net_connect,
 	"disconnect", net_disconnect,
-	"send", net_send,
 	NULL, NULL
 };
 
@@ -160,8 +267,14 @@ static const luaL_Reg eventlib[] =
 
 int luaopen_ScriptInterface(lua_State *L)
 {
-	::luaL_register(L, "sys", syslib);
-	::luaL_register(L, "net", netlib);
-	::luaL_register(L, "event", eventlib);
+	luaL_newmetatable(L, LUA_USERDATA_PACKET);
+	lua_pushvalue(L, -1);
+	lua_setfield(L, -2, "__index");
+	luaL_register(L, NULL, Packetlib_m);
+	luaL_register(L, "Packet", Packetlib);
+
+	luaL_register(L, "sys", syslib);
+	luaL_register(L, "net", netlib);
+	luaL_register(L, "event", eventlib);
 	return 1;
 }
