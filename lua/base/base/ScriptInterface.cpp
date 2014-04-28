@@ -130,6 +130,8 @@ static int event_call(lua_State *L)
 		case Var::BOOL:
 			lua_pushboolean(L, result.get(i).toBool() ? 1 : 0);
 			break;
+		case Var::BYTE:
+		case Var::SHORT:
 		case Var::INT:
 		case Var::INT64:
 		case Var::FLOAT:

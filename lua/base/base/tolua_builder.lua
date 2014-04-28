@@ -95,6 +95,7 @@ extern "C" {
 }
 
 #include "VarList.h"
+#include "Packet.h"
 
 ]])
 

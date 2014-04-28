@@ -18,7 +18,7 @@ void LogHex( char *buffer, size_t len )
 	{
 		if (i==0 || i%16==0)
 		{
-			printf("\n%08xh: ", i);
+			printf("\n%08xh: ", buffer+i);
 		}
 		else if (i%8 == 0)
 		{

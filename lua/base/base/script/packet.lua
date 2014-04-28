@@ -1,33 +1,20 @@
 require("classlib")
 
 local VAR_UNDEFINED = 0
-local VAR_STRING = 1
---local VAR_RESERVED_DONT_USE_1,
-local VAR_INT = 3
-local VAR_FLOAT = 4
-local VAR_NUMBER = 5
-local VAR_BOOL = 6
-local VAR_INT64 = 7
+local VAR_BOOL = 1
+local VAR_INT = 2
+local VAR_FLOAT = 3
+local VAR_STRING = 4
 
--- not defined
-local VAR_BYTE = 8
-local VAR_SHORT = 9
+local VAR_INT64 = 9
+local VAR_NUMBER = 10
+
+local VAR_BYTE = 11
+local VAR_SHORT = 12
 
 class.Packet()
 function Packet:__init(...)
     self.args = VarList()
-
-    -- add header
-    self.args:addInt32(0)
-    self.args:addInt32(0x100)
-    self.args:addInt32(0)
-    self.args:addInt32(2)
-    self.args:addInt32(0)
-    self.args:addInt32(0)
-    self.args:addInt32(5)
-    self.args:addInt32(6)
-    self.args:addInt32(7)
-    self.args:addInt32(8)
 end
 
 function Packet:addId(id)
@@ -66,6 +53,7 @@ end
 
 function Packet:addString(val)
     self.args:addInt8(VAR_STRING)
+    self.args:addInt16(string.len(val))
     self.args:addString(val)
 end
 

@@ -132,6 +132,8 @@ void ScriptEngine::callEvent( const char *name, const VarList &args, VarList &re
 				case Var::BOOL:
 					lua_pushboolean(m_luaState, args.get(i).toBool() ? 1 : 0);
 					break;
+				case Var::BYTE:
+				case Var::SHORT:
 				case Var::INT:
 				case Var::INT64:
 				case Var::FLOAT:

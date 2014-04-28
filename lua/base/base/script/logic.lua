@@ -1,5 +1,3 @@
-require("packet")
-
 logic = logic or {}
 
 logic.login = function(username, password)

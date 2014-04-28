@@ -45,6 +45,17 @@ void NetImp::onRead(BitStream &bs)
 	{
 		VarList args, result;
 
+		// read header
+		bs.readInt32();
+		bs.readInt32();
+		bs.readInt32();
+		bs.readInt32();
+		bs.readInt32();
+		bs.readInt32();
+		bs.readInt32();
+		bs.readInt32();
+		bs.readInt32();
+
 		int id = bs.readInt32();	
 		args.add(id);
 		while (!bs.isEnd())
@@ -54,6 +65,12 @@ void NetImp::onRead(BitStream &bs)
 			{
 			case Var::BOOL:
 				args.add(bs.readInt8() ? true : false);
+				break;
+			case Var::BYTE:
+				args.add(bs.readInt8());
+				break;
+			case Var::SHORT:
+				args.add(bs.readInt16());
 				break;
 			case Var::INT:
 				args.add(bs.readInt32());
@@ -92,15 +109,33 @@ void NetImp::writePack( const VarList &args )
 	assert(args.count() >= 1);
 
 	BitStream bs;
+
+	// write header
+	bs.writeInt32(0x100);
+	bs.writeInt32(0);
+	bs.writeInt32(2);
+	bs.writeInt32(0);
+	bs.writeInt32(0);
+	bs.writeInt32(5);
+	bs.writeInt32(6);
+	bs.writeInt32(7);
+	bs.writeInt32(8);
+
 	int id = args.get(0).toInt();
 	bs.writeInt32(id);
-	for (size_t i=1; i<args.count(); ++i)
+	for (int i=1; i<args.count(); ++i)
 	{
 		int type = args.get(i).getType();
 		switch (type)
 		{
 		case Var::BOOL:
 			bs.writeInt8(args.get(i).toBool() ? 1 : 0);
+			break;
+		case Var::BYTE:
+			bs.writeInt8(args.get(i).toInt());
+			break;
+		case Var::SHORT:
+			bs.writeInt16(args.get(i).toInt());
 			break;
 		case Var::INT:
 			bs.writeInt32(args.get(i).toInt());

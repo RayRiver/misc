@@ -1,6 +1,6 @@
 network = network or {}
 
-local FUNCMAP = {}
+local m_function_map = {}
 
 local function onNetConnected()
     print("lua onNetConnected")
@@ -21,11 +21,11 @@ local function onNetReceive(id, ...)
     end
 end
 
-FUNCMAP[0xA008] = function(...)
+m_function_map[0xA008] = function(...)
     log("onNetReceiveLoginResp")
 end
 
-FUNCMAP[0xA006] = function(...)
+m_function_map[0xA006] = function(...)
     log("onNetReceiveExistRole")
 end
 

@@ -154,12 +154,17 @@ void NetSocket::do_write()
 
 	int ret = 0, bytes = 0;
 	int length = m_write_buffer.size();
-	ret = ::send(m_fd, (const char *)&length, sizeof(int), 0);
+	int length_send;
+	*((char *)&length_send + 0) = *((char *)&length + 3);
+	*((char *)&length_send + 1) = *((char *)&length + 2);
+	*((char *)&length_send + 2) = *((char *)&length + 1);
+	*((char *)&length_send + 3) = *((char *)&length + 0);
+	ret = ::send(m_fd, (const char *)&length_send, sizeof(int), 0);
 	bytes += ret;
 	if (ret == sizeof(int))
 	{
 		Log("do_write header:");
-		LogHex((char *)&length, ret);
+		LogHex((char *)&length_send, ret);
 
 		do {
 			ret = ::send(m_fd, (const char *)m_write_buffer.buffer(), m_write_buffer.size(), 0);
@@ -208,6 +213,10 @@ void NetSocket::update()
 			// read length
 			int len = 0;
 			memcpy((char *)&len, data, sizeof(int));
+			char *p = (char *)&len;
+			char tmp;
+			tmp = p[0]; p[0] = p[3]; p[3] = tmp;
+			tmp = p[1]; p[1] = p[2]; p[2] = tmp;
 
 			// not a whole package
 			if (bytes < sizeof(int) + len)

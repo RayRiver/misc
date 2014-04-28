@@ -12,13 +12,17 @@ public:
 	enum Type
 	{
 		UNDEFINED,
-		STRING,
-		_RESERVED_DONT_USE_1,
+		BOOL,
 		INT,
 		FLOAT,
-		NUMBER,
-		BOOL,
+		STRING,
+		_RESERVED_DONT_USE_1, // wide string
+		_RESERVED_DONT_USE_2, // object
+		_RESERVED_DONT_USE_3, // pointer
+		_RESERVED_DONT_USE_4, // userdata
+
 		INT64,
+		NUMBER,
 
 		BYTE,
 		SHORT,
@@ -118,8 +122,14 @@ private:
 
 		switch (val.m_type)
 		{
+		case Var::BYTE:
+			this->set((int8_t)val.m_numberValue);
+			break;
+		case Var::SHORT:
+			this->set((int16_t)val.m_numberValue);
+			break;
 		case Var::INT:
-			this->set((int)val.m_numberValue);
+			this->set((int32_t)val.m_numberValue);
 			break;
 		case Var::INT64:
 			this->set((int64_t)val.m_numberValue);
@@ -155,7 +165,19 @@ public:
 		this->clear();
 	}
 
-	Var(int val)
+	Var(int8_t val)
+	{
+		this->init();
+		this->set(val);
+	}
+
+	Var(int16_t val)
+	{
+		this->init();
+		this->set(val);
+	}
+
+	Var(int32_t val)
 	{
 		this->init();
 		this->set(val);
@@ -230,10 +252,10 @@ public:
 		return m_boolValue;
 	}
 
-	inline uint8_t toByte() const
+	inline int8_t toByte() const
 	{
 		assert(this->isNumber());
-		return (uint8_t)m_numberValue;
+		return (int8_t)m_numberValue;
 	}
 
 	inline int16_t toShort() const
@@ -245,7 +267,7 @@ public:
 	inline int32_t toInt() const
 	{
 		assert(this->isNumber());
-		return (int)m_numberValue;
+		return (int32_t)m_numberValue;
 	}
 
 	inline int64_t toInt64() const
@@ -322,19 +344,19 @@ public:
 	inline bool operator == (int8_t val) const
 	{
 		if (!this->isNumber()) return false;
-		return (int)m_numberValue == val;
+		return (int8_t)m_numberValue == val;
 	}
 
 	inline bool operator == (int16_t val) const
 	{
 		if (!this->isNumber()) return false;
-		return (int)m_numberValue == val;
+		return (int16_t)m_numberValue == val;
 	}
 
 	inline bool operator == (int32_t val) const
 	{
 		if (!this->isNumber()) return false;
-		return (int)m_numberValue == val;
+		return (int32_t)m_numberValue == val;
 	}
 
 	inline bool operator == (int64_t val) const
@@ -385,6 +407,8 @@ public:
 		{
 		case Var::STRING:
 			return strcmp(m_stringValue, val.m_stringValue) == 0;
+		case Var::BYTE:
+		case Var::SHORT:
 		case Var::NUMBER:
 		case Var::FLOAT:
 		case Var::INT:

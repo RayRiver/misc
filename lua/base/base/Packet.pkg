@@ -1,0 +1,16 @@
+class Packet
+{
+	Packet();
+
+	void addId(double val);
+	void addInt8(double val);
+	void addInt16(double val);
+	void addInt32(double val);
+	void addInt64(double val);
+	void addFloat(double val);
+	void addDouble(double val);
+	void addString(const char *val);
+
+	void send();
+
+};

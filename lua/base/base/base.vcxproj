@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClCompile Include="BitStream.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="Packet.cpp" />
     <ClCompile Include="ScriptEngine.cpp" />
     <ClCompile Include="ScriptInterface.cpp" />
     <ClCompile Include="toluaInterface.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="NetEngine.h" />
     <ClInclude Include="NetImp.h" />
     <ClInclude Include="NetSocket.h" />
+    <ClInclude Include="Packet.h" />
     <ClInclude Include="ScriptEngine.h" />
     <ClInclude Include="StreamBuffer.h" />
     <ClInclude Include="Sys.h" />
@@ -121,11 +123,11 @@
     <ClInclude Include="VarList.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Packet.pkg" />
     <None Include="script\classlib.lua" />
     <None Include="script\logic.lua" />
     <None Include="script\main.lua" />
     <None Include="script\network.lua" />
-    <None Include="script\packet.lua" />
     <None Include="toluaInterface.pkg" />
     <None Include="tolua_builder.bat" />
     <None Include="tolua_builder.lua" />
