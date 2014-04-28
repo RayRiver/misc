@@ -4,7 +4,6 @@
 #include "VarList.h"
 #include "ScriptEngine.h"
 #include "NetEngine.h"
-#include "tolua_fix.h"
 #include "Packet.h"
 #include "LuaHelper.h"
 

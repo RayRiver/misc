@@ -48,22 +48,6 @@ public:
 		m_vars[index] = var;
 	}
 
-	// add for lua
-	inline void addInt8(LUA_NUMBER val) { add((int8_t)val); }
-	inline void addInt16(LUA_NUMBER val) { add((int16_t)val); }
-	inline void addInt32(LUA_NUMBER val) { add((int32_t)val); }
-	inline void addInt64(LUA_NUMBER val) { add((int64_t)val); }
-	inline void addFloat(LUA_NUMBER val) { add((float)val); }
-	inline void addDouble(LUA_NUMBER val) { add((double)val); }
-	inline void addString(const char *val) { add((const char *)val); }
-
-	inline LUA_NUMBER toInt8(int index) { return get(index).toNumber(); }
-	inline LUA_NUMBER toInt16(int index) { return get(index).toNumber(); }
-	inline LUA_NUMBER toInt32(int index) { return get(index).toNumber(); }
-	inline LUA_NUMBER toInt64(int index) { return get(index).toNumber(); }
-	inline LUA_NUMBER toFloat(int index) { return get(index).toNumber(); }
-	inline LUA_NUMBER toDouble(int index) { return get(index).toNumber(); }
-	inline const char *toString(int index) { return get(index).toString(); }
 
 private:
 	std::vector<Var> m_vars;
