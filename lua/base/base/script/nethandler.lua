@@ -2,7 +2,7 @@ nethandler = nethandler or {}
 
 nethandler.login = function(username, password)
     local p = Packet.new()
-    p.addId(p, 0xA007)
+    p:addId(0xA007)
     p:addInt32(19245)
     p:addString(username)
     p:addString("dc483e80a7a0bd9ef71d8cf973673924")
@@ -34,8 +34,21 @@ local function onExistRole(...)
     end
 end
 
+local m_handler_map = {}
+local function registerHandler(id, fn)
+    m_handler_map[id] = fn
+end
+
 nethandler.init = function()
-    network.register_handler(0xA006, onExistRole)
+    registerHandler(0xA006, onExistRole)
+end
+
+nethandler.call = function(id, ...)
+    if m_handler_map[id] then
+        m_handler_map[id](unpack(arg)) 
+    else
+        log("nethandler.call cannot find handler, id=" .. tostring(id))
+    end
 end
 
 return nethandler

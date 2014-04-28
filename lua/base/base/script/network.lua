@@ -13,16 +13,14 @@ end
 
 local function onNetReceive(id, ...)
     print("lua onNetReceive id: " .. tostring(id))
-
+    nethandler.call(id, unpack(arg))
+    --[[
     if m_function_map[id] then
         m_function_map[id](unpack(arg))
     else
         log("undefined network protocol id: " .. tostring(id))
     end
-end
-
-network.register_handler = function(id, fn)
-    m_function_map[id] = fn
+    --]]
 end
 
 network.init = function()
