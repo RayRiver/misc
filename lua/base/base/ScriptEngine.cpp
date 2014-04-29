@@ -1,7 +1,12 @@
 #include "ScriptEngine.h"
 
 #include <assert.h>
-#include "lua.hpp"
+extern "C" {
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+}
+
 
 #include "VarList.h"
 
@@ -22,11 +27,18 @@ ScriptEngine::~ScriptEngine()
 	stop();
 }
 
-bool ScriptEngine::start()
+bool ScriptEngine::start(lua_State *L/* = nullptr*/)
 {
 	if (!m_luaState)
 	{
-		m_luaState = luaL_newstate();
+		if (L)
+		{
+			m_luaState = L;
+		}
+		else
+		{
+			m_luaState = luaL_newstate();
+		}
 		if (!m_luaState)
 		{
 			return false;
@@ -43,14 +55,18 @@ bool ScriptEngine::start()
 		extern int luaopen_ScriptInterface(lua_State *L);
 		luaopen_ScriptInterface(m_luaState);
 
-		int e = luaL_dofile(m_luaState, "script/main.lua");
-		if ( e ) {
-			printf("%s\n", lua_tostring(m_luaState, -1));
-			lua_pop(m_luaState, 1);
-			lua_close(m_luaState);
-			m_luaState = nullptr;
-			return false;
+		if (!L)
+		{
+			int e = luaL_dofile(m_luaState, "script/main.lua");
+			if ( e ) {
+				printf("%s\n", lua_tostring(m_luaState, -1));
+				lua_pop(m_luaState, 1);
+				lua_close(m_luaState);
+				m_luaState = nullptr;
+				return false;
+			}
 		}
+
 
 		return true;
 	}

@@ -6,7 +6,12 @@
 #include <assert.h>
 #include <windows.h>
 
-#include "lua.hpp"
+extern "C" {
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+}
+
 
 #include "Sys.h"
 #include "BitStream.h"

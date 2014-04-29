@@ -1,7 +1,12 @@
 #ifndef LuaHelper_h__
 #define LuaHelper_h__
 
-#include "lua.hpp"
+extern "C" {
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+}
+
 
 typedef int LUA_FUNCTION;
 #define INVALID_LUA_FUNCTION 0

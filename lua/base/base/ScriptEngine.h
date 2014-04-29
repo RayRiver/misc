@@ -3,7 +3,12 @@
 
 #include <string>
 #include <map>
-#include "lua.hpp"
+extern "C" {
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+}
+
 
 #include "LuaHelper.h"
 
@@ -16,7 +21,7 @@ public:
 	static ScriptEngine *instance();
 	virtual ~ScriptEngine();
 
-	bool start();
+	bool start(lua_State *L = nullptr);
 	void stop();
 
 	inline lua_State *state() { return m_luaState; }

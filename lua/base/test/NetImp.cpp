@@ -1,6 +1,11 @@
 #include "NetImp.h"
 
-#include "lua.hpp"
+extern "C" {
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+}
+
 #include "NetEngine.h"
 #include "VarList.h"
 #include "Packet.h"

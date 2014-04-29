@@ -92,6 +92,11 @@
     <None Include="script\nethandler.lua" />
     <None Include="script\network.lua" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\base\base.vcxproj">
+      <Project>{2fda006d-a622-4622-82d9-ed842bbfafeb}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
