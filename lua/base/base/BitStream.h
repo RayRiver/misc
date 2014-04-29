@@ -6,6 +6,13 @@
 class BitStream
 {
 public:
+	enum BYTE_ORDER
+	{
+		BIG_ENDIAN,
+		LITTLE_ENDIAN,
+	};
+
+public:
 	BitStream();
 	BitStream(unsigned char *data, size_t len);
 	virtual ~BitStream();
@@ -13,8 +20,14 @@ public:
 	inline uint8_t *buffer() { return m_buffer; }
 	inline size_t size() { return m_write_pos; }
 	inline void clear() { m_read_pos = 0; m_write_pos = 0; }
-	void cut(size_t bytes);
 	inline bool isEnd() { return m_read_pos >= m_write_pos; } 
+
+	static inline BitStream::BYTE_ORDER getDefaultByteOrder() { return s_defaultByteOrder; }
+	static inline void setDefaultByteOrder(BitStream::BYTE_ORDER byte_order) { s_defaultByteOrder = byte_order; }
+	inline BitStream::BYTE_ORDER getByteOrder() { return m_byteOrder; } 
+	inline void setByteOrder(BitStream::BYTE_ORDER byte_order) { m_byteOrder = byte_order; } 
+
+	void cut(size_t bytes);
 
 	int8_t readInt8();
 	int16_t readInt16();
@@ -40,6 +53,9 @@ private:
 	size_t m_buffer_size;
 	size_t m_read_pos;
 	size_t m_write_pos;
+
+	static BitStream::BYTE_ORDER s_defaultByteOrder;
+	BitStream::BYTE_ORDER m_byteOrder;
 };
 
 #endif // BitStream_h__

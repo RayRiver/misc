@@ -119,10 +119,6 @@ void NetSocket::do_read()
 	do {
 		ret = ::recv(m_fd, (char *)m_read_buffer.buffer()+m_read_buffer.size(), m_read_buffer.buffer_size()-m_read_buffer.size(), 0);
 		if (ret <= 0) break;
-
-		Log("do_read:");
-		LogHex((char *)m_read_buffer.buffer()+m_read_buffer.size(), ret);
-
 		m_read_buffer.setWritePos(m_read_buffer.size()+ret);
 		bytes += ret;
 	} while (true);
@@ -153,26 +149,10 @@ void NetSocket::do_write()
 	}
 
 	int ret = 0, bytes = 0;
-	int length = m_write_buffer.size();
-	int length_send;
-	*((char *)&length_send + 0) = *((char *)&length + 3);
-	*((char *)&length_send + 1) = *((char *)&length + 2);
-	*((char *)&length_send + 2) = *((char *)&length + 1);
-	*((char *)&length_send + 3) = *((char *)&length + 0);
-	ret = ::send(m_fd, (const char *)&length_send, sizeof(int), 0);
-	bytes += ret;
-	if (ret == sizeof(int))
 	{
-		Log("do_write header:");
-		LogHex((char *)&length_send, ret);
-
 		do {
 			ret = ::send(m_fd, (const char *)m_write_buffer.buffer(), m_write_buffer.size(), 0);
 			if (ret <= 0) break;
-
-			Log("do_write:");
-			LogHex((char *)m_write_buffer.buffer(), ret);
-
 			m_write_buffer.cut(ret);
 			bytes += ret;
 		} while(true);
@@ -195,48 +175,34 @@ void NetSocket::do_error( int error_code )
 #ifdef _WIN32
 	system_error_code = GetLastError();
 #endif
-	printf("do error: %d, %d\n", error_code, system_error_code);
+	Log("do error: %d, %d", error_code, system_error_code);
 }
 
 void NetSocket::update()
 {
-	BitStream pack;
+	BitStream packet_stream;
 
 	m_read_mutex.lock();
 	if (m_read_stream.size() > 0)
 	{
 		unsigned char *data = m_read_stream.buffer();
-		size_t bytes = m_read_stream.size(); 
+		size_t bytes = m_read_stream.size();
 
-		while (bytes > sizeof(int))
+		size_t offset = 0;
+		int len = this->onReadLength(data, bytes, offset);
+		if (len > 0)
 		{
-			// read length
-			int len = 0;
-			memcpy((char *)&len, data, sizeof(int));
-			char *p = (char *)&len;
-			char tmp;
-			tmp = p[0]; p[0] = p[3]; p[3] = tmp;
-			tmp = p[1]; p[1] = p[2]; p[2] = tmp;
-
-			// not a whole package
-			if (bytes < sizeof(int) + len)
-			{
-				break;
-			}
-
-			// read other
-			pack.writeData(data+sizeof(int), len);
-			m_read_stream.cut(sizeof(int)+len);
-
-			break;
+			// read packet stream
+			packet_stream.writeData(data+offset, len);
+			m_read_stream.cut(offset + len);
 		}
 	}
 	m_read_mutex.unlock();
 
 	// dispatch
-	if (pack.size() > 0)
+	if (packet_stream.size() > 0)
 	{
-		this->onRead(pack);
+		this->onRead(packet_stream);
 	}
 }
 

@@ -21,6 +21,7 @@
 
 void test_socket()
 {
+	/*
 	NetEngine::instance()->start();
 
 	class TestSocket : public NetSocket
@@ -52,6 +53,7 @@ void test_socket()
 	}
 
 	NetEngine::instance()->stop();
+	*/
 }
 
 void test_thread()
@@ -153,9 +155,17 @@ void test_bitstream()
 	printf("readFloat: %f\n", bs.readFloat());
 }
 
+#include "Log.h"
+void test_log()
+{
+	Log("test log %d", 1);	
+	char buffer[32];
+	memset(buffer, 0x00, sizeof(buffer));
+	LogHex(buffer, sizeof(buffer));
+}
+
 void script_main()
 {
-	//NetEngine::instance()->start();
 	ScriptEngine::instance()->start();
 
 	// main loop
@@ -175,18 +185,8 @@ void script_main()
 	}
 }
 
-#include "Log.h"
-void test_log()
-{
-	Log("test log %d", 1);	
-	char buffer[32];
-	memset(buffer, 0x00, sizeof(buffer));
-	LogHex(buffer, sizeof(buffer));
-}
-
 int main(int argc, char* argv[])
 {
-	//test_log(); 
 	script_main();
 	system("pause");
 	return 0;

@@ -2,6 +2,8 @@
 
 #include "NetImp.h"
 
+using namespace std;
+
 Packet::Packet()
 {
 
@@ -56,11 +58,6 @@ void Packet::addDouble( LUA_NUMBER val )
 void Packet::addString( const char *val )
 {
 	m_args.add((int8_t)Var::STRING);
-	m_args.add((int32_t)strlen(val));
+	m_args.add((int16_t)strlen(val));
 	m_args.add((const char *)val);
-}
-
-void Packet::send()
-{
-	GetNetImp()->writePack(m_args);
 }

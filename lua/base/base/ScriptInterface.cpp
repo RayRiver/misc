@@ -94,13 +94,6 @@ static int Packet_addString(lua_State *L)
 	return 0;
 }
 
-static int Packet_send(lua_State *L)
-{
-	Packet *packet = _checkPacketUserData(L, 1);		
-	packet->send();
-	return 0;
-}
-
 static const luaL_Reg Packetlib[] =
 {
 	"new", Packet_new,
@@ -117,7 +110,6 @@ static const luaL_Reg Packetlib_m[] =
 	"addFloat", Packet_addFloat,
 	"addDouble", Packet_addDouble,
 	"addString", Packet_addString,
-	"send", Packet_send,
 	NULL, NULL
 };
 
@@ -163,12 +155,20 @@ static int net_disconnect(lua_State *L)
 	return 0;
 }
 
+static int net_send(lua_State *L)
+{
+	Packet *packet = _checkPacketUserData(L, 1);	
+	GetNetImp()->writePacket(*packet);
+	return 0;
+}
+
 static const luaL_Reg netlib[] =
 {
 	"start", net_start,
 	"stop", net_stop,
 	"connect", net_connect,
 	"disconnect", net_disconnect,
+	"send", net_send,
 	NULL, NULL
 };
 

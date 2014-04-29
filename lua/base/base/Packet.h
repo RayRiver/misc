@@ -4,6 +4,8 @@
 #include "lua.hpp"
 #include "VarList.h"
 
+#include <vector>
+
 class Packet
 {
 public:
@@ -19,11 +21,10 @@ public:
 	void addDouble(LUA_NUMBER val);
 	void addString(const char *val);
 
-	void send();
+	inline VarList &getVarList() { return m_args; }
 
 private:
 	VarList m_args;
-	
 };
 
 #endif // Packet_h__

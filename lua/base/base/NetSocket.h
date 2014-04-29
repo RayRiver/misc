@@ -6,6 +6,7 @@
 #include "StreamBuffer.h"
 #include "BitStream.h"
 
+class Packet;
 class NetSocket
 {
 public:
@@ -33,7 +34,9 @@ public:
 
 	virtual void onConnected() = 0;
 	virtual void onDisconnect() = 0;
+	virtual int onReadLength(unsigned char *buffer, size_t size, size_t &offset) = 0;
 	virtual void onRead(BitStream &stream) = 0;
+	virtual void writePacket(Packet &packet) = 0;
 
 private:
 	bool _do_connect(const char *hostname, unsigned short port);

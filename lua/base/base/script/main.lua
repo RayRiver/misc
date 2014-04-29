@@ -55,6 +55,7 @@ function main()
     nethandler.init()
 
     net.connect("192.168.6.227", 9090)
+    --net.connect("172.19.60.56", 8080)
 end
 
 xpcall(main, __G__TRACKBACK__)

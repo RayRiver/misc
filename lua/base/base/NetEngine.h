@@ -32,7 +32,8 @@ private:
 	bool m_bRunning;
 	std::vector<NetSocket *> m_socks;
 	std::mutex m_socks_mutex;
-
 };
+
+extern NetSocket *GetNetImp();
 
 #endif // NetEngine_h__

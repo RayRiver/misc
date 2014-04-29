@@ -4,18 +4,17 @@
 #include "NetSocket.h"
 
 class BitStream;
-class VarList;
+class Packet;
 class NetImp : public NetSocket
 {
 public:
-	void writePack(const VarList &args);
-
 	virtual void onConnected();
 	virtual void onDisconnect();
+	virtual int onReadLength(unsigned char *buffer, size_t size, size_t &offset);
 	virtual void onRead(BitStream &stream);
+
+	virtual void writePacket(Packet &packet);
+
 };
-
-extern NetImp *GetNetImp();
-
 
 #endif // NetImp_h__

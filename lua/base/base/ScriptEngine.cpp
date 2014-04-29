@@ -177,28 +177,6 @@ void ScriptEngine::callEvent( const char *name, const VarList &args, VarList &re
 			}
 		}
 
-		/*
-		// TODO
-		int ret = 0;
-
-		// push function by handler
-		toluafix_get_function_by_refid(m_luaState, nHandler);
-		if (lua_isfunction(m_luaState, -1))
-		{
-			if (numArgs > 0)
-			{
-				lua_insert(m_state, -(numArgs + 1));                     
-			}
-			ret = executeFunction(numArgs);	
-		}
-		else
-		{
-			printf("[LUA ERROR] function refid '%d' does not reference a Lua function\n", nHandler);
-			lua_pop(m_state, 1);
-		}
-		lua_settop(m_luaState, 0);
-		*/
-
 	}
 }
 
