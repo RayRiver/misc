@@ -5,120 +5,91 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="base">
+    <Filter Include="classes">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="classes">
-      <UniqueIdentifier>{6924e862-ea6b-4175-9b6e-e1a71c392ef9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="script">
-      <UniqueIdentifier>{1ac78cd0-cd67-4bea-94a6-4e5bff78df2d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NetEngine.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="NetSocket.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="ThreadManager.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="ThreadObj.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="Sys.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="StreamBuffer.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="BitStream.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="NetImp.cpp">
       <Filter>classes</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="NetSocket.cpp">
+      <Filter>classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadManager.cpp">
+      <Filter>classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadObj.cpp">
+      <Filter>classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Sys.cpp">
+      <Filter>classes</Filter>
+    </ClCompile>
+    <ClCompile Include="StreamBuffer.cpp">
+      <Filter>classes</Filter>
+    </ClCompile>
+    <ClCompile Include="BitStream.cpp">
       <Filter>classes</Filter>
     </ClCompile>
     <ClCompile Include="ScriptEngine.cpp">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClCompile>
     <ClCompile Include="ScriptInterface.cpp">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClCompile>
     <ClCompile Include="Log.cpp">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClCompile>
     <ClCompile Include="Packet.cpp">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClCompile>
     <ClCompile Include="LuaHelper.cpp">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VarList.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="Var.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="NetEngine.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="NetSocket.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="NetDef.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="ThreadManager.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="ThreadObj.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="Sys.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="StreamBuffer.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="BitStream.h">
-      <Filter>base</Filter>
-    </ClInclude>
-    <ClInclude Include="NetImp.h">
       <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="ScriptEngine.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="Log.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="Packet.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
     <ClInclude Include="LuaHelper.h">
-      <Filter>base</Filter>
+      <Filter>classes</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="script\main.lua">
-      <Filter>script</Filter>
-    </None>
-    <None Include="script\network.lua">
-      <Filter>script</Filter>
-    </None>
-    <None Include="script\classlib.lua">
-      <Filter>script</Filter>
-    </None>
-    <None Include="script\nethandler.lua">
-      <Filter>script</Filter>
-    </None>
   </ItemGroup>
 </Project>

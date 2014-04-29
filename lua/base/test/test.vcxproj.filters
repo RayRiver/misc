@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="script">
+      <UniqueIdentifier>{0b703901-faf1-41f1-a739-4b148f482235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="classes">
+      <UniqueIdentifier>{418a1c4b-8161-42b2-a629-bd874d94338c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="NetImp.cpp">
+      <Filter>classes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NetImp.h">
+      <Filter>classes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="script\main.lua">
+      <Filter>script</Filter>
+    </None>
+    <None Include="script\nethandler.lua">
+      <Filter>script</Filter>
+    </None>
+    <None Include="script\network.lua">
+      <Filter>script</Filter>
+    </None>
+    <None Include="script\classlib.lua">
+      <Filter>script</Filter>
+    </None>
+  </ItemGroup>
+</Project>

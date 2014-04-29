@@ -1,7 +1,5 @@
 #include "Packet.h"
 
-#include "NetImp.h"
-
 using namespace std;
 
 Packet::Packet()

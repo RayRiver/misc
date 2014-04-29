@@ -11,20 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2FDA006D-A622-4622-82D9-ED842BBFAFEB}</ProjectGuid>
+    <ProjectGuid>{A61D6B3B-BB2A-40CF-9C77-F86A2D808329}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>base</RootNamespace>
-    <ProjectName>stwbase</ProjectName>
+    <RootNamespace>test</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -52,20 +51,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>d:\dev\lib\Lua\5.1\include;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>
-      </DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>..\base;d:\dev\lib\Lua\5.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Ws2_32.lib;E:\lib\Lua\5.1\lib\lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\Debug\stwbase.lib;d:\dev\lib\Lua\5.1\lib\lua51.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Lib>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -86,34 +80,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BitStream.cpp" />
-    <ClCompile Include="Log.cpp" />
-    <ClCompile Include="LuaHelper.cpp" />
-    <ClCompile Include="Packet.cpp" />
-    <ClCompile Include="ScriptEngine.cpp" />
-    <ClCompile Include="ScriptInterface.cpp" />
-    <ClCompile Include="NetEngine.cpp" />
-    <ClCompile Include="NetSocket.cpp" />
-    <ClCompile Include="StreamBuffer.cpp" />
-    <ClCompile Include="Sys.cpp" />
-    <ClCompile Include="ThreadManager.cpp" />
-    <ClCompile Include="ThreadObj.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="NetImp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BitStream.h" />
-    <ClInclude Include="Log.h" />
-    <ClInclude Include="LuaHelper.h" />
-    <ClInclude Include="NetDef.h" />
-    <ClInclude Include="NetEngine.h" />
-    <ClInclude Include="NetSocket.h" />
-    <ClInclude Include="Packet.h" />
-    <ClInclude Include="ScriptEngine.h" />
-    <ClInclude Include="StreamBuffer.h" />
-    <ClInclude Include="Sys.h" />
-    <ClInclude Include="ThreadManager.h" />
-    <ClInclude Include="ThreadObj.h" />
-    <ClInclude Include="Var.h" />
-    <ClInclude Include="VarList.h" />
+    <ClInclude Include="NetImp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="script\classlib.lua" />
+    <None Include="script\main.lua" />
+    <None Include="script\nethandler.lua" />
+    <None Include="script\network.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

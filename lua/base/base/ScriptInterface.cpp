@@ -1,11 +1,11 @@
 #include "lua.hpp"
 #include "Sys.h"
-#include "NetImp.h"
 #include "VarList.h"
 #include "ScriptEngine.h"
 #include "NetEngine.h"
 #include "Packet.h"
 #include "LuaHelper.h"
+#include "NetSocket.h"
 
 #define LUA_USERDATA_PACKET "lua_userdata_Packet"
 
