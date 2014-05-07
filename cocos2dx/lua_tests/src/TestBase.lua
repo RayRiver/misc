@@ -65,6 +65,19 @@ function TestBase:init()
     end
 end
 
+function TestBase:registerOnDraw()
+    self.glNode = cc.GLNode:create()
+    self.glNode:setContentSize(cc.size(display.width, display.height))
+    self.glNode:setAnchorPoint(cc.p(0.5, 0.5))
+    self.glNode:setPosition(display.width/2, display.height/2)
+    self.glNode:registerScriptDrawHandler(function()
+        if self.onDraw then
+            self:onDraw()
+        end
+    end)
+    self:addChild(self.glNode, -10)
+end
+
 function TestBase:setTitle(s)
     self.title = tostring(s)
 end

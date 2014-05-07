@@ -1,7 +1,7 @@
 local TestClass = class("ActionRotate", require("src.ActionsTest.ActionTestBase"))
 
 function TestClass:onEnter()
-    self:setDesc("RotateTo / RotateBy")
+    self:setDesc("RotateTo / RotateBy(pay attention on clone() function)")
 
     self:createSprites(3)
 

@@ -1,5 +1,13 @@
 return
 {
+    "ActionFade",
+    "ActionBlink",
+    "ActionFollow",
+    "ActionCardinalSpline",
+    "ActionJump",
+    "ActionRotationalSkew",
+    "ActionSkew",
+    "ActionScale",
     "ActionRotateBy3D",
     "ActionRotate",
     "ActionMove",

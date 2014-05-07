@@ -31,7 +31,7 @@ local function main()
     require("TestBase")
     require("TestManager")
     
-    runTest("ActionsTest")
+    runTest("CocostudioTest")
 
 end
 
