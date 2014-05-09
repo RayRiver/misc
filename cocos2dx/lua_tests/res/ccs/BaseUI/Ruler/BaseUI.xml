@@ -8,4 +8,24 @@
     <Project>TimeScale</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>ListView</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>ListViewItem</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>ListViewItem2</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>TestList</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>TestListItem</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

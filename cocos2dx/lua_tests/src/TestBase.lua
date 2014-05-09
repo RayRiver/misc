@@ -40,7 +40,7 @@ function TestBase:init()
     item1:setPosition(menu_x-distance, menu_y)
     item2:setPosition(menu_x, menu_y)
     item3:setPosition(menu_x+distance, menu_y)
-    self:addChild(menu)
+    self:addChild(menu, 100)
     
     -- menu items callback
     item1:registerScriptTapHandler(function() 
@@ -58,6 +58,22 @@ function TestBase:init()
            self.callbacks.next.fn(self.callbacks.next.obj) 
         end
     end)
+    
+    -- add return menu button
+    local label = cc.Label:createWithTTF({
+        fontFilePath="res/fonts/arial.ttf", 
+        fontSize=32
+    }, "BACK")
+    local menuItem = cc.MenuItemLabel:create(label)
+    menuItem:registerScriptTapHandler(function()
+        require("src.TestList")
+        runTestList()
+    end)
+    menuItem:setAnchorPoint(1,0)
+    menuItem:setPosition(display.right, display.bottom)
+    local menu = cc.Menu:create(menuItem)
+    menu:setPosition(0, 0)
+    self:addChild(menu,100)
 
     -- onEnter call
     if type(self.onEnter) == "function" then

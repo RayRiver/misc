@@ -31,7 +31,13 @@ local function main()
     require("TestBase")
     require("TestManager")
     
-    runTest("CocostudioTest")
+    --runTest("CocostudioTest")
+    
+    require("TestList")
+    runTestList()
+    
+    --require("TestManager")
+    --runTest("CocostudioTest")
 
 end
 
