@@ -1,22 +1,23 @@
-local TestClass = class("TestAnimationEvent", require("src.ArmatureTest.ArmatureTestBase"))
+local TestClass = class("TestAnimationEvent", require("src.TestBase"))
 
 function TestClass:onEnter()
     self:setDesc("")
     
+    -- 转向1完成回调
     local function callback1(armature)
         armature:runAction(cc.ScaleBy:create(0.3,-1,1))
         armature:getAnimation():play("FireMax", 10)
     end
     
+    -- 转向2完成回调
     local function callback2(armature)
         armature:runAction(cc.ScaleBy:create(0.3,-1,1))
         armature:getAnimation():play("Fire", 10)
     end
     
+    -- 动画播放完成回调
     local function animationEvent(armature, movementType, movementID)
-        log("animationEvent")
         if movementType == ccs.MovementEventType.loopComplete then
-            log("loopComplete, movementID=" .. tostring(movementID))
             if movementID == "Fire" then
                 armature:stopAllActions()
                 armature:getAnimation():play("Walk")
@@ -31,6 +32,7 @@ function TestClass:onEnter()
         end
     end
     
+    -- 异步加载完成回调
     local function onAsyncLoaded()
         local armature = ccs.Armature:create("Cowboy");
         armature:setScaleX(-0.24)
@@ -43,8 +45,9 @@ function TestClass:onEnter()
         armature:getAnimation():play("Fire")
     end
 
-    self:asyncLoad(onAsyncLoaded) 
-
+    -- 异步加载资源
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfoAsync("res/armature/Cowboy.ExportJson", onAsyncLoaded)
+    
 end
 
 return TestClass
