@@ -60,8 +60,45 @@ function TestClass:onEnter()
 end
 
 function TestClass:onDraw()
+    cc.DrawPrimitives.drawColor4F(255, 255, 255, 255)
     cc.DrawPrimitives.drawPoly(self.track_points1, #self.track_points1, false)
     cc.DrawPrimitives.drawPoly(self.track_points2, #self.track_points2, false)
+
+    --self:onDrawDebug()
+end
+
+function TestClass:onDrawDebug()
+    local function _drawNode(node)
+        if not node:isVisible() then return end
+    
+        local x, y = node:getPosition()
+        local size = node:getContentSize()
+        cc.DrawPrimitives.drawRect(cc.p(x-size.width/2, y-size.height/2),
+            cc.p(x+size.width/2, y+size.height/2))
+    end
+    
+    local function drawNodes(node)
+        _drawNode(node)
+        local children = node:getChildren()
+        for _, n in pairs(children) do
+            drawNodes(n)
+        end
+    end
+ 
+ 
+    cc.DrawPrimitives.drawColor4F(255, 255, 0, 255)
+    local vertexes = 
+    {
+        0, 0, 10000,
+        0, 200, 10000,
+        200, 200, 10000,
+        200, 0, 10000,
+    }
+    gl.drawElements(gl.TRIANGLE_STRIP, 4, gl.UNSIGNED_INT, #vertexes, vertexes)
+    
+
+    --drawNodes(self)
+
 end
 
 return TestClass

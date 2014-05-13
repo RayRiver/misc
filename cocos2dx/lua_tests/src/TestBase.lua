@@ -27,6 +27,16 @@ function TestBase:init()
     label:setPosition(visibleRect.x+visibleRect.width/2, visibleRect.y+visibleRect.height-60)
     self:addChild(label)
     
+    -- add desc label
+    local label = cc.Label:createWithTTF({
+            fontFilePath="res/fonts/Thonburi.ttf", 
+            fontSize=16
+        }, 
+        tostring(""))
+    label:setPosition(display.cx, display.top-75)
+    self:addChild(label)
+    self.desc = label
+    
     -- add menu items
     local item1 = cc.MenuItemImage:create("res/Images/b1.png", "res/Images/b2.png", "res/Images/b1.png")
     local item2 = cc.MenuItemImage:create("res/Images/r1.png", "res/Images/r2.png", "res/Images/r1.png")
@@ -103,13 +113,7 @@ function TestBase:setSubTitle(s)
 end
 
 function TestBase:setDesc(s)
-    local label = cc.Label:createWithTTF({
-            fontFilePath="res/fonts/Thonburi.ttf", 
-            fontSize=16
-        }, 
-        tostring(s))
-    label:setPosition(display.cx, display.top-75)
-    self:addChild(label)
+    self.desc:setString(s)
 end
 
 function TestBase:setPrevCallback(obj, fn)

@@ -1,5 +1,11 @@
 return 
 {
+    "TestArmatureNesting2",
+    "TestAsynchronousLoading",
+    "TestArmatureNesting",
+    "TestPerformanceBatchNode",
+    "TestPerformance",
+    "TestChangeAnimationInternal",
     "TestUseMultiplePicture",
     "TestFrameEvent",
     "TestAnimationEvent",

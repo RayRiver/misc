@@ -1,9 +1,9 @@
 return
 {
+    "ActionCardinalSpline",
     "ActionFade",
     "ActionBlink",
     "ActionFollow",
-    "ActionCardinalSpline",
     "ActionJump",
     "ActionRotationalSkew",
     "ActionSkew",

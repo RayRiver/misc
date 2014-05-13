@@ -61,7 +61,7 @@ function TestClass:onEnter()
     local scaleY = display.height / bg:getContentSize().height
     bg:setScaleX(scaleX)
     bg:setScaleY(scaleY)
-    self:addChild(bg)
+    self:addChild(bg, -10000)
 
     -- 异步加载资源
     ccs.ArmatureDataManager:getInstance():addArmatureFileInfoAsync(
