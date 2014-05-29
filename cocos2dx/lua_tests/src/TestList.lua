@@ -1,8 +1,12 @@
 local TESTLIST = 
 {
+    "FrameworkTest",
+    "ActionsTest",
+    
+    "UserExtTest",
     "ArmatureTest",
     "ActionManagerTest",
-    "ActionsTest",
+    
     "CocostudioTest",
     "SchedulerTest",
 

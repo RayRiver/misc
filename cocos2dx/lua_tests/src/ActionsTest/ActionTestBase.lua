@@ -1,13 +1,16 @@
 local TestClass = class("ActionTestBase", require("src.TestBase"))
 
 function TestClass:createSprites(num)
-    self.spriteGrossini = cc.Sprite:create("res/Images/grossini.png")
+    self.spriteGrossini = display.newSprite("res/Images/grossini.png")
+    --self.spriteGrossini = cc.Sprite:create("res/Images/grossini.png")
     self:addChild(self.spriteGrossini)
     
-    self.spriteTamara = cc.Sprite:create("res/Images/grossinis_sister1.png")
+    self.spriteTamara = display.newSprite("res/Images/grossinis_sister1.png")
+    --self.spriteTamara = cc.Sprite:create("res/Images/grossinis_sister1.png")
     self:addChild(self.spriteTamara)
     
-    self.spriteKathia = cc.Sprite:create("res/Images/grossinis_sister2.png")
+    self.spriteKathia = display.newSprite("res/Images/grossinis_sister2.png")
+    --self.spriteKathia = cc.Sprite:create("res/Images/grossinis_sister2.png")
     self:addChild(self.spriteKathia)
 
     if num == 1 then

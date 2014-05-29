@@ -26,18 +26,24 @@ local function main()
     cc.FileUtils:getInstance():addSearchResolutionsOrder("src/");
     cc.FileUtils:getInstance():addSearchResolutionsOrder("res/");
     
+    require("src.config")
     require("src.framework.init")
+    require("src.framework.cc.init")
 
     require("TestBase")
     require("TestManager")
     
-    --runTest("CocostudioTest")
+
+
+    require("src.App.App").new():run()    
     
-    require("TestList")
-    runTestList()
+    
+    --require("TestList")
+    --runTestList()
     
     --require("TestManager")
     --runTest("CocostudioTest")
+
 
 end
 

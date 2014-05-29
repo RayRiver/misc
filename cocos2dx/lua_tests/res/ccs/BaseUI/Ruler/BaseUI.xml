@@ -28,4 +28,8 @@
     <Project>TestListItem</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>ui_login</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>
