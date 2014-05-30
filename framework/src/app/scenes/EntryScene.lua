@@ -10,7 +10,13 @@ function SceneClass:ctor()
 end
 
 function SceneClass:onEnter()
-    app:enterScene("MenuScene")
+    self:enterTest("TestUI")
+end
+
+function SceneClass:enterTest(testName)
+    local SubListScene = require("app.scenes.SubListScene")
+    local scene = SubListScene.new(testName)
+    display.replaceScene(scene)
 end
 
 return SceneClass

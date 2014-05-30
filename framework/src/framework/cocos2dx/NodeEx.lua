@@ -20,6 +20,15 @@ function NodeEx:align(anchorPoint, x, y)
     return self
 end
 
+function NodeEx:schedule(callback, interval)
+    local action = cc.RepeatForever:create(cc.Sequence:create(
+        cc.DelayTime:create(interval),
+        cc.CallFunc:create(callback)
+    ))
+    self:runAction(action)
+    return action
+end
+
 function NodeEx:performWithDelay(callback, delay)
     local action = cc.Sequence:create(
         cc.DelayTime:create(delay),
@@ -50,7 +59,7 @@ function NodeEx:hide()
 end
 
 function NodeEx:pos(x, y)
-    self.setPosition(x, y)
+    self:setPosition(x, y)
     return self
 end
 
@@ -74,7 +83,7 @@ function NodeEx:size(w, h)
 end
 
 function NodeEx:center()
-    self.setPosition(display.cx, display.cy)
+    self:setPosition(display.cx, display.cy)
     return self
 end
 

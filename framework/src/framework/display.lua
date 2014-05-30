@@ -181,20 +181,136 @@ function display.replaceScene(newScene)
     end
 end
 
+function display.newLayer()
+    return cc.LayerEx.extend(cc.Layer:create())
+end
+
+function display.newColorLayer(color)
+    return cc.LayerEx.extend(cc.LayerColor:create(color or cc.c4b(0,0,0,255)))
+end
 
 function display.newDrawNode()
     return cc.DrawNodeEx.extend(cc.DrawNode:create())
 end
 
-function display.newPolygon(points, fillColor, borderWidth, borderColor)
+function display.newPolygon(points, fillColor_4b, borderWidth, borderColor_4b)
     local node = display.newDrawNode()
+    
+    local fillColor_4f
+    if not fillColor_4b then
+        fillColor_4f = cc.c4f(1,1,1,1)
+    else
+        fillColor_4f = cc.c4f(
+            fillColor_4b.r/255,
+            fillColor_4b.g/255,
+            fillColor_4b.b/255,
+            fillColor_4b.a/255
+        )
+    end
+    
+    local borderColor_4f
+    if not borderColor_4b then
+        borderColor_4f = fillColor_4f
+    else
+        borderColor_4f = cc.c4f(
+            borderColor_4b.r/255,
+            borderColor_4b.g/255,
+            borderColor_4b.b/255,
+            borderColor_4b.a/255
+        )
+    end
+    
     node:drawPolygon(
         points, #points,
-        fillColor or cc.c4b(255,255,255,255),
-        borderWidth or 1,
-        borderColor or cc.c4b(255,255,255,255)
+        fillColor_4f,
+        borderWidth or 0,
+        borderColor_4f
     )
     return node
+end
+
+function display.newTriangle(point1, point2, point3, fillColor_4b)
+    local node = display.newDrawNode()
+    
+    local fillColor_4f
+    if not fillColor_4b then
+        fillColor_4f = cc.c4f(1,1,1,1)
+    else
+        fillColor_4f = cc.c4f(
+            fillColor_4b.r/255,
+            fillColor_4b.g/255,
+            fillColor_4b.b/255,
+            fillColor_4b.a/255
+        )
+    end
+    
+    node:drawTriangle(point1, point2, point3, fillColor_4f)
+    return node
+end
+
+function display.newSegment(point1, point2, radius, color_4b)
+    local node = display.newDrawNode()
+
+    local color_4f
+    if not color_4b then
+        color_4f = cc.c4f(1,1,1,1)
+    else
+        color_4f = cc.c4f(
+            color_4b.r/255,
+            color_4b.g/255,
+            color_4b.b/255,
+            color_4b.a/255
+        )
+    end
+    
+    node:drawSegment(point1, point2, radius or 1, color_4f)
+    return node
+end
+
+--[[--
+
+将指定的显示对象按照特定锚点对齐。
+
+格式：
+
+display.align(显示对象, 锚点位置, [x, y])
+
+显示对象锚点位置：
+
+-   display.CENTER 图像中央
+-   display.LEFT_TOP,
+-   display.TOP_LEFT 图像左上角
+-   display.CENTER_TOP,
+-   display.TOP_CENTER 图像顶部的中间
+-   display.RIGHT_TOP,
+-   display.TOP_RIGHT 图像顶部的中间
+-   display.CENTER_LEFT,
+-   display.LEFT_CENTER 图像左边的中间
+-   display.CENTER_RIGHT,
+-   display.RIGHT_CENTER 图像右边的中间
+-   display.BOTTOM_LEFT,
+-   display.LEFT_BOTTOM 图像左边的底部
+-   display.BOTTOM_RIGHT,
+-   display.RIGHT_BOTTOM 图像右边的底部
+-   display.BOTTOM_CENTER,
+-   display.CENTER_BOTTOM 图像中间的底部
+
+~~~ lua
+
+-- 将图像按左上角对齐，并放置在屏幕左上角
+display.align(sprite, display.LEFT_TOP, 0, 0)
+
+~~~
+
+@param CCSprite target 显示对象
+@param integer anchorPoint 锚点位置
+@param integer x
+@param integer y
+
+]]
+function display.align(target, anchorPoint, x, y)
+    target:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
+    if x and y then target:setPosition(x, y) end
 end
 
 return display
