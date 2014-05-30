@@ -13,6 +13,7 @@ require(cc.PACKAGE_NAME .. ".cocos2dx")
 device = require(cc.PACKAGE_NAME .. ".device")
 display = require(cc.PACKAGE_NAME .. ".display")
 ui = require(cc.PACKAGE_NAME .. ".ui")
+scheduler = require(cc.PACKAGE_NAME .. ".scheduler")
 
 require(cc.PACKAGE_NAME .. ".cc.init")
 
