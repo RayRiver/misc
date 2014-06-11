@@ -8,6 +8,13 @@ end)
 function SceneClass:ctor()
     self:createGrid()
     self:createBackButton()
+    
+    self:setNodeDrawEnabled(true)
+    self:setNodeDrawDebugEnabled(true)
+    
+    --printInfo("scene pos: %d %d", self:getPositionX(), self:getPositionY())
+    --printInfo("scene anc: %d %d", self:getAnchorPoint().x, self:getAnchorPoint().y)
+    --printInfo("scene siz: %d %d", self:getContentSize().width, self:getContentSize().height)
 end
 
 function SceneClass:onEnter()

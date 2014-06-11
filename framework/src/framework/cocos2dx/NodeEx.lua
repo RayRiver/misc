@@ -3,6 +3,7 @@ cc.NodeEx = class("cc.NodeEx")
 
 local NodeEx = cc.NodeEx
 NodeEx.__index = NodeEx
+NodeEx.isNode = true
 
 function NodeEx.extend(target)
     local t = tolua.getpeer(target)
@@ -97,6 +98,72 @@ function NodeEx:zorder(z)
     return self
 end
 
+function NodeEx:setNodeDrawDebugEnabled(enabled)
+    self.isDrawDebug = enabled
+end
+
+function NodeEx:setNodeDrawEnabled(enabled, listener, debug_listener)
+    if enabled then
+        if not self.glNode then
+            self.glNode = cc.GLNode:create()
+            self.glNode:setContentSize(self:getContentSize())
+            self.glNode:setAnchorPoint(self:getAnchorPoint())
+            self.glNode:setPosition(0, 0)
+        else
+            self.glNode:unregisterScriptDrawHandler()
+        end
+        
+        local fn = function()
+            if listener then
+                listener()
+            elseif self.onDraw then
+                self:onDraw()
+            end
+            
+            if self.isDrawDebug then 
+                if debug_listener then
+                    debug_listener()
+                else
+                    self:onDrawDebug() 
+                end
+            end
+        end
+
+        self.glNode:registerScriptDrawHandler(fn)
+        
+        self:addChild(self.glNode, 10000)
+    else
+        self.glNode:unregisterScriptDrawHandler()
+    end
+end
+
+function NodeEx:onDrawDebug()
+    cc.DrawPrimitives.drawColor4F(255, 0, 0, 255)
+    
+    local function _drawNode(node)
+        if not node:isVisible() then return end
+        if node.isScene or node.isLayer then return end
+
+        local x, y = node:getPosition()
+        local size = node:getContentSize()
+        local anchor = node:getAnchorPoint()
+        local origin = cc.p(x-size.width*anchor.x, y-size.height*anchor.y)
+        local destination = cc.p(x+size.width*(1-anchor.x), y+size.height*(1-anchor.y))
+
+        cc.DrawPrimitives.drawRect(origin, destination)
+    end
+
+    local function _drawNodes(node)
+        _drawNode(node)
+        local children = node:getChildren()
+        for _, n in pairs(children) do
+            _drawNodes(n)
+        end
+    end
+    
+    _drawNodes(self)
+end
+
 function NodeEx:setNodeEventEnabled(enabled, handler)
     if enabled then
         if not handler then
@@ -112,7 +179,7 @@ function NodeEx:setNodeEventEnabled(enabled, handler)
                 elseif event == "cleanup" then
                     self:onCleanup()
                 end
-                printInfo("NODE_EVENT: %s %s", self.__cname, event)
+                --printInfo("NODE_EVENT: %s %s", self.__cname, event)
             end
         end
         self:registerScriptHandler(handler)
