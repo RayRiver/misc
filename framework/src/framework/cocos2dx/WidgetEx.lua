@@ -3,6 +3,7 @@ ccui.WidgetEx = class("ccui.WidgetEx", cc.NodeEx)
 
 local WidgetEx = ccui.WidgetEx
 WidgetEx.__index = WidgetEx
+WidgetEx.isWidget = true
 
 function WidgetEx.extend(target)
     local t = tolua.getpeer(target)

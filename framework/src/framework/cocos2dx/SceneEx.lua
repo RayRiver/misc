@@ -3,6 +3,7 @@ cc.SceneEx = class("cc.SceneEx", cc.NodeEx)
 
 local SceneEx = cc.SceneEx
 SceneEx.__index = SceneEx
+SceneEx.isScene = true
 
 function SceneEx.extend(target)
     local t = tolua.getpeer(target)
