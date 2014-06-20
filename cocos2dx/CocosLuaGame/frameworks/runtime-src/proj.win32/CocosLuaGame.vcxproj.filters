@@ -13,8 +13,11 @@
     <Filter Include="base">
       <UniqueIdentifier>{be40b34b-4228-45b6-8d2a-b92fd3d887a9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="base\tolua">
+    <Filter Include="tolua">
       <UniqueIdentifier>{93539c3b-521c-4a73-a026-3dc7656a01b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="logic">
+      <UniqueIdentifier>{a4feeb74-4116-411d-882a-a278cfed1a30}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +79,15 @@
     <ClInclude Include="..\Classes\ScriptFunctions.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\EntityComponent.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AnimationController.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameEntity.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -123,13 +135,22 @@
     <ClCompile Include="..\Classes\Log.cpp">
       <Filter>base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\lua_cocos2dx_userext.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\NetImp.cpp">
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ScriptFunctions.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EntityComponent.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AnimationController.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameEntity.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lua_cocos2dx_userext.cpp">
       <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>
@@ -143,19 +164,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Classes\tolua\tolua_builder.bat">
-      <Filter>base\tolua</Filter>
+      <Filter>tolua</Filter>
     </None>
     <None Include="..\Classes\tolua\tolua_builder.lua">
-      <Filter>base\tolua</Filter>
+      <Filter>tolua</Filter>
     </None>
     <None Include="..\Classes\tolua\lua_cocos2dx_userext.pkg">
-      <Filter>base\tolua</Filter>
+      <Filter>tolua</Filter>
     </None>
     <None Include="..\Classes\tolua\LuaValueList.pkg">
-      <Filter>base\tolua</Filter>
+      <Filter>tolua</Filter>
     </None>
     <None Include="..\Classes\tolua\ScriptFunctions.pkg">
-      <Filter>base\tolua</Filter>
+      <Filter>tolua</Filter>
+    </None>
+    <None Include="..\Classes\tolua\AnimationController.pkg">
+      <Filter>tolua</Filter>
+    </None>
+    <None Include="..\Classes\tolua\GameEntity.pkg">
+      <Filter>tolua</Filter>
+    </None>
+    <None Include="..\Classes\tolua\EntityComponent.pkg">
+      <Filter>tolua</Filter>
     </None>
   </ItemGroup>
 </Project>

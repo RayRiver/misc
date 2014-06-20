@@ -1,2 +1,5 @@
 $pfile "LuaValueList.pkg"
 $pfile "ScriptFunctions.pkg"
+$pfile "GameEntity.pkg"
+$pfile "EntityComponent.pkg"
+$pfile "AnimationController.pkg"

@@ -1,0 +1,8 @@
+class EntityComponent : public cc.Component
+{
+	static EntityComponent *create();
+
+	void registerHandler(const char *event_name, LUA_FUNCTION handler);
+	void unregisterHandler(const char *event_name);
+	void unregisterAllHandlers();
+};

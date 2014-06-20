@@ -1,6 +1,6 @@
 /*
 ** Lua binding: lua_cocos2dx_userext
-** Generated automatically by tolua++-1.0.92 on 06/17/14 17:10:28.
+** Generated automatically by tolua++-1.0.92 on 06/19/14 20:55:45.
 */
 
 /****************************************************************************
@@ -36,6 +36,9 @@
 #include "LuaValueList.h"
 #include "NetManager.h"
 #include "NetImp.h"
+#include "GameEntity.h"
+#include "EntityComponent.h"
+#include "AnimationController.h"
 
 USING_NS_CC;
 
@@ -54,6 +57,13 @@ static int tolua_collect_LuaValueList (lua_State* tolua_S)
     Mtolua_delete(self);
     return 0;
 }
+
+static int tolua_collect_AnimationController (lua_State* tolua_S)
+{
+ AnimationController* self = (AnimationController*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
 #endif
 
 
@@ -62,7 +72,12 @@ static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"LuaValueList");
  tolua_usertype(tolua_S,"cc.Ref");
+ tolua_usertype(tolua_S,"EntityComponent");
+ tolua_usertype(tolua_S,"AnimationController");
  
+ tolua_usertype(tolua_S,"cc.Component");
+ tolua_usertype(tolua_S,"cc.Sprite");
+ tolua_usertype(tolua_S,"GameEntity");
 }
 
 /* method: new of class  LuaValueList */
@@ -509,6 +524,407 @@ static int tolua_lua_cocos2dx_userext_network_unregisterHandler00(lua_State* tol
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: create of class  GameEntity */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_GameEntity_create00
+static int tolua_lua_cocos2dx_userext_GameEntity_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"GameEntity",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   GameEntity* tolua_ret = (GameEntity*)  GameEntity::create();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"GameEntity");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  EntityComponent */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_EntityComponent_create00
+static int tolua_lua_cocos2dx_userext_EntityComponent_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"EntityComponent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   EntityComponent* tolua_ret = (EntityComponent*)  EntityComponent::create();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"EntityComponent");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: registerHandler of class  EntityComponent */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_EntityComponent_registerHandler00
+static int tolua_lua_cocos2dx_userext_EntityComponent_registerHandler00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"EntityComponent",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !toluafix_isfunction(tolua_S,3,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  EntityComponent* self = (EntityComponent*)  tolua_tousertype(tolua_S,1,0);
+  const char* event_name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  LUA_FUNCTION handler = (  toluafix_ref_function(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'registerHandler'", NULL);
+#endif
+  {
+   self->registerHandler(event_name,handler);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'registerHandler'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: unregisterHandler of class  EntityComponent */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_EntityComponent_unregisterHandler00
+static int tolua_lua_cocos2dx_userext_EntityComponent_unregisterHandler00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"EntityComponent",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  EntityComponent* self = (EntityComponent*)  tolua_tousertype(tolua_S,1,0);
+  const char* event_name = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unregisterHandler'", NULL);
+#endif
+  {
+   self->unregisterHandler(event_name);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'unregisterHandler'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: unregisterAllHandlers of class  EntityComponent */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_EntityComponent_unregisterAllHandlers00
+static int tolua_lua_cocos2dx_userext_EntityComponent_unregisterAllHandlers00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"EntityComponent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  EntityComponent* self = (EntityComponent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unregisterAllHandlers'", NULL);
+#endif
+  {
+   self->unregisterAllHandlers();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'unregisterAllHandlers'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  AnimationController */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_create00
+static int tolua_lua_cocos2dx_userext_AnimationController_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"AnimationController",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   AnimationController* tolua_ret = (AnimationController*)  AnimationController::create();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"AnimationController");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new of class  AnimationController */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_new00
+static int tolua_lua_cocos2dx_userext_AnimationController_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"AnimationController",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   AnimationController* tolua_ret = (AnimationController*)  Mtolua_new((AnimationController)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"AnimationController");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  AnimationController */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_new00_local
+static int tolua_lua_cocos2dx_userext_AnimationController_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"AnimationController",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   AnimationController* tolua_ret = (AnimationController*)  Mtolua_new((AnimationController)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"AnimationController");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: load of class  AnimationController */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_load00
+static int tolua_lua_cocos2dx_userext_AnimationController_load00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AnimationController",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AnimationController* self = (AnimationController*)  tolua_tousertype(tolua_S,1,0);
+  const char* armatureName = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'load'", NULL);
+#endif
+  {
+   self->load(armatureName);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'load'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: play of class  AnimationController */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_play00
+static int tolua_lua_cocos2dx_userext_AnimationController_play00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AnimationController",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AnimationController* self = (AnimationController*)  tolua_tousertype(tolua_S,1,0);
+  const char* movementName = ((const char*)  tolua_tostring(tolua_S,2,0));
+  int playMode = ((int)  tolua_tonumber(tolua_S,3,AnimationController::Default));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'play'", NULL);
+#endif
+  {
+   self->play(movementName,playMode);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'play'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: pause of class  AnimationController */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_pause00
+static int tolua_lua_cocos2dx_userext_AnimationController_pause00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AnimationController",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AnimationController* self = (AnimationController*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pause'", NULL);
+#endif
+  {
+   self->pause();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'pause'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: resume of class  AnimationController */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_resume00
+static int tolua_lua_cocos2dx_userext_AnimationController_resume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AnimationController",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AnimationController* self = (AnimationController*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'resume'", NULL);
+#endif
+  {
+   self->resume();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'resume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: stop of class  AnimationController */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_stop00
+static int tolua_lua_cocos2dx_userext_AnimationController_stop00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AnimationController",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AnimationController* self = (AnimationController*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'stop'", NULL);
+#endif
+  {
+   self->stop();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'stop'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* Open function */
 TOLUA_API int tolua_lua_cocos2dx_userext_open (lua_State* tolua_S)
 {
@@ -541,6 +957,36 @@ TOLUA_API int tolua_lua_cocos2dx_userext_open (lua_State* tolua_S)
    tolua_function(tolua_S,"send",tolua_lua_cocos2dx_userext_network_send00);
    tolua_function(tolua_S,"registerHandler",tolua_lua_cocos2dx_userext_network_registerHandler00);
    tolua_function(tolua_S,"unregisterHandler",tolua_lua_cocos2dx_userext_network_unregisterHandler00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"GameEntity","GameEntity","cc.Sprite",NULL);
+  tolua_beginmodule(tolua_S,"GameEntity");
+   tolua_function(tolua_S,"create",tolua_lua_cocos2dx_userext_GameEntity_create00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"EntityComponent","EntityComponent","cc.Component",NULL);
+  tolua_beginmodule(tolua_S,"EntityComponent");
+   tolua_function(tolua_S,"create",tolua_lua_cocos2dx_userext_EntityComponent_create00);
+   tolua_function(tolua_S,"registerHandler",tolua_lua_cocos2dx_userext_EntityComponent_registerHandler00);
+   tolua_function(tolua_S,"unregisterHandler",tolua_lua_cocos2dx_userext_EntityComponent_unregisterHandler00);
+   tolua_function(tolua_S,"unregisterAllHandlers",tolua_lua_cocos2dx_userext_EntityComponent_unregisterAllHandlers00);
+  tolua_endmodule(tolua_S);
+  #ifdef __cplusplus
+  tolua_cclass(tolua_S,"AnimationController","AnimationController","EntityComponent",tolua_collect_AnimationController);
+  #else
+  tolua_cclass(tolua_S,"AnimationController","AnimationController","EntityComponent",NULL);
+  #endif
+  tolua_beginmodule(tolua_S,"AnimationController");
+   tolua_constant(tolua_S,"Default",AnimationController::Default);
+   tolua_constant(tolua_S,"Once",AnimationController::Once);
+   tolua_constant(tolua_S,"Loop",AnimationController::Loop);
+   tolua_function(tolua_S,"create",tolua_lua_cocos2dx_userext_AnimationController_create00);
+   tolua_function(tolua_S,"new",tolua_lua_cocos2dx_userext_AnimationController_new00);
+   tolua_function(tolua_S,"new_local",tolua_lua_cocos2dx_userext_AnimationController_new00_local);
+   tolua_function(tolua_S,".call",tolua_lua_cocos2dx_userext_AnimationController_new00_local);
+   tolua_function(tolua_S,"load",tolua_lua_cocos2dx_userext_AnimationController_load00);
+   tolua_function(tolua_S,"play",tolua_lua_cocos2dx_userext_AnimationController_play00);
+   tolua_function(tolua_S,"pause",tolua_lua_cocos2dx_userext_AnimationController_pause00);
+   tolua_function(tolua_S,"resume",tolua_lua_cocos2dx_userext_AnimationController_resume00);
+   tolua_function(tolua_S,"stop",tolua_lua_cocos2dx_userext_AnimationController_stop00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

@@ -66,7 +66,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot)cocos\scripting\lua-bindings\auto;$(EngineRoot)cocos\scripting\lua-bindings\manual;$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\lua\lua;$(EngineRoot)external\lua\tolua;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;$(EngineRoot);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot)cocos\scripting\lua-bindings\auto;$(EngineRoot)cocos\scripting\lua-bindings\manual;$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\lua\lua;$(EngineRoot)external\lua\tolua;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;$(EngineRoot);$(EngineRoot)cocos\editor-support;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -185,9 +185,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Classes\AnimationController.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\BitStream.h" />
     <ClInclude Include="..\Classes\ConfigParser.h" />
+    <ClInclude Include="..\Classes\EntityComponent.h" />
+    <ClInclude Include="..\Classes\GameEntity.h" />
     <ClInclude Include="..\Classes\ITickable.h" />
     <ClInclude Include="..\Classes\Log.h" />
     <ClInclude Include="..\Classes\LuaValueList.h" />
@@ -207,9 +210,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="SimulatorWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Classes\AnimationController.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\BitStream.cpp" />
     <ClCompile Include="..\Classes\ConfigParser.cpp" />
+    <ClCompile Include="..\Classes\EntityComponent.cpp" />
+    <ClCompile Include="..\Classes\GameEntity.cpp" />
     <ClCompile Include="..\Classes\Log.cpp" />
     <ClCompile Include="..\Classes\lua_cocos2dx_userext.cpp" />
     <ClCompile Include="..\Classes\NetImp.cpp" />
@@ -268,6 +274,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <Image Include="res\game.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Classes\tolua\AnimationController.pkg" />
+    <None Include="..\Classes\tolua\EntityComponent.pkg" />
+    <None Include="..\Classes\tolua\GameEntity.pkg" />
     <None Include="..\Classes\tolua\lua_cocos2dx_userext.pkg" />
     <None Include="..\Classes\tolua\LuaValueList.pkg" />
     <None Include="..\Classes\tolua\ScriptFunctions.pkg" />

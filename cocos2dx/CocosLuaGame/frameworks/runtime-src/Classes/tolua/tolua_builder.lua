@@ -99,6 +99,9 @@ function post_output_hook(package)
 #include "LuaValueList.h"
 #include "NetManager.h"
 #include "NetImp.h"
+#include "GameEntity.h"
+#include "EntityComponent.h"
+#include "AnimationController.h"
 
 USING_NS_CC;
 

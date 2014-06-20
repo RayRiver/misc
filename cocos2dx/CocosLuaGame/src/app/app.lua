@@ -9,7 +9,9 @@ function AppClass:ctor()
 end
 
 function AppClass:run()
-    self:enterScene("game_scene")
+    cc.Component = EntityComponent
+
+    self:enterScene("entry_scene")
 end
 
 function AppClass:enterScene(sceneName)
