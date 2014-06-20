@@ -11,10 +11,11 @@ function SceneClass:ctor()
     
     self:setNodeDrawEnabled(true)
     self:setNodeDrawDebugEnabled(true)
-    
-    --printInfo("scene pos: %d %d", self:getPositionX(), self:getPositionY())
-    --printInfo("scene anc: %d %d", self:getAnchorPoint().x, self:getAnchorPoint().y)
-    --printInfo("scene siz: %d %d", self:getContentSize().width, self:getContentSize().height)
+
+    --printInfo("scene pos: %f %f", self:getPositionX(), self:getPositionY())
+    --printInfo("scene anc: %f %f", self:getAnchorPoint().x, self:getAnchorPoint().y)
+    --printInfo("scene siz: %f %f", self:getContentSize().width, self:getContentSize().height)
+
 end
 
 function SceneClass:onEnter()
