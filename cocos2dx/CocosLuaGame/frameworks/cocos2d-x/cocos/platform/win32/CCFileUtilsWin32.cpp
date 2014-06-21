@@ -181,7 +181,7 @@ static Data getData(const std::string& filename, bool forString)
 	// add for resource pack by R.R.
     if (buffer && size > 0)
 	{
-		if (XXTEAUtil::getInstance()->isEnable())
+		if (XXTEAUtil::getInstance()->isXXTEA(buffer, size))
 		{
 			int len = 0;
 			unsigned char *result = XXTEAUtil::getInstance()->decrypt(buffer, size, len);

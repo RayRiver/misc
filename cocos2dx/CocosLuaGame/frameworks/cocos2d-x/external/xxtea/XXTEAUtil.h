@@ -20,6 +20,7 @@ public:
 	inline int getSignLen() { return m_xxteaSignLen; }
 
 	unsigned char *decrypt(unsigned char *buffer, int size, int &outlen);
+	bool isXXTEA(unsigned char *data, int size);
 
 	bool  m_xxteaEnabled;
 	char *m_xxteaKey;

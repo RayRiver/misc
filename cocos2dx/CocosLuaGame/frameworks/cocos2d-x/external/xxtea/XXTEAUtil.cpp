@@ -82,3 +82,19 @@ unsigned char * XXTEAUtil::decrypt( unsigned char *buffer, int size, int &outlen
 	outlen = (int)len;
 	return outbuffer;
 }
+
+bool XXTEAUtil::isXXTEA(unsigned char *data, int size)
+{
+	if (!m_xxteaEnabled || !data)
+	{
+		return false;
+	}
+
+	bool bXXTEA = true;
+	for (unsigned int i = 0; bXXTEA && i < m_xxteaSignLen && i < size; ++i)
+	{
+		bXXTEA = data[i] == m_xxteaSign[i];
+	}
+
+	return bXXTEA;
+}

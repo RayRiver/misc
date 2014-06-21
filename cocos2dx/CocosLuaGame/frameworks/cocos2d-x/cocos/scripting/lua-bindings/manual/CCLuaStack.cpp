@@ -290,11 +290,13 @@ int LuaStack::executeScriptFile(const char* filename)
 	Data data = FileUtils::getInstance()->getDataFromFile(filename);
 	ssize_t chunkSize = data.getSize();
 	unsigned char *chunk = data.getBytes();
-	int nRet = 0;
-	if (lua_loadbuffer(_state, (const char*)chunk, (int)chunkSize, filename) == 0)
+	++_callFromLua;
+	int nRet = lua_loadbuffer(_state, (const char*)chunk, (int)chunkSize, filename);
+	if (nRet == 0)
 	{
 		nRet = executeFunction(0);
 	}
+	--_callFromLua;
 	if (nRet != 0)
 	{
 		CCLOG("[LUA ERROR] %s", lua_tostring(_state, -1));
