@@ -198,6 +198,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\NetImp.h" />
     <ClInclude Include="..\Classes\NetManager.h" />
     <ClInclude Include="..\Classes\NetSocket.h" />
+    <ClInclude Include="..\Classes\PackageHelper.h" />
     <ClInclude Include="..\Classes\Runtime.h" />
     <ClInclude Include="..\Classes\ScriptFunctions.h" />
     <ClInclude Include="..\Classes\StreamBuffer.h" />
@@ -221,6 +222,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\NetImp.cpp" />
     <ClCompile Include="..\Classes\NetManager.cpp" />
     <ClCompile Include="..\Classes\NetSocket.cpp" />
+    <ClCompile Include="..\Classes\PackageHelper.cpp" />
     <ClCompile Include="..\Classes\Runtime.cpp" />
     <ClCompile Include="..\Classes\ScriptFunctions.cpp" />
     <ClCompile Include="..\Classes\StreamBuffer.cpp" />

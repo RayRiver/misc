@@ -34,8 +34,10 @@ local function main()
     --cc.Director:getInstance():getOpenGLView():setDesignResolutionSize(480, 320, 0)
     
     cc.FileUtils:getInstance():addSearchPath("src")
+    cc.FileUtils:getInstance():addSearchPath("resource")
     cc.FileUtils:getInstance():addSearchPath("res")
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("src");
+	cc.FileUtils:getInstance():addSearchResolutionsOrder("resource");
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
 	
 	require("app.app").new():run()

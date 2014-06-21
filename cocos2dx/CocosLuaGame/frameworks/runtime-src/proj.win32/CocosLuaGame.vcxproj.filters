@@ -88,6 +88,9 @@
     <ClInclude Include="..\Classes\GameEntity.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\PackageHelper.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -152,6 +155,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\lua_cocos2dx_userext.cpp">
       <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PackageHelper.cpp">
+      <Filter>Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
