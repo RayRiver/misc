@@ -287,12 +287,19 @@ int LuaStack::executeScriptFile(const char* filename)
 	*/
 
 	// modify for resource pack by R.R.
-	std::string fullPath = FileUtils::getInstance()->fullPathForFilename(filename);
-	ssize_t chunkSize = 0;
-	unsigned char *chunk = FileUtils::getInstance()->getFileData(fullPath.c_str(), "rb", &chunkSize);
-	if (lua_loadbuffer(_state, (const char*)chunk, (int)chunkSize, fullPath.c_str()) == 0)
+	Data data = FileUtils::getInstance()->getDataFromFile(filename);
+	ssize_t chunkSize = data.getSize();
+	unsigned char *chunk = data.getBytes();
+	int nRet = 0;
+	if (lua_loadbuffer(_state, (const char*)chunk, (int)chunkSize, filename) == 0)
 	{
-		return executeFunction(0);
+		nRet = executeFunction(0);
+	}
+	if (nRet != 0)
+	{
+		CCLOG("[LUA ERROR] %s", lua_tostring(_state, -1));
+		lua_pop(_state, 1);
+		return nRet;
 	}
 	return 0;
 
@@ -726,7 +733,7 @@ int LuaStack::lua_loadChunksFromZIP(lua_State *L)
 	{
 		ssize_t size = 0;
 		void *buffer = NULL;
-		unsigned char *zipFileData = utils->getFileData(zipFilePath.c_str(), "rb", &size);
+		unsigned char *zipFileData = utils->getFileData(zipFilePath.c_str(), "rb", &size); // origin data for sign compare
 		ZipHelper *zip = NULL;
 
 		auto xxteautil = XXTEAUtil::getInstance();
