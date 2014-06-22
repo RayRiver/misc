@@ -10,6 +10,7 @@ end
 
 function AppClass:run()
     cc.Component = EntityComponent
+    
 
     self:enterScene("entry_scene")
 end
