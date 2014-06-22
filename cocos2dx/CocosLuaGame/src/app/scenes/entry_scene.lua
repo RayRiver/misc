@@ -2,7 +2,7 @@
 local SCENE_NAME = "EntryScene"
 
 local SceneClass = class(SCENE_NAME, function() 
-    local scene = display.newScene()
+    local scene = display.newScene(SCENE_NAME)
     return scene
 end)
 

@@ -181,7 +181,7 @@ function NodeEx:setNodeEventEnabled(enabled, handler)
                 elseif event == "cleanup" then
                     self:onCleanup()
                 end
-                --printInfo("NODE_EVENT: %s %s", self.__cname, event)
+                printInfo("NODE_EVENT: %s %s", self.__cname, event)
             end
         end
         self:registerScriptHandler(handler)

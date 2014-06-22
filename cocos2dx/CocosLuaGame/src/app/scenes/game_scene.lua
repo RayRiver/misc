@@ -2,19 +2,16 @@
 local GameObject = require("app.classes.game_object")
 local InputLayer = require("app.classes.input_layer")
 local AnimationController = require("app.components.animation_controller")
+local StateMachine = require("app.components.state_machine")
 
 local SCENE_NAME = "GameScene"
 
 local SceneClass = class(SCENE_NAME, function() 
-    local scene = display.newScene()
+    local scene = display.newScene(SCENE_NAME)
     return scene
 end)
 
 function SceneClass:ctor()
-    self:registerScriptHandler(function(event) 
-        printInfo(SCENE_NAME .. " event: " .. tostring(event))
-    end)
-    
     self:setNodeDrawEnabled(true)
     self:setNodeDrawDebugEnabled(true)
     
@@ -44,7 +41,31 @@ function SceneClass:ctor()
     component:load("animation"):play("run")
 
 
+
+    local cfg = {
+        events =
+        {
+            { name="doStartup", from=StateMachine.STATE_READY, to="idle" },
+            { name="doIdle", from=nil, to="idle" },
+            { name="doWalk", from="idle", to="walk" },
+            { name="doWalk", from="run", to="walk" },
+            { name="doRun", from="idle", to="run" },
+            { name="doRun", from="walk", to="run" },
+        },
+
+        callbacks =
+        {
+            on_before_doStartup = function(event) printInfo("before do Startup") end,
+            on_before_doIdle = function(event) printInfo("before do Idle") end,
+            on_after_doIdle = function(event) printInfo("after do Idle") end,
+        },
+
+    }
+    local component = StateMachine.new()
+    component:setupState(cfg)
+    player:addComponent(component)
     
+    self.player = player
     
     
     local inputLayer = InputLayer.new()
@@ -63,6 +84,10 @@ function SceneClass:ctor()
     end)
     self:addChild(inputLayer)
 
+end
+
+function SceneClass:onEnter()
+    self.player:getComponent("StateMachine"):doEvent("doStartup")
 end
 
 return SceneClass
