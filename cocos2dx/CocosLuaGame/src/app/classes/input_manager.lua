@@ -35,6 +35,7 @@ local ACTIONS = {
 }
 
 local ACTION_MAP = {}
+local ACTION_ACTIVE_MAP = {}
 
 -- actions map
 local BEGAN_ACTIONS = {}
@@ -46,6 +47,15 @@ local ObjectClass = class(OBJECT_NAME, function()
     return display.newNode()
 end)
 
+ObjectClass.UP = "up"
+ObjectClass.DOWN = "down"
+ObjectClass.LEFT = "left"
+ObjectClass.RIGHT = "right"
+ObjectClass.ACTION1 = "action1"
+ObjectClass.ACTION2 = "action2"
+ObjectClass.ACTION3 = "action3"
+ObjectClass.ESC = "esc"
+
 function ObjectClass:ctor()
     self:updateActionMap()
     
@@ -56,11 +66,17 @@ function ObjectClass:ctor()
     local listener = cc.EventListenerKeyboard:create()
     listener:registerScriptHandler(function(key, event) 
         local action = ACTION_MAP[key]
-        if not self.isPaused and BEGAN_ACTIONS[action] then BEGAN_ACTIONS[action]() end
+        if not self.isPaused and BEGAN_ACTIONS[action] then 
+            BEGAN_ACTIONS[action]() 
+            ACTION_ACTIVE_MAP[action] = true
+        end
     end, cc.Handler.EVENT_KEYBOARD_PRESSED)
     listener:registerScriptHandler(function(key, event) 
         local action = ACTION_MAP[key]
-        if not self.isPaused and ENDED_ACTIONS[action] then ENDED_ACTIONS[action]() end
+        if not self.isPaused and ENDED_ACTIONS[action] then 
+            ENDED_ACTIONS[action]() 
+            ACTION_ACTIVE_MAP[action] = false
+        end
     end, cc.Handler.EVENT_KEYBOARD_RELEASED)
     layer:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, layer)
 end
@@ -98,6 +114,10 @@ end
 
 function ObjectClass:resume()
     self.isPaused = false
+end
+
+function ObjectClass:isActionActive(action)
+    return ACTION_ACTIVE_MAP[action]
 end
 
 return ObjectClass

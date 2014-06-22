@@ -18,6 +18,7 @@ function SceneClass:ctor()
     -- create new player
     local player = GameCharacter.new()
     player:setPosition(display.cx, display.cy)
+    player:setDesiredPosition(display.cx, display.cy)
     self:addChild(player)
     self.player = player
 
@@ -27,21 +28,38 @@ function SceneClass:ctor()
     self:addChild(inputManager)
     self.inputManager = inputManager
 
+    -- schedule update
+    self:scheduleUpdateWithPriorityLua(handler(self, self.onFrame), 0)
 end
 
 function SceneClass:onEnter()
-    self.inputManager:registerInputBeganHandler("left", function() 
-        local scale_x = self.player:getScaleX()
-        if scale_x > 0 then
-            self.player:setScaleX(scale_x * (-1))
-        end
+    local player = self.player
+    
+    self.inputManager:registerInputBeganHandler(InputManager.LEFT, function() 
+        player:doRun(GameCharacter.DIRECTION_LEFT)
     end)
-    self.inputManager:registerInputBeganHandler("right", function() 
-        local scale_x = self.player:getScaleX()
-        if scale_x < 0 then
-            self.player:setScaleX(scale_x * (-1))
-        end
+    self.inputManager:registerInputEndedHandler(InputManager.LEFT, function() 
+        player:doIdle()
     end)
+    self.inputManager:registerInputBeganHandler(InputManager.RIGHT, function() 
+        player:doRun(GameCharacter.DIRECTION_RIGHT)
+    end)
+    self.inputManager:registerInputEndedHandler(InputManager.RIGHT, function() 
+        player:doIdle()
+    end)
+    
+    self.inputManager:registerInputBeganHandler(InputManager.ACTION1, function() 
+        player:doAttack()
+    end)
+end
+
+function SceneClass:onFrame(dt)
+    local player = self.player
+    
+    
+    
+    local desiredPositionX, desiredPositionY = player:getDesiredPosition()
+    player:setPosition(desiredPositionX, desiredPositionY)
 end
 
 return SceneClass

@@ -19,7 +19,7 @@ function ComponentClass:ctor()
     self.armatureName = ""
 end
 
-function ComponentClass:load(armatureName)
+function ComponentClass:load(armatureName, animationEventCallback)
     local owner = self:getOwner()
     if owner then
         if armatureName == self.armatureName then
@@ -40,6 +40,13 @@ function ComponentClass:load(armatureName)
         owner:addChild(armature)
         self.armature = armature
         self.armatureName = armatureName
+        
+        if animationEventCallback then
+            local function animationEvent(armature, movementType, movementID)
+                animationEventCallback(movementType, movementID)
+            end
+            self.armature:getAnimation():setMovementEventCallFunc(animationEvent)
+        end
     end
     return self
 end
@@ -52,6 +59,12 @@ function ComponentClass:play(movementName, playMode)
         end
     end
     return self
+end
+
+function ComponentClass:setMovementEventCallFunc(callback)
+    if callback then
+        self.armature:getAnimation():setMovementEventCallFunc(callback)
+    end
 end
 
 function ComponentClass:pause()
