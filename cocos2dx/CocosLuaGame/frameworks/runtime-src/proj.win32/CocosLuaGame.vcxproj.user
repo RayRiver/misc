@@ -8,6 +8,6 @@
     <DebuggerFlavor Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>D:\dev\misc\cocos2dx\CocosLuaGame</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>$(ProjectDir)..\..\..</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

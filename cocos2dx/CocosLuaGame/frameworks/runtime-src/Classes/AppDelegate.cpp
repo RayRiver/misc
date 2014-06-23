@@ -5,6 +5,9 @@
 #include "Runtime.h"
 #include "ConfigParser.h"
 
+// add for resource pack by R.R.
+#include "PackageHelper.h"
+
 using namespace CocosDenshion;
 
 USING_NS_CC;
@@ -66,7 +69,10 @@ bool AppDelegate::applicationDidFinishLaunching()
         return true;
 #endif
 
-    engine->executeScriptFile(ConfigParser::getInstance()->getEntryFile().c_str());
+	// modify for resource pack by R.R.
+	PackageHelper::startScript();
+    //engine->executeScriptFile(ConfigParser::getInstance()->getEntryFile().c_str());
+
     return true;
 }
 

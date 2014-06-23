@@ -1,68 +1,65 @@
 
-local GameObject = require("app.classes.game_object")
-local InputLayer = require("app.classes.input_layer")
-local AnimationController = require("app.components.animation_controller")
+local GameCharacter = require("app.classes.game_character")
+local InputManager = require("app.classes.input_manager")
 
 local SCENE_NAME = "GameScene"
 
 local SceneClass = class(SCENE_NAME, function() 
-    local scene = display.newScene()
+    local scene = display.newScene(SCENE_NAME)
     return scene
 end)
 
 function SceneClass:ctor()
-    self:registerScriptHandler(function(event) 
-        printInfo(SCENE_NAME .. " event: " .. tostring(event))
-    end)
-    
+    -- debug mode
     self:setNodeDrawEnabled(true)
     self:setNodeDrawDebugEnabled(true)
     
 
-    --local player = GameObject.new()
-    --player:setPosition(display.cx, display.cy)
-    --self:addChild(player)
-    
-    local player = GameEntity:create()
+    -- create new player
+    local player = GameCharacter.new()
     player:setPosition(display.cx, display.cy)
+    player:setDesiredPosition(display.cx, display.cy)
     self:addChild(player)
+    self.player = player
+
+
+    -- create input manager
+    local inputManager = InputManager.new()
+    self:addChild(inputManager)
+    self.inputManager = inputManager
+
+    -- schedule update
+    self:scheduleUpdateWithPriorityLua(handler(self, self.onFrame), 0)
+end
+
+function SceneClass:onEnter()
+    local player = self.player
     
-    local component = AnimationController.new()
-    component:registerHandler("enter", function()
-        printInfo("component enter")
+    self.inputManager:registerInputBeganHandler(InputManager.LEFT, function() 
+        player:doRun(GameCharacter.DIRECTION_LEFT)
     end)
-    component:registerHandler("exit", function()
-        printInfo("component exit")
+    self.inputManager:registerInputEndedHandler(InputManager.LEFT, function() 
+        player:doIdle()
     end)
-    component:registerHandler("frame", function(dt)
-        --printInfo("component frame %f", dt)
+    self.inputManager:registerInputBeganHandler(InputManager.RIGHT, function() 
+        player:doRun(GameCharacter.DIRECTION_RIGHT)
     end)
+    self.inputManager:registerInputEndedHandler(InputManager.RIGHT, function() 
+        player:doIdle()
+    end)
+    
+    self.inputManager:registerInputBeganHandler(InputManager.ACTION1, function() 
+        player:doAttack()
+    end)
+end
 
-    player:addComponent(component)
-
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("animation/animation.ExportJson")
-    component:load("animation"):play("run")
-
-
+function SceneClass:onFrame(dt)
+    local player = self.player
     
     
     
-    local inputLayer = InputLayer.new()
-    inputLayer:registerPressedHandler(function(action) 
-        if action == "left" then
-            local scale_x = player:getScaleX()
-            if scale_x > 0 then
-                player:setScaleX(scale_x * (-1))
-            end
-        elseif action == "right" then
-            local scale_x = player:getScaleX()
-            if scale_x < 0 then
-                player:setScaleX(scale_x * (-1))
-            end
-        end
-    end)
-    self:addChild(inputLayer)
-
+    local desiredPositionX, desiredPositionY = player:getDesiredPosition()
+    player:setPosition(desiredPositionX, desiredPositionY)
 end
 
 return SceneClass

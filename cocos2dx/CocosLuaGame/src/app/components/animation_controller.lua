@@ -1,25 +1,25 @@
 
 local COMPONENT_NAME = "AnimationController"
 
-local AnimationController = class(COMPONENT_NAME, function() 
+local ComponentClass = class(COMPONENT_NAME, function() 
     local component = cc.Component:create()
     component:setName(COMPONENT_NAME)
     return component
 end)
 
-AnimationController.PlayMode = 
+ComponentClass.PlayMode = 
 {
     Default = -1,
     Once = 0,
     Loop = 1,
 }
 
-function AnimationController:ctor()
+function ComponentClass:ctor()
     self.armature = nil
     self.armatureName = ""
 end
 
-function AnimationController:load(armatureName)
+function ComponentClass:load(armatureName, animationEventCallback)
     local owner = self:getOwner()
     if owner then
         if armatureName == self.armatureName then
@@ -40,36 +40,49 @@ function AnimationController:load(armatureName)
         owner:addChild(armature)
         self.armature = armature
         self.armatureName = armatureName
+        
+        if animationEventCallback then
+            local function animationEvent(armature, movementType, movementID)
+                animationEventCallback(movementType, movementID)
+            end
+            self.armature:getAnimation():setMovementEventCallFunc(animationEvent)
+        end
     end
     return self
 end
 
-function AnimationController:play(movementName, playMode)
+function ComponentClass:play(movementName, playMode)
     if self.armature then
         if self.armature:getAnimation():getAnimationData():getMovement(movementName) then
-            playMode = playMode or AnimationController.PlayMode.Default
+            playMode = playMode or ComponentClass.PlayMode.Default
             self.armature:getAnimation():play(movementName, -1, playMode)
         end
     end
     return self
 end
 
-function AnimationController:pause()
+function ComponentClass:setMovementEventCallFunc(callback)
+    if callback then
+        self.armature:getAnimation():setMovementEventCallFunc(callback)
+    end
+end
+
+function ComponentClass:pause()
     if self.armature then
         self.armature:getAnimation():pause()
     end
 end
 
-function AnimationController:resume()
+function ComponentClass:resume()
     if self.armature then
         self.armature:getAnimation():resume()
     end
 end
 
-function AnimationController:stop()
+function ComponentClass:stop()
     if self.armature then
         self.armature:getAnimation():stop()
     end
 end
 
-return AnimationController
+return ComponentClass

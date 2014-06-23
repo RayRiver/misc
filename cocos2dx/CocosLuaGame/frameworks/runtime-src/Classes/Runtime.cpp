@@ -34,6 +34,9 @@ THE SOFTWARE.
 #include "VisibleRect.h"
 #include "ConfigParser.h"
 
+// add for resource pack by R.R.
+#include "PackageHelper.h"
+
 #ifdef _WIN32
 #include <direct.h>
 #else
@@ -70,7 +73,10 @@ void startScript(string strDebugArg)
         engine->executeString(strDebugArg.c_str());
     }
     cocos2d::log("debug args = %s",strDebugArg.c_str());
-    engine->executeScriptFile(ConfigParser::getInstance()->getEntryFile().c_str());
+
+	// modify for resource pack by R.R.
+	PackageHelper::startScript();
+    //engine->executeScriptFile(ConfigParser::getInstance()->getEntryFile().c_str());
 }
 
 bool reloadScript(const string& modulefile)
