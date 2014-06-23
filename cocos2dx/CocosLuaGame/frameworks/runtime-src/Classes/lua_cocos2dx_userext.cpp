@@ -1,6 +1,6 @@
 /*
 ** Lua binding: lua_cocos2dx_userext
-** Generated automatically by tolua++-1.0.92 on 06/23/14 15:22:20.
+** Generated automatically by tolua++-1.0.92 on 06/23/14 19:22:34.
 */
 
 /****************************************************************************
@@ -72,6 +72,7 @@ static int tolua_collect_AnimationController (lua_State* tolua_S)
 static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"AnimationController");
+ tolua_usertype(tolua_S,"network");
  tolua_usertype(tolua_S,"cc.Component");
  tolua_usertype(tolua_S,"GameEntity");
  tolua_usertype(tolua_S,"cc.Sprite");
@@ -139,7 +140,7 @@ static int tolua_lua_cocos2dx_userext_LuaValueList_new00_local(lua_State* tolua_
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: push_back of class  LuaValueList */
+/* method: pushInt of class  LuaValueList */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_LuaValueList_pushInt00
 static int tolua_lua_cocos2dx_userext_LuaValueList_pushInt00(lua_State* tolua_S)
 {
@@ -157,10 +158,10 @@ static int tolua_lua_cocos2dx_userext_LuaValueList_pushInt00(lua_State* tolua_S)
   LuaValueList* self = (LuaValueList*)  tolua_tousertype(tolua_S,1,0);
   int val = ((int)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'push_back'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pushInt'", NULL);
 #endif
   {
-   self->push_back(val);
+   self->pushInt(val);
   }
  }
  return 0;
@@ -172,7 +173,7 @@ static int tolua_lua_cocos2dx_userext_LuaValueList_pushInt00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: push_back of class  LuaValueList */
+/* method: pushFloat of class  LuaValueList */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_LuaValueList_pushFloat00
 static int tolua_lua_cocos2dx_userext_LuaValueList_pushFloat00(lua_State* tolua_S)
 {
@@ -190,10 +191,10 @@ static int tolua_lua_cocos2dx_userext_LuaValueList_pushFloat00(lua_State* tolua_
   LuaValueList* self = (LuaValueList*)  tolua_tousertype(tolua_S,1,0);
   float val = ((float)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'push_back'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pushFloat'", NULL);
 #endif
   {
-   self->push_back(val);
+   self->pushFloat(val);
   }
  }
  return 0;
@@ -205,7 +206,7 @@ static int tolua_lua_cocos2dx_userext_LuaValueList_pushFloat00(lua_State* tolua_
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: push_back of class  LuaValueList */
+/* method: pushBoolean of class  LuaValueList */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_LuaValueList_pushBoolean00
 static int tolua_lua_cocos2dx_userext_LuaValueList_pushBoolean00(lua_State* tolua_S)
 {
@@ -223,10 +224,10 @@ static int tolua_lua_cocos2dx_userext_LuaValueList_pushBoolean00(lua_State* tolu
   LuaValueList* self = (LuaValueList*)  tolua_tousertype(tolua_S,1,0);
   bool val = ((bool)  tolua_toboolean(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'push_back'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pushBoolean'", NULL);
 #endif
   {
-   self->push_back(val);
+   self->pushBoolean(val);
   }
  }
  return 0;
@@ -238,7 +239,7 @@ static int tolua_lua_cocos2dx_userext_LuaValueList_pushBoolean00(lua_State* tolu
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: push_back of class  LuaValueList */
+/* method: pushString of class  LuaValueList */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_LuaValueList_pushString00
 static int tolua_lua_cocos2dx_userext_LuaValueList_pushString00(lua_State* tolua_S)
 {
@@ -256,10 +257,10 @@ static int tolua_lua_cocos2dx_userext_LuaValueList_pushString00(lua_State* tolua
   LuaValueList* self = (LuaValueList*)  tolua_tousertype(tolua_S,1,0);
   const char* val = ((const char*)  tolua_tostring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'push_back'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pushString'", NULL);
 #endif
   {
-   self->push_back(val);
+   self->pushString(val);
   }
  }
  return 0;
@@ -334,21 +335,22 @@ static int tolua_lua_cocos2dx_userext_LuaValueList_clear00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: network_start */
+/* method: start of class  network */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_network_start00
 static int tolua_lua_cocos2dx_userext_network_start00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isnoobj(tolua_S,1,&tolua_err)
+     !tolua_isusertable(tolua_S,1,"network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   {
-   network_start();
+   network::start();
   }
  }
  return 0;
@@ -360,21 +362,22 @@ static int tolua_lua_cocos2dx_userext_network_start00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: network_stop */
+/* method: stop of class  network */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_network_stop00
 static int tolua_lua_cocos2dx_userext_network_stop00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isnoobj(tolua_S,1,&tolua_err)
+     !tolua_isusertable(tolua_S,1,"network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   {
-   network_stop();
+   network::stop();
   }
  }
  return 0;
@@ -386,25 +389,26 @@ static int tolua_lua_cocos2dx_userext_network_stop00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: network_connect */
+/* method: connect of class  network */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_network_connect00
 static int tolua_lua_cocos2dx_userext_network_connect00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_isusertable(tolua_S,1,"network",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  const char* hostname = ((const char*)  tolua_tostring(tolua_S,1,0));
-  unsigned short port = ((unsigned short)  tolua_tonumber(tolua_S,2,0));
+  const char* hostname = ((const char*)  tolua_tostring(tolua_S,2,0));
+  unsigned short port = ((unsigned short)  tolua_tonumber(tolua_S,3,0));
   {
-   network_connect(hostname,port);
+   network::connect(hostname,port);
   }
  }
  return 0;
@@ -416,21 +420,22 @@ static int tolua_lua_cocos2dx_userext_network_connect00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: network_disconnect */
+/* method: disconnect of class  network */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_network_disconnect00
 static int tolua_lua_cocos2dx_userext_network_disconnect00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isnoobj(tolua_S,1,&tolua_err)
+     !tolua_isusertable(tolua_S,1,"network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   {
-   network_disconnect();
+   network::disconnect();
   }
  }
  return 0;
@@ -442,25 +447,26 @@ static int tolua_lua_cocos2dx_userext_network_disconnect00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: network_send */
+/* method: send of class  network */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_network_send00
 static int tolua_lua_cocos2dx_userext_network_send00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isnumber(tolua_S,1,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const LuaValueList",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_isusertable(tolua_S,1,"network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const LuaValueList",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  unsigned int id = ((unsigned int)  tolua_tonumber(tolua_S,1,0));
-  const LuaValueList* args = ((const LuaValueList*)  tolua_tousertype(tolua_S,2,0));
+  unsigned int id = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  const LuaValueList* args = ((const LuaValueList*)  tolua_tousertype(tolua_S,3,0));
   {
-   network_send(id,*args);
+   network::send(id,*args);
   }
  }
  return 0;
@@ -472,23 +478,24 @@ static int tolua_lua_cocos2dx_userext_network_send00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: network_registerHandler */
+/* method: registerHandler of class  network */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_network_registerHandler00
 static int tolua_lua_cocos2dx_userext_network_registerHandler00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     (tolua_isvaluenil(tolua_S,1,&tolua_err) || !toluafix_isfunction(tolua_S,1,"LUA_FUNCTION",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
+     !tolua_isusertable(tolua_S,1,"network",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  LUA_FUNCTION handler = (  toluafix_ref_function(tolua_S,1,0));
+  LUA_FUNCTION handler = (  toluafix_ref_function(tolua_S,2,0));
   {
-   network_registerHandler(handler);
+   network::registerHandler(handler);
   }
  }
  return 0;
@@ -500,21 +507,22 @@ static int tolua_lua_cocos2dx_userext_network_registerHandler00(lua_State* tolua
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: network_unregisterHandler */
+/* method: unregisterHandler of class  network */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_network_unregisterHandler00
 static int tolua_lua_cocos2dx_userext_network_unregisterHandler00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isnoobj(tolua_S,1,&tolua_err)
+     !tolua_isusertable(tolua_S,1,"network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   {
-   network_unregisterHandler();
+   network::unregisterHandler();
   }
  }
  return 0;
@@ -1018,7 +1026,7 @@ TOLUA_API int tolua_lua_cocos2dx_userext_open (lua_State* tolua_S)
    tolua_function(tolua_S,"size",tolua_lua_cocos2dx_userext_LuaValueList_size00);
    tolua_function(tolua_S,"clear",tolua_lua_cocos2dx_userext_LuaValueList_clear00);
   tolua_endmodule(tolua_S);
-  tolua_module(tolua_S,"network",0);
+  tolua_cclass(tolua_S,"network","network","",NULL);
   tolua_beginmodule(tolua_S,"network");
    tolua_function(tolua_S,"start",tolua_lua_cocos2dx_userext_network_start00);
    tolua_function(tolua_S,"stop",tolua_lua_cocos2dx_userext_network_stop00);

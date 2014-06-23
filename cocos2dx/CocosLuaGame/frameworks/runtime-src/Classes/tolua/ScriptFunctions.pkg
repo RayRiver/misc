@@ -1,10 +1,10 @@
-module network
+class network
 {
-	void network_start @ start();
-	void network_stop @ stop();
-	void network_connect @ connect(const char *hostname, unsigned short port);
-	void network_disconnect @ disconnect();
-	void network_send @ send(unsigned int id, const LuaValueList &args);
-	void network_registerHandler @ registerHandler(LUA_FUNCTION handler);
-	void network_unregisterHandler @ unregisterHandler();
+	static void start();
+	static void stop();
+	static void connect(const char *hostname, unsigned short port);
+	static void disconnect();
+	static void send(unsigned int id, const LuaValueList &args);
+	static void registerHandler(LUA_FUNCTION handler);
+	static void unregisterHandler();
 }

@@ -25,27 +25,27 @@ public:
 	}
 
 public:
-	inline void push_back(const cocos2d::LuaValue &val)
+	inline void pushLuaValue(const cocos2d::LuaValue &val)
 	{
 		m_luaValues.push_back(val);
 	}
 
-	inline void push_back(int val)
+	inline void pushInt(int val)
 	{
 		m_luaValues.push_back(cocos2d::LuaValue::intValue(val));
 	}
 
-	inline void push_back(float val)
+	inline void pushFloat(float val)
 	{
 		m_luaValues.push_back(cocos2d::LuaValue::floatValue(val));
 	}
 
-	inline void push_back(bool val)
+	inline void pushBoolean(bool val)
 	{
 		m_luaValues.push_back(cocos2d::LuaValue::booleanValue(val));
 	}
 
-	inline void push_back(const char *val)
+	inline void pushString(const char *val)
 	{
 		m_luaValues.push_back(cocos2d::LuaValue::stringValue(val));
 	}

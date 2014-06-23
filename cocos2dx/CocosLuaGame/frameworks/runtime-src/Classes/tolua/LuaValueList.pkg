@@ -2,10 +2,10 @@ class LuaValueList : public cc.Ref
 {
 	LuaValueList();
 
-	void push_back @ pushInt(int val);
-	void push_back @ pushFloat(float val);
-	void push_back @ pushBoolean(bool val);
-	void push_back @ pushString(const char *val);
+	void pushInt(int val);
+	void pushFloat(float val);
+	void pushBoolean(bool val);
+	void pushString(const char *val);
 
 	int size() const;
 	void clear();

@@ -94,6 +94,9 @@
     <ClInclude Include="..\Classes\EventDef.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\auto\lua_userext_auto.hpp">
+      <Filter>tolua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -156,11 +159,11 @@
     <ClCompile Include="..\Classes\GameEntity.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\lua_cocos2dx_userext.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\PackageHelper.cpp">
       <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\auto\lua_userext_auto.cpp">
+      <Filter>tolua</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
