@@ -17,4 +17,7 @@ class AnimationController : public EntityComponent
 	void pause();
 	void resume();
 	void stop();
+
+	bool checkCollider(cocos2d::Rect rect);
+	void setMovementEventCallFunc(LUA_FUNCTION handler);
 };

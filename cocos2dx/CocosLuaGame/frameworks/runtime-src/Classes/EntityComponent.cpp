@@ -1,15 +1,12 @@
 #include "EntityComponent.h"
 
 #include "cocos2d.h"
-#include "LuaScriptHandlerMgr.h"
 #include "CCLuaEngine.h"
 #include "LuaValueList.h"
+#include "EventDef.h"
+#include "LuaScriptHandlerMgr.h"
 
 USING_NS_CC;
-
-#define EVENT_USEREXT_CUSTOM_COMPONENT_ONENTER (ScriptHandlerMgr::HandlerType)((int)ScriptHandlerMgr::HandlerType::EVENT_CUSTOM_BEGAN+2)
-#define EVENT_USEREXT_CUSTOM_COMPONENT_ONEXIT (ScriptHandlerMgr::HandlerType)((int)ScriptHandlerMgr::HandlerType::EVENT_CUSTOM_BEGAN+3)
-#define EVENT_USEREXT_CUSTOM_COMPONENT_ONFRAME (ScriptHandlerMgr::HandlerType)((int)ScriptHandlerMgr::HandlerType::EVENT_CUSTOM_BEGAN+4)
 
 EntityComponent* EntityComponent::create( void )
 {

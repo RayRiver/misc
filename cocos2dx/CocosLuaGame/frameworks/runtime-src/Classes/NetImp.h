@@ -17,6 +17,5 @@ public:
 
 };
 
-#define EVENT_USEREXT_CUSTOM_NETWORK (ScriptHandlerMgr::HandlerType)((int)ScriptHandlerMgr::HandlerType::EVENT_CUSTOM_BEGAN+1) 
 
 #endif // NetImp_h__

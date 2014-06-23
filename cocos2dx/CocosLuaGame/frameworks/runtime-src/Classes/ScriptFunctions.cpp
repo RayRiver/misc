@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "LuaScriptHandlerMgr.h"
+#include "EventDef.h"
 
 #include "NetManager.h"
 #include "NetSocket.h"

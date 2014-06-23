@@ -37,6 +37,7 @@ function ComponentClass:load(armatureName, animationEventCallback)
             self.armature = nil
         end
 
+        armature:setAnchorPoint(0.5, 0.5)
         owner:addChild(armature)
         self.armature = armature
         self.armatureName = armatureName
@@ -61,9 +62,12 @@ function ComponentClass:play(movementName, playMode)
     return self
 end
 
-function ComponentClass:setMovementEventCallFunc(callback)
-    if callback then
-        self.armature:getAnimation():setMovementEventCallFunc(callback)
+function ComponentClass:setMovementEventCallFunc(animationEventCallback)
+    if animationEventCallback then
+        local function animationEvent(armature, movementType, movementID)
+            animationEventCallback(movementType, movementID)
+        end
+        self.armature:getAnimation():setMovementEventCallFunc(animationEvent)
     end
 end
 
@@ -83,6 +87,10 @@ function ComponentClass:stop()
     if self.armature then
         self.armature:getAnimation():stop()
     end
+end
+
+function ComponentClass:getArmature()
+    return self.armature
 end
 
 return ComponentClass

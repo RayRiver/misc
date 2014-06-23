@@ -1,5 +1,10 @@
 
-local AnimationController = require("app.components.animation_controller")
+local ACTION_IDLE = "Walk"
+local ACTION_WALK = "Walk"
+local ACTION_RUN = "Walk"
+local ACTION_ATTACK = "Fire"
+
+--local AnimationController = require("app.components.animation_controller")
 local StateMachine = require("app.components.state_machine")
 
 local OBJECT_NAME = "GameCharacter"
@@ -12,16 +17,17 @@ end)
 ObjectClass.DIRECTION_LEFT = -1
 ObjectClass.DIRECTION_RIGHT = 1
 
-function ObjectClass:ctor()
+function ObjectClass:ctor(animationName)
     -- animation controller
-    local ani = AnimationController.new()
+    local ani = AnimationController:create()
     self:addComponent(ani)
     self.ani = ani
     
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("animation/animation.ExportJson")
-    self.ani:load("animation", function(movementType, movementID) 
-        if movementID == "attack_down" then
-            if movementType == ccs.MovementEventType.complete then
+    self.ani:load(animationName)
+    self.ani:setMovementEventCallFunc(function(movementType, movementID) 
+        if movementID == ACTION_ATTACK then
+            if movementType == ccs.MovementEventType.complete or
+                movementType == ccs.MovementEventType.loopComplete then
                 self.fsm:doEvent("doIdle")
             end
         end
@@ -71,15 +77,28 @@ function ObjectClass:ctor()
     self:scheduleUpdateWithPriorityLua(handler(self, self.onFrame), 0)
 end
 
+function ObjectClass:getContentSize()
+    return self.ani:getArmature():getContentSize()
+end
+
 function ObjectClass:onEnter()
-    self.ani:play("run")
-    
     self.fsm:doEvent("doStartup")
 end
 
 function ObjectClass:onFrame(dt)
-    
+    --[[
+    local boneDict = self.ani.armature:getBoneDic()
+    for type, bone in pairs(boneDict) do
+        printInfo("%s = %s", tostring(type), tostring(bone))
+        local detector = bone:getColliderDetector()
+        if detector then
+            local bodyList = ccs.ColliderDetector:getColliderBodyList
+        end
+    end
+    --]]
+    --self.ani.armature:drawContour()
 
+    
     local state = self.fsm:getState()
     
     if state == "walk" then
@@ -94,19 +113,19 @@ function ObjectClass:onFrame(dt)
 end
 
 function ObjectClass:onIdle()
-    self.ani:play("idle")
+    self.ani:play(ACTION_IDLE)
 end
 
 function ObjectClass:onWalk()
-    self.ani:play("walk")
+    self.ani:play(ACTION_WALK)
 end
 
 function ObjectClass:onRun()
-    self.ani:play("run")
+    self.ani:play(ACTION_RUN)
 end
 
 function ObjectClass:onAttack()
-    self.ani:play("attack_down")
+    self.ani:play(ACTION_ATTACK)
 end
 
 function ObjectClass:doIdle()
@@ -151,6 +170,10 @@ end
 function ObjectClass:setDesiredPosition(x, y)
     self.desiredPositionX = x
     self.desiredPositionY = y
+end
+
+function ObjectClass:checkCollider(rect)
+    return self.ani:checkCollider(rect)
 end
 
 return ObjectClass

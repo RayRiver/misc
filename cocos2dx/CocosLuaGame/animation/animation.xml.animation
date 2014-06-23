@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <AnimationProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectDir>D:\dev\project\misc\cocos2dx\CocosLuaGame\animation</ProjectDir>
+  <ProjectDir>D:\dev\misc\cocos2dx\CocosLuaGame\animation</ProjectDir>
   <Version>1.4.0.1</Version>
-  <Resources>D:\dev\project\misc\cocos2dx\CocosLuaGame\animation\Resources</Resources>
+  <Resources>D:\dev\misc\cocos2dx\CocosLuaGame\animation\Resources</Resources>
   <Name>animation</Name>
   <JsonFileName>animation.json</JsonFileName>
-  <JsonFolder>D:\dev\project\misc\cocos2dx\CocosLuaGame\animation\Json</JsonFolder>
+  <JsonFolder>D:\dev\misc\cocos2dx\CocosLuaGame\animation\Json</JsonFolder>
   <JsonList />
   <CanvasSize>
     <Width>0</Width>
     <Height>0</Height>
   </CanvasSize>
-  <filePath>D:\dev\project\misc\cocos2dx\CocosLuaGame\animation\animation.xml.animation</filePath>
+  <filePath>D:\dev\misc\cocos2dx\CocosLuaGame\animation\animation.xml.animation</filePath>
   <ProjectType>AnimationProject</ProjectType>
   <ResRelativePath />
   <ResourceFileList />

@@ -156,6 +156,12 @@ function display.newScene(name)
     return scene
 end
 
+function display.newSceneWithPhysics(name)
+    local scene = cc.SceneEx.extend(cc.Scene:createWithPhysics())
+    scene.name = name or "<unknown-scene>"
+    return scene
+end
+
 --[[--
 
 切换到新场景

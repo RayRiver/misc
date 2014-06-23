@@ -16,7 +16,9 @@ function SceneClass:ctor()
     
 
     -- create new player
-    local player = GameCharacter.new()
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("animation/Cowboy.ExportJson")
+    local player = GameCharacter.new("Cowboy")
+    player:setScale(0.1)
     player:setPosition(display.cx, display.cy)
     player:setDesiredPosition(display.cx, display.cy)
     self:addChild(player)
@@ -60,6 +62,12 @@ function SceneClass:onFrame(dt)
     
     local desiredPositionX, desiredPositionY = player:getDesiredPosition()
     player:setPosition(desiredPositionX, desiredPositionY)
+    
+
+    local bCollider = player:checkCollider(cc.rect(0, display.cy, 50, 50))
+    if bCollider then
+        printInfo("collider")
+    end
 end
 
 return SceneClass

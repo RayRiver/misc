@@ -21,7 +21,7 @@ public:
 		Once = 0,
 		Loop = 1,
 	};
-	typedef std::map<std::string, std::string> ArmatureMap;
+	//typedef std::map<std::string, std::string> ArmatureMap;
 
 public:
 	AnimationController();
@@ -35,6 +35,9 @@ public:
 	void pause();
 	void resume();
 	void stop();
+
+	bool checkCollider(cocos2d::Rect rect);
+	void setMovementEventCallFunc(cocos2d::LUA_FUNCTION handler);	
 
 protected:
 	std::string m_animationName;

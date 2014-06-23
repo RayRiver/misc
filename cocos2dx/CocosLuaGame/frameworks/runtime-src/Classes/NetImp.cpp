@@ -11,9 +11,10 @@ extern "C" {
 #include "BitStream.h"
 
 #include "cocos2d.h"
-#include "LuaScriptHandlerMgr.h"
 #include "CCLuaEngine.h"
 #include "LuaValueList.h"
+#include "EventDef.h"
+#include "LuaScriptHandlerMgr.h"
 
 USING_NS_CC;
 

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: lua_cocos2dx_userext
-** Generated automatically by tolua++-1.0.92 on 06/19/14 20:55:45.
+** Generated automatically by tolua++-1.0.92 on 06/23/14 15:22:20.
 */
 
 /****************************************************************************
@@ -31,6 +31,7 @@
 
 #include "cocos2d.h"
 #include "CCLuaValue.h"
+#include "LuaBasicConversions.h"
 
 #include "ScriptFunctions.h"
 #include "LuaValueList.h"
@@ -70,14 +71,15 @@ static int tolua_collect_AnimationController (lua_State* tolua_S)
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"LuaValueList");
+ tolua_usertype(tolua_S,"AnimationController");
+ tolua_usertype(tolua_S,"cc.Component");
+ tolua_usertype(tolua_S,"GameEntity");
+ tolua_usertype(tolua_S,"cc.Sprite");
  tolua_usertype(tolua_S,"cc.Ref");
  tolua_usertype(tolua_S,"EntityComponent");
- tolua_usertype(tolua_S,"AnimationController");
  
- tolua_usertype(tolua_S,"cc.Component");
- tolua_usertype(tolua_S,"cc.Sprite");
- tolua_usertype(tolua_S,"GameEntity");
+ tolua_usertype(tolua_S,"cocos2d::Rect");
+ tolua_usertype(tolua_S,"LuaValueList");
 }
 
 /* method: new of class  LuaValueList */
@@ -925,6 +927,74 @@ static int tolua_lua_cocos2dx_userext_AnimationController_stop00(lua_State* tolu
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: checkCollider of class  AnimationController */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_checkCollider00
+static int tolua_lua_cocos2dx_userext_AnimationController_checkCollider00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AnimationController",0,&tolua_err) ||
+     
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AnimationController* self = (AnimationController*)  tolua_tousertype(tolua_S,1,0);
+  cocos2d::Rect rect;
+  luaval_to_rect(tolua_S, 2, &rect);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'checkCollider'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->checkCollider(rect);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'checkCollider'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setMovementEventCallFunc of class  AnimationController */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_setMovementEventCallFunc00
+static int tolua_lua_cocos2dx_userext_AnimationController_setMovementEventCallFunc00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AnimationController",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AnimationController* self = (AnimationController*)  tolua_tousertype(tolua_S,1,0);
+  LUA_FUNCTION handler = (  toluafix_ref_function(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMovementEventCallFunc'", NULL);
+#endif
+  {
+   self->setMovementEventCallFunc(handler);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setMovementEventCallFunc'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* Open function */
 TOLUA_API int tolua_lua_cocos2dx_userext_open (lua_State* tolua_S)
 {
@@ -987,6 +1057,8 @@ TOLUA_API int tolua_lua_cocos2dx_userext_open (lua_State* tolua_S)
    tolua_function(tolua_S,"pause",tolua_lua_cocos2dx_userext_AnimationController_pause00);
    tolua_function(tolua_S,"resume",tolua_lua_cocos2dx_userext_AnimationController_resume00);
    tolua_function(tolua_S,"stop",tolua_lua_cocos2dx_userext_AnimationController_stop00);
+   tolua_function(tolua_S,"checkCollider",tolua_lua_cocos2dx_userext_AnimationController_checkCollider00);
+   tolua_function(tolua_S,"setMovementEventCallFunc",tolua_lua_cocos2dx_userext_AnimationController_setMovementEventCallFunc00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

@@ -94,6 +94,7 @@ function post_output_hook(package)
 
 #include "cocos2d.h"
 #include "CCLuaValue.h"
+#include "LuaBasicConversions.h"
 
 #include "ScriptFunctions.h"
 #include "LuaValueList.h"
@@ -125,6 +126,12 @@ TOLUA_API int  tolua_userext_open (lua_State* tolua_S);]], [[]])
         [[int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
     int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
     toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret]])
+
+       
+      replace([[(tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"cocos2d::Rect",0,&tolua_err)) ||]], [[]])      
+      replace([[cocos2d::Rect rect = *((cocos2d::Rect*)  tolua_tousertype(tolua_S,2,0));]], [[cocos2d::Rect rect;
+  luaval_to_rect(tolua_S, 2, &rect);]])
+
 
       replace('\t', '    ')
 
