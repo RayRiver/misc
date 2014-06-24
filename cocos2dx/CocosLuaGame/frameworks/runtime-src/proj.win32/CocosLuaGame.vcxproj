@@ -187,7 +187,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClInclude Include="..\Classes\AnimationController.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\auto\lua_userext_auto.hpp" />
     <ClInclude Include="..\Classes\BitStream.h" />
     <ClInclude Include="..\Classes\ConfigParser.h" />
     <ClInclude Include="..\Classes\EntityComponent.h" />
@@ -215,12 +214,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClCompile Include="..\Classes\AnimationController.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\auto\lua_userext_auto.cpp" />
     <ClCompile Include="..\Classes\BitStream.cpp" />
     <ClCompile Include="..\Classes\ConfigParser.cpp" />
     <ClCompile Include="..\Classes\EntityComponent.cpp" />
     <ClCompile Include="..\Classes\GameEntity.cpp" />
     <ClCompile Include="..\Classes\Log.cpp" />
+    <ClCompile Include="..\Classes\lua_cocos2dx_userext.cpp" />
     <ClCompile Include="..\Classes\NetImp.cpp" />
     <ClCompile Include="..\Classes\NetManager.cpp" />
     <ClCompile Include="..\Classes\NetSocket.cpp" />

@@ -59,10 +59,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     ScriptEngineManager::getInstance()->setScriptEngine(engine);
     
     //register custom function
-	//extern int luaopen_lua_cocos2dx_userext(lua_State* tolua_S);
-	//luaopen_lua_cocos2dx_userext(engine->getLuaStack()->getLuaState());
-	extern int register_all_userext(lua_State* tolua_S);
-	register_all_userext(engine->getLuaStack()->getLuaState());
+	extern int luaopen_lua_cocos2dx_userext(lua_State* tolua_S);
+	luaopen_lua_cocos2dx_userext(engine->getLuaStack()->getLuaState());
+	//extern int register_all_userext(lua_State* tolua_S);
+	//register_all_userext(engine->getLuaStack()->getLuaState());
 
 
     

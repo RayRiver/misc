@@ -4,7 +4,7 @@ class network
 	static void stop();
 	static void connect(const char *hostname, unsigned short port);
 	static void disconnect();
-	static void send(unsigned int id, const LuaValueList &args);
+	static void send(unsigned int id, const LuaValueList *args);
 	static void registerHandler(LUA_FUNCTION handler);
 	static void unregisterHandler();
 }

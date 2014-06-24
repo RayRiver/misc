@@ -1,6 +1,6 @@
 /*
 ** Lua binding: lua_cocos2dx_userext
-** Generated automatically by tolua++-1.0.92 on 06/23/14 19:22:34.
+** Generated automatically by tolua++-1.0.92 on 06/24/14 10:23:17.
 */
 
 /****************************************************************************
@@ -456,7 +456,7 @@ static int tolua_lua_cocos2dx_userext_network_send00(lua_State* tolua_S)
  if (
      !tolua_isusertable(tolua_S,1,"network",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const LuaValueList",0,&tolua_err)) ||
+     !tolua_isusertype(tolua_S,3,"const LuaValueList",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -466,7 +466,7 @@ static int tolua_lua_cocos2dx_userext_network_send00(lua_State* tolua_S)
   unsigned int id = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
   const LuaValueList* args = ((const LuaValueList*)  tolua_tousertype(tolua_S,3,0));
   {
-   network::send(id,*args);
+   network::send(id,args);
   }
  }
  return 0;
