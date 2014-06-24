@@ -18,6 +18,7 @@ class AnimationController : public EntityComponent
 	void resume();
 	void stop();
 
+	cocostudio::Armature *getArmature();
 	bool checkCollider(cocos2d::Rect rect);
 	void setMovementEventCallFunc(LUA_FUNCTION handler);
 };

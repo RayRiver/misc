@@ -1,6 +1,6 @@
 /*
 ** Lua binding: lua_cocos2dx_userext
-** Generated automatically by tolua++-1.0.92 on 06/24/14 10:23:17.
+** Generated automatically by tolua++-1.0.92 on 06/24/14 10:35:55.
 */
 
 /****************************************************************************
@@ -80,6 +80,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"EntityComponent");
  
  tolua_usertype(tolua_S,"cocos2d::Rect");
+ tolua_usertype(tolua_S,"cocostudio::Armature");
  tolua_usertype(tolua_S,"LuaValueList");
 }
 
@@ -935,6 +936,38 @@ static int tolua_lua_cocos2dx_userext_AnimationController_stop00(lua_State* tolu
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getArmature of class  AnimationController */
+#ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_getArmature00
+static int tolua_lua_cocos2dx_userext_AnimationController_getArmature00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AnimationController",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AnimationController* self = (AnimationController*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getArmature'", NULL);
+#endif
+  {
+   cocostudio::Armature* tolua_ret = (cocostudio::Armature*)  self->getArmature();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"cocostudio::Armature");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getArmature'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: checkCollider of class  AnimationController */
 #ifndef TOLUA_DISABLE_tolua_lua_cocos2dx_userext_AnimationController_checkCollider00
 static int tolua_lua_cocos2dx_userext_AnimationController_checkCollider00(lua_State* tolua_S)
@@ -1065,6 +1098,7 @@ TOLUA_API int tolua_lua_cocos2dx_userext_open (lua_State* tolua_S)
    tolua_function(tolua_S,"pause",tolua_lua_cocos2dx_userext_AnimationController_pause00);
    tolua_function(tolua_S,"resume",tolua_lua_cocos2dx_userext_AnimationController_resume00);
    tolua_function(tolua_S,"stop",tolua_lua_cocos2dx_userext_AnimationController_stop00);
+   tolua_function(tolua_S,"getArmature",tolua_lua_cocos2dx_userext_AnimationController_getArmature00);
    tolua_function(tolua_S,"checkCollider",tolua_lua_cocos2dx_userext_AnimationController_checkCollider00);
    tolua_function(tolua_S,"setMovementEventCallFunc",tolua_lua_cocos2dx_userext_AnimationController_setMovementEventCallFunc00);
   tolua_endmodule(tolua_S);

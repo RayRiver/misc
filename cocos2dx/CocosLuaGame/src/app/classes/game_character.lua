@@ -101,7 +101,9 @@ function ObjectClass:onFrame(dt)
     
     local state = self.fsm:getState()
     
-    if state == "walk" then
+    if state == "idle" then
+        --self:fsm:doEvent("doWalk")
+    elseif state == "walk" then
         local speed = 2
         local direction = self:getDirection()      
         self.desiredPositionX = self:getPositionX() + speed * direction
@@ -153,7 +155,15 @@ function ObjectClass:doAttack()
 end
 
 function ObjectClass:getDirection()
-    return self:getScaleX()>0 and ObjectClass.DIRECTION_RIGHT or ObjectClass.DIRECTION_LEFT
+    -- TODO: 该资源方向刚好相反
+    --if self:getScaleX() * ObjectClass.DIRECTION_RIGHT < 0 then
+    if self:getScaleX() * ObjectClass.DIRECTION_RIGHT > 0 then
+        return ObjectClass.DIRECTION_LEFT
+    else
+        return ObjectClass.DIRECTION_RIGHT
+    end
+
+    --return self:getScaleX()>0 and ObjectClass.DIRECTION_RIGHT or ObjectClass.DIRECTION_LEFT
 end
 
 function ObjectClass:changeDirection(direction)

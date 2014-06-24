@@ -36,6 +36,7 @@ public:
 	void resume();
 	void stop();
 
+	inline cocostudio::Armature *getArmature() { return m_pArmature; }
 	bool checkCollider(cocos2d::Rect rect);
 	void setMovementEventCallFunc(cocos2d::LUA_FUNCTION handler);	
 
