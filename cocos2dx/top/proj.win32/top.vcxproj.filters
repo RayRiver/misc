@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Scene">
+      <UniqueIdentifier>{b20f38d6-fb90-43e7-8da1-8f4fe5143f15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Component">
+      <UniqueIdentifier>{c632827f-8521-442a-adfe-409ac79de2cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Object">
+      <UniqueIdentifier>{009b2895-dc60-4fa0-962a-bc5bc7590c16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Helper">
+      <UniqueIdentifier>{a2cd4f22-82e6-4a3f-bf26-7e3529469bd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\BehaviorTree">
+      <UniqueIdentifier>{ac9d133a-1332-4db7-bf35-68687f171850}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AnimationController.cpp">
+      <Filter>Classes\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameCharacter.cpp">
+      <Filter>Classes\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\VisibleRect.cpp">
+      <Filter>Classes\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StateMachine.cpp">
+      <Filter>Classes\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\KeyboardLayer.cpp">
+      <Filter>Classes\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\InputManager.cpp">
+      <Filter>Classes\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\InputController.cpp">
+      <Filter>Classes\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BevNode.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BevNodeFactory.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BevNodeTerminal.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BevNodePrioritySelector.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BevTestScene.cpp">
+      <Filter>Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BevNodePrecondition.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AnimationController.h">
+      <Filter>Classes\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameCharacter.h">
+      <Filter>Classes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\VisibleRect.h">
+      <Filter>Classes\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StateMachine.h">
+      <Filter>Classes\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\KeyboardLayer.h">
+      <Filter>Classes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InputManager.h">
+      <Filter>Classes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InputController.h">
+      <Filter>Classes\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevNodeFactory.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevNodePrecondition.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevNode.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevNodeParam.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevNodeTerminal.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevDef.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevNodePrioritySelector.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevTestScene.h">
+      <Filter>Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BehaviorTree.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
