@@ -3,15 +3,15 @@
 
 #include "BevNode.h"
 
-class BevNodePrecondition;
+class BevPrecondition;
 class BevNodePrioritySelector : public BevNode
 {
 public:
-	BevNodePrioritySelector(BevNode *parent, BevNodePrecondition *precondition = nullptr);
+	BevNodePrioritySelector(BevNode *parent, BevPrecondition *precondition = nullptr);
 
-	virtual bool _doInternalEvaluate(const BevNodeInputParam &input);
-	virtual void _doTransition(const BevNodeInputParam &input);
-	virtual BevRunningStatus _doTick(const BevNodeInputParam &input, BevNodeOutputParam &output);
+	virtual bool _doInternalEvaluate(const BevInputParam &input);
+	virtual void _doTransition(const BevInputParam &input);
+	virtual BevRunningStatus _doTick(const BevInputParam &input, BevOutputParam &output);
 
 protected:
 	int m_nEvaluateSelectIndex;		// 评估选定的节点

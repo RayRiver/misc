@@ -1,7 +1,7 @@
 #include "BevNodeFactory.h"
 
 #include "BevNode.h"
-#include "BevNodeTerminal.h"
+#include "BevNodeAction.h"
 #include "BevNodePrioritySelector.h"
 
 void BevNodeFactory::_createNode( BevNode *me, BevNode *parent, const char *name /*= nullptr*/ )

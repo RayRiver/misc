@@ -3,11 +3,11 @@
 
 #include <assert.h>
 
-class BevNodeParam
+class BevParam
 {
 public:
 	template<typename RealDataType>
-	BevNodeParam(RealDataType *data)
+	BevParam(RealDataType *data)
 		: m_realData(data)
 	{}
 
@@ -24,7 +24,7 @@ public:
 	}
 
 	template<typename RealDataType>
-	BevNodeParam& operator =(RealDataType* data)
+	BevParam& operator =(RealDataType* data)
 	{
 		set<RealDataType>(data);
 		return *this;
@@ -41,7 +41,7 @@ private:
 	void *m_realData;
 };
 
-typedef BevNodeParam BevNodeInputParam;
-typedef BevNodeParam BevNodeOutputParam;
+typedef BevParam BevInputParam;
+typedef BevParam BevOutputParam;
 
 #endif // BevNodeParam_h__

@@ -1,28 +1,28 @@
-#include "BevNodeTerminal.h"
+#include "BevNodeAction.h"
 
-BevNodeTerminal::BevNodeTerminal( BevNode *parent, BevNodePrecondition *precondition /*= nullptr*/ )
+BevNodeAction::BevNodeAction( BevNode *parent, BevPrecondition *precondition /*= nullptr*/ )
 	: BevNode(parent, precondition)
 	, m_isRunning(false)
 {
 
 }
 
-void BevNodeTerminal::_doEnter( const BevNodeInputParam &input )
+void BevNodeAction::_doEnter( const BevInputParam &input )
 {
 
 }
 
-void BevNodeTerminal::_doExit( const BevNodeInputParam &input, BevRunningStatus state )
+void BevNodeAction::_doExit( const BevInputParam &input, BevRunningStatus state )
 {
 
 }
 
-BevRunningStatus BevNodeTerminal::_doExecute( const BevNodeInputParam &input, BevNodeOutputParam &output )
+BevRunningStatus BevNodeAction::_doExecute( const BevInputParam &input, BevOutputParam &output )
 {
 	return BevRunningStatus::Finish;
 }
 
-void BevNodeTerminal::_doTransition( const BevNodeInputParam &input )
+void BevNodeAction::_doTransition( const BevInputParam &input )
 {
 	if (m_isRunning)
 	{
@@ -32,7 +32,7 @@ void BevNodeTerminal::_doTransition( const BevNodeInputParam &input )
 }
 
 // 走到doTick表示必须开始执行
-BevRunningStatus BevNodeTerminal::_doTick( const BevNodeInputParam &input, BevNodeOutputParam &output )
+BevRunningStatus BevNodeAction::_doTick( const BevInputParam &input, BevOutputParam &output )
 {
 	// 开始执行，调用enter方法
 	if (!m_isRunning)

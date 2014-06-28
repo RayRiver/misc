@@ -66,16 +66,16 @@
     <ClCompile Include="..\Classes\BevNodeFactory.cpp">
       <Filter>Classes\BehaviorTree</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BevNodeTerminal.cpp">
-      <Filter>Classes\BehaviorTree</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\BevNodePrioritySelector.cpp">
       <Filter>Classes\BehaviorTree</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\BevTestScene.cpp">
       <Filter>Classes\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BevNodePrecondition.cpp">
+    <ClCompile Include="..\Classes\BevNodeAction.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BevPrecondition.cpp">
       <Filter>Classes\BehaviorTree</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,16 +116,7 @@
     <ClInclude Include="..\Classes\BevNodeFactory.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BevNodePrecondition.h">
-      <Filter>Classes\BehaviorTree</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\BevNode.h">
-      <Filter>Classes\BehaviorTree</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BevNodeParam.h">
-      <Filter>Classes\BehaviorTree</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BevNodeTerminal.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BevDef.h">
@@ -138,6 +129,15 @@
       <Filter>Classes\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BehaviorTree.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevNodeAction.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevPrecondition.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevParam.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
   </ItemGroup>

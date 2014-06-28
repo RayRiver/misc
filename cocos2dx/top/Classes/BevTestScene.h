@@ -3,13 +3,33 @@
 
 #include "cocos2d.h"
 
+class TestSprite : public cocos2d::Sprite
+{
+public:
+	enum class State
+	{
+		Ready,
+		Running,
+		Finish,
+	};
+
+	static TestSprite* create(const std::string& filename);
+	virtual bool initWithFile(const std::string& filename);
+
+	inline State getState() { return m_state; }
+	inline void setState(State state) { m_state = state; }
+
+private:
+	State m_state;
+};
+
 struct InputData
 {
-	int id;
+	TestSprite *sprite;
 };
 struct OutputData
 {
-	int returnValue;
+	TestSprite *sprite;
 };
 
 class BevNode;
@@ -20,7 +40,7 @@ public:
 	virtual bool init();  
 	CREATE_FUNC(BevTestScene);
 
-	virtual void update(float dt);
+	void behaviorTreeUpdate(float dt);
 
 private:
 	InputData m_inputData;

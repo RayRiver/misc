@@ -137,9 +137,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\BevNode.cpp" />
     <ClCompile Include="..\Classes\BevNodeFactory.cpp" />
-    <ClCompile Include="..\Classes\BevNodePrecondition.cpp" />
+    <ClCompile Include="..\Classes\BevPrecondition.cpp" />
     <ClCompile Include="..\Classes\BevNodePrioritySelector.cpp" />
-    <ClCompile Include="..\Classes\BevNodeTerminal.cpp" />
+    <ClCompile Include="..\Classes\BevNodeAction.cpp" />
     <ClCompile Include="..\Classes\BevTestScene.cpp" />
     <ClCompile Include="..\Classes\GameCharacter.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
@@ -158,10 +158,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\BevDef.h" />
     <ClInclude Include="..\Classes\BevNode.h" />
     <ClInclude Include="..\Classes\BevNodeFactory.h" />
-    <ClInclude Include="..\Classes\BevNodeParam.h" />
-    <ClInclude Include="..\Classes\BevNodePrecondition.h" />
+    <ClInclude Include="..\Classes\BevParam.h" />
+    <ClInclude Include="..\Classes\BevPrecondition.h" />
     <ClInclude Include="..\Classes\BevNodePrioritySelector.h" />
-    <ClInclude Include="..\Classes\BevNodeTerminal.h" />
+    <ClInclude Include="..\Classes\BevNodeAction.h" />
     <ClInclude Include="..\Classes\BevTestScene.h" />
     <ClInclude Include="..\Classes\GameCharacter.h" />
     <ClInclude Include="..\Classes\GameScene.h" />

@@ -1,59 +1,132 @@
 #include "BevTestScene.h"
 
+#include "VisibleRect.h"
 #include "BehaviorTree.h"
 
 USING_NS_CC;
 
-class NOD_MoveTo : public BevNodeTerminal
+TestSprite* TestSprite::create(const std::string& filename)
+{
+	TestSprite *sprite = new (std::nothrow) TestSprite();
+	if (sprite && sprite->initWithFile(filename))
+	{
+		sprite->autorelease();
+		return sprite;
+	}
+	CC_SAFE_DELETE(sprite);
+	return nullptr;
+}
+
+bool TestSprite::initWithFile(const std::string& filename)
+{
+	if (!Sprite::initWithFile(filename))
+	{
+		return false;
+	}
+
+	m_state = State::Ready;
+
+	return true;
+}
+
+class NOD_MoveTo : public BevNodeAction
 {
 public:
 	NOD_MoveTo(BevNode *parent)
-		: BevNodeTerminal(parent)
+		: BevNodeAction(parent)
 	{
 
 	}
 
 protected:
-	virtual BevRunningStatus _doExecute(const BevNodeInputParam& input, BevNodeOutputParam& output)	
+	virtual BevRunningStatus _doExecute(const BevInputParam& input, BevOutputParam& output)	
 	{
 		const InputData &inputData = input.getRealData<InputData>();
 		OutputData &outputData = output.getRealData<OutputData>();
 
-		log("do move to action");
+		auto sprite = inputData.sprite;
+		TestSprite::State state = sprite->getState();
+
+		if (state == TestSprite::State::Ready)
+		{
+			sprite->runAction(Sequence::create(MoveTo::create(2.0f, Point(VisibleRect::center().x+100, VisibleRect::center().y)), DelayTime::create(1.0f), CallFunc::create([=]() {
+				sprite->setState(TestSprite::State::Ready);
+			}), nullptr));
+			sprite->setState(TestSprite::State::Running);
+			return BevRunningStatus::Executing;
+		}
+		else if (state == TestSprite::State::Running)
+		{
+			return BevRunningStatus::Executing;
+		}	
+		else if (state == TestSprite::State::Finish)
+		{
+			sprite->setState(TestSprite::State::Ready);
+			return BevRunningStatus::Finish;
+		}
 
 		return BevRunningStatus::Finish;
 	}
 };
 
-class NOD_Turn : public BevNodeTerminal
+class NOD_Turn : public BevNodeAction
 {
 public:
 	NOD_Turn(BevNode *parent)
-		: BevNodeTerminal(parent)
+		: BevNodeAction(parent)
 	{
 
 	}
 
 protected:
-	virtual BevRunningStatus _doExecute(const BevNodeInputParam& input, BevNodeOutputParam& output)	
+	virtual BevRunningStatus _doExecute(const BevInputParam& input, BevOutputParam& output)	
 	{
 		const InputData &inputData = input.getRealData<InputData>();
 		OutputData &outputData = output.getRealData<OutputData>();
 
-		log("do turn action");
+		auto sprite = inputData.sprite;
+		TestSprite::State state = sprite->getState();
+
+		if (state == TestSprite::State::Ready)
+		{
+			sprite->runAction(Sequence::create(ScaleBy::create(1.0f, -1.0f, 1.0f), DelayTime::create(1.0f), CallFunc::create([=]() {
+				sprite->setState(TestSprite::State::Ready);
+			}), nullptr));
+			sprite->setState(TestSprite::State::Running);
+			return BevRunningStatus::Executing;
+		}
+		else if (state == TestSprite::State::Running)
+		{
+			return BevRunningStatus::Executing;
+		}	
+		else if (state == TestSprite::State::Finish)
+		{
+			sprite->setState(TestSprite::State::Ready);
+			return BevRunningStatus::Finish;
+		}
 
 		return BevRunningStatus::Finish;
 	}
+
 };
 
-class CON_ReachedTargetArea : public BevNodePrecondition
+class CON_ReachedTargetArea : public BevPrecondition
 {
 public:
-	virtual bool externalCondition(const BevNodeInputParam& input) const
+	virtual bool externalCondition(const BevInputParam& input) const
 	{
 		const InputData&  inputData	= input.getRealData<InputData>();
 
-		return true;
+		auto sprite = inputData.sprite;
+
+		if (sprite->getPositionX() > VisibleRect::center().x)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 };
 
@@ -72,21 +145,27 @@ bool BevTestScene::init()
 		return false;
 	}
 
+	auto sprite = TestSprite::create("CloseNormal.png");
+	sprite->setPosition(VisibleRect::left());
+	this->addChild(sprite);
+
+	m_inputData.sprite = sprite;
+	m_outputData.sprite = sprite;
 
 	BevNode &ret = BevNodeFactory::createPrioritySelectorNode(nullptr, "root");
 	m_bevTreeRoot = &ret;
-	BevNodeFactory::createTerminalNode<NOD_Turn>(m_bevTreeRoot, "action turn").setPrecondition(new CON_ReachedTargetArea());
-	BevNodeFactory::createTerminalNode<NOD_MoveTo>(m_bevTreeRoot, "action move to").setPrecondition(new BevNodePreconditionTRUE());
+	BevNodeFactory::createActionNode<NOD_Turn>(m_bevTreeRoot, "action turn").setPrecondition(new CON_ReachedTargetArea());
+	BevNodeFactory::createActionNode<NOD_MoveTo>(m_bevTreeRoot, "action move to").setPrecondition(new BevPreconditionTRUE());
 
-	this->scheduleUpdate();
+	this->schedule(schedule_selector(BevTestScene::behaviorTreeUpdate), 0.2f); // 200ms做一次决策
 
 	return true;
 }
 
-void BevTestScene::update(float dt)
+void BevTestScene::behaviorTreeUpdate(float dt)
 {
-	BevNodeInputParam input(&m_inputData);
-	BevNodeInputParam output(&m_outputData);
+	BevInputParam input(&m_inputData);
+	BevInputParam output(&m_outputData);
 	if (m_bevTreeRoot && m_bevTreeRoot->doEvaluate(input))
 	{
 		m_bevTreeRoot->doTick(input, output);

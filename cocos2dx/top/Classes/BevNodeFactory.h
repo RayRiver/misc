@@ -6,9 +6,9 @@ class BevNodeFactory
 {
 public:
 	template<typename T>
-	static BevNode &createTerminalNode(BevNode *parent, const char *name = nullptr)
+	static BevNode &createActionNode(BevNode *parent, const char *name = nullptr)
 	{
-		BevNodeTerminal *node = new T(parent);
+		BevNodeAction *node = new T(parent);
 		BevNodeFactory::_createNode(node, parent, name);
 		return *node; 
 	}
