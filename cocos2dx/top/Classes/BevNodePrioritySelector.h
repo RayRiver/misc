@@ -9,9 +9,9 @@ class BevNodePrioritySelector : public BevNode
 public:
 	BevNodePrioritySelector(BevNode *parent, BevPrecondition *precondition = nullptr);
 
-	virtual bool _doInternalEvaluate(const BevInputParam &input);
-	virtual void _doTransition(const BevInputParam &input);
-	virtual BevRunningStatus _doTick(const BevInputParam &input, BevOutputParam &output);
+	virtual bool onInternalEvaluate(const BevInputParam &input);
+	virtual void onTransition(const BevInputParam &input);
+	virtual BevRunningStatus onExecute(const BevInputParam &input, BevOutputParam &output);
 
 protected:
 	int m_nEvaluateSelectIndex;		// 评估选定的节点

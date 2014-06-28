@@ -8,14 +8,15 @@ class BevNodeAction : public BevNode
 public:
 	BevNodeAction(BevNode *parent, BevPrecondition *precondition = nullptr);
 
+	// override these functions
 protected:
-	virtual void _doEnter(const BevInputParam &input);
-	virtual void _doExit(const BevInputParam &input, BevRunningStatus state);
-	virtual BevRunningStatus _doExecute(const BevInputParam &input, BevOutputParam &output);
+	virtual void onEnter(const BevInputParam &input);
+	virtual void onExit(const BevInputParam &input, BevRunningStatus state);
+	virtual BevRunningStatus onAction(const BevInputParam &input, BevOutputParam &output);
 
 protected:
-	virtual void _doTransition(const BevInputParam &input);
-	virtual BevRunningStatus _doTick(const BevInputParam &input, BevOutputParam &output);
+	virtual void onTransition(const BevInputParam &input);
+	virtual BevRunningStatus onExecute(const BevInputParam &input, BevOutputParam &output);
 
 private:
 	bool m_isRunning;

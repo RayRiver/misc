@@ -2,12 +2,12 @@
 
 #include <assert.h>
 
-bool BevPreconditionTRUE::externalCondition( const BevInputParam &input ) const
+bool BevPreconditionTRUE::onEvaluate( const BevInputParam &input ) const
 {
 	return true;
 }
 
-bool BevPreconditionFALSE::externalCondition( const BevInputParam &input ) const
+bool BevPreconditionFALSE::onEvaluate( const BevInputParam &input ) const
 {
 	return false;
 }
@@ -27,9 +27,9 @@ BevPreconditionNOT::~BevPreconditionNOT()
 	}
 }
 
-bool BevPreconditionNOT::externalCondition( const BevInputParam &input ) const
+bool BevPreconditionNOT::onEvaluate( const BevInputParam &input ) const
 {
-	return !m_lhs->externalCondition(input);
+	return !m_lhs->onEvaluate(input);
 }
 
 BevPreconditionAND::BevPreconditionAND( BevPrecondition *lhs, BevPrecondition *rhs )
@@ -53,9 +53,9 @@ BevPreconditionAND::~BevPreconditionAND()
 	}
 }
 
-bool BevPreconditionAND::externalCondition( const BevInputParam &input ) const
+bool BevPreconditionAND::onEvaluate( const BevInputParam &input ) const
 {
-	return m_lhs->externalCondition(input) && m_rhs->externalCondition(input);
+	return m_lhs->onEvaluate(input) && m_rhs->onEvaluate(input);
 }
 
 BevPreconditionOR::BevPreconditionOR( BevPrecondition *lhs, BevPrecondition *rhs )
@@ -79,9 +79,9 @@ BevPreconditionOR::~BevPreconditionOR()
 	}
 }
 
-bool BevPreconditionOR::externalCondition( const BevInputParam &input ) const
+bool BevPreconditionOR::onEvaluate( const BevInputParam &input ) const
 {
-	return m_lhs->externalCondition(input) || m_rhs->externalCondition(input);
+	return m_lhs->onEvaluate(input) || m_rhs->onEvaluate(input);
 }
 
 BevPreconditionXOR::BevPreconditionXOR( BevPrecondition *lhs, BevPrecondition *rhs )
@@ -105,8 +105,8 @@ BevPreconditionXOR::~BevPreconditionXOR()
 	}
 }
 
-bool BevPreconditionXOR::externalCondition( const BevInputParam &input ) const
+bool BevPreconditionXOR::onEvaluate( const BevInputParam &input ) const
 {
-	return m_lhs->externalCondition(input) ^ m_rhs->externalCondition(input);
+	return m_lhs->onEvaluate(input) ^ m_rhs->onEvaluate(input);
 }
 

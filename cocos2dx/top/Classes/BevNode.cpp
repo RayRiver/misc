@@ -45,17 +45,17 @@ BevNode & BevNode::setPrecondition( BevPrecondition *precondition )
 	return *this;
 }
 
-bool BevNode::_doInternalEvaluate( const BevInputParam &input )
+bool BevNode::onInternalEvaluate( const BevInputParam &input )
 {
 	return true;
 }
 
-void BevNode::_doTransition( const BevInputParam &input )
+void BevNode::onTransition( const BevInputParam &input )
 {
 
 }
 
-BevRunningStatus BevNode::_doTick( const BevInputParam &input, BevOutputParam &output )
+BevRunningStatus BevNode::onExecute( const BevInputParam &input, BevOutputParam &output )
 {
 	return BevRunningStatus::Finish;
 }

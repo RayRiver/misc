@@ -39,7 +39,7 @@ public:
 	}
 
 protected:
-	virtual BevRunningStatus _doExecute(const BevInputParam& input, BevOutputParam& output)	
+	virtual BevRunningStatus onAction(const BevInputParam& input, BevOutputParam& output)	
 	{
 		const InputData &inputData = input.getRealData<InputData>();
 		OutputData &outputData = output.getRealData<OutputData>();
@@ -79,7 +79,7 @@ public:
 	}
 
 protected:
-	virtual BevRunningStatus _doExecute(const BevInputParam& input, BevOutputParam& output)	
+	virtual BevRunningStatus onAction(const BevInputParam& input, BevOutputParam& output)	
 	{
 		const InputData &inputData = input.getRealData<InputData>();
 		OutputData &outputData = output.getRealData<OutputData>();
@@ -113,7 +113,7 @@ protected:
 class CON_ReachedTargetArea : public BevPrecondition
 {
 public:
-	virtual bool externalCondition(const BevInputParam& input) const
+	virtual bool onEvaluate(const BevInputParam& input) const
 	{
 		const InputData&  inputData	= input.getRealData<InputData>();
 
@@ -166,8 +166,8 @@ void BevTestScene::behaviorTreeUpdate(float dt)
 {
 	BevInputParam input(&m_inputData);
 	BevInputParam output(&m_outputData);
-	if (m_bevTreeRoot && m_bevTreeRoot->doEvaluate(input))
+	if (m_bevTreeRoot && m_bevTreeRoot->evaluate(input))
 	{
-		m_bevTreeRoot->doTick(input, output);
+		m_bevTreeRoot->execute(input, output);
 	}
 }

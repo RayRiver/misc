@@ -11,14 +11,14 @@ BevNodePrioritySelector::BevNodePrioritySelector( BevNode *parent, BevPreconditi
 
 }
 
-bool BevNodePrioritySelector::_doInternalEvaluate( const BevInputParam &input )
+bool BevNodePrioritySelector::onInternalEvaluate( const BevInputParam &input )
 {
 	m_nEvaluateSelectIndex = BevInvalidChildNodeIndex;
 	int count = (int)m_childrenList.size();
 	for (int i=0; i<count; ++i)
 	{
 		BevNode *node = m_childrenList[i];
-		if (node->doEvaluate(input))
+		if (node->evaluate(input))
 		{
 			m_nEvaluateSelectIndex = i;
 			return true;
@@ -27,18 +27,18 @@ bool BevNodePrioritySelector::_doInternalEvaluate( const BevInputParam &input )
 	return false;
 }
 
-void BevNodePrioritySelector::_doTransition( const BevInputParam &input )
+void BevNodePrioritySelector::onTransition( const BevInputParam &input )
 {
 	// 评估节点有效的话，依次初始化正在运行的子节点
 	if (m_nCurrentSelectIndex != BevInvalidChildNodeIndex)
 	{
 		auto node = m_childrenList[m_nCurrentSelectIndex];
-		node->doTransition(input);
+		node->transition(input);
 		m_nCurrentSelectIndex = BevInvalidChildNodeIndex;
 	}
 }
 
-BevRunningStatus BevNodePrioritySelector::_doTick( const BevInputParam &input, BevOutputParam &output )
+BevRunningStatus BevNodePrioritySelector::onExecute( const BevInputParam &input, BevOutputParam &output )
 {
 	// 评估可行才会走进来
 	assert(m_nEvaluateSelectIndex != BevInvalidChildNodeIndex);
@@ -46,7 +46,7 @@ BevRunningStatus BevNodePrioritySelector::_doTick( const BevInputParam &input, B
 	if (m_nEvaluateSelectIndex != m_nCurrentSelectIndex)
 	{
 		// 评估选定的节点和正在运行的节点不同，需要transition
-		this->_doTransition(input);
+		this->transition(input);
 		m_nCurrentSelectIndex = m_nEvaluateSelectIndex;
 	}
 
@@ -54,7 +54,7 @@ BevRunningStatus BevNodePrioritySelector::_doTick( const BevInputParam &input, B
 	{
 		// 子节点一次dotick
 		auto node = m_childrenList[m_nCurrentSelectIndex];
-		BevRunningStatus state = node->doTick(input, output);
+		BevRunningStatus state = node->execute(input, output);
 		if (state != BevRunningStatus::Executing)
 		{
 			// 子节点执行完毕，初始化状态

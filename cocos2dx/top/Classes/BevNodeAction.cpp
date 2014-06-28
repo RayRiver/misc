@@ -7,42 +7,41 @@ BevNodeAction::BevNodeAction( BevNode *parent, BevPrecondition *precondition /*=
 
 }
 
-void BevNodeAction::_doEnter( const BevInputParam &input )
+void BevNodeAction::onEnter( const BevInputParam &input )
 {
 
 }
 
-void BevNodeAction::_doExit( const BevInputParam &input, BevRunningStatus state )
+void BevNodeAction::onExit( const BevInputParam &input, BevRunningStatus state )
 {
 
 }
 
-BevRunningStatus BevNodeAction::_doExecute( const BevInputParam &input, BevOutputParam &output )
+BevRunningStatus BevNodeAction::onAction( const BevInputParam &input, BevOutputParam &output )
 {
 	return BevRunningStatus::Finish;
 }
 
-void BevNodeAction::_doTransition( const BevInputParam &input )
+void BevNodeAction::onTransition( const BevInputParam &input )
 {
 	if (m_isRunning)
 	{
-		_doExit(input, BevRunningStatus::Terminal);
+		onExit(input, BevRunningStatus::Terminal);
 		m_isRunning = false;
 	}
 }
 
 // 走到doTick表示必须开始执行
-BevRunningStatus BevNodeAction::_doTick( const BevInputParam &input, BevOutputParam &output )
+BevRunningStatus BevNodeAction::onExecute( const BevInputParam &input, BevOutputParam &output )
 {
 	// 开始执行，调用enter方法
 	if (!m_isRunning)
 	{
-		_doEnter(input);
+		onEnter(input);
 		m_isRunning = true;
 	}
 
-	// 每帧执行
-	BevRunningStatus running_state = _doExecute(input, output);	
+	BevRunningStatus running_state = onAction(input, output);	
 	if (running_state == BevRunningStatus::Executing)
 	{
 		// 执行未完成
@@ -52,7 +51,7 @@ BevRunningStatus BevNodeAction::_doTick( const BevInputParam &input, BevOutputPa
 	{
 		// 执行完成，调用exit方法
 		m_isRunning = false;	
-		_doExit(input, running_state);
+		onExit(input, running_state);
 		return running_state;
 	}
 
