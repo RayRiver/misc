@@ -17,7 +17,7 @@ void BevNodeAction::onExit( const BevInputParam &input, BevRunningStatus state )
 
 }
 
-BevRunningStatus BevNodeAction::onAction( const BevInputParam &input, BevOutputParam &output )
+BevRunningStatus BevNodeAction::onExecute( const BevInputParam &input, BevOutputParam &output )
 {
 	return BevRunningStatus::Finish;
 }
@@ -32,7 +32,7 @@ void BevNodeAction::onTransition( const BevInputParam &input )
 }
 
 // 走到doTick表示必须开始执行
-BevRunningStatus BevNodeAction::onExecute( const BevInputParam &input, BevOutputParam &output )
+BevRunningStatus BevNodeAction::onUpdate( const BevInputParam &input, BevOutputParam &output )
 {
 	// 开始执行，调用enter方法
 	if (!m_isRunning)
@@ -41,7 +41,7 @@ BevRunningStatus BevNodeAction::onExecute( const BevInputParam &input, BevOutput
 		m_isRunning = true;
 	}
 
-	BevRunningStatus running_state = onAction(input, output);	
+	BevRunningStatus running_state = onExecute(input, output);	
 	if (running_state == BevRunningStatus::Executing)
 	{
 		// 执行未完成

@@ -14,6 +14,10 @@ public:
 	}
 
 	static BevNode &createPrioritySelectorNode(BevNode *parent, const char *name = nullptr);
+	static BevNode &createNonePrioritySelectorNode(BevNode *parent, const char *name = nullptr);
+	static BevNode &createSequenceNode(BevNode *parent, const char *name = nullptr);
+	static BevNode &createLoopNode(BevNode *parent, const char *name = nullptr);
+	static BevNode &createParallelNode(BevNode *parent, const char *name = nullptr);
 
 private:
 	static void _createNode(BevNode *me, BevNode *parent, const char *name = nullptr);

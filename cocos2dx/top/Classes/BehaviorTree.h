@@ -8,5 +8,9 @@
 #include "BevNodeFactory.h"
 #include "BevNodeAction.h"
 #include "BevNodePrioritySelector.h"
+#include "BevNodeNonePrioritySelector.h"
+#include "BevNodeSequence.h"
+#include "BevNodeLoop.h"
+#include "BevNodeParallel.h"
 
 #endif // BehaviorTree_h__

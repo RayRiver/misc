@@ -1,5 +1,7 @@
-// 控制节点
-// 有优先级的选择节点，优先级从左往右依次降低
+// 控制节点 BevNodePrioritySelector
+// 带优先级的选择节点
+// evaluate: 从第一个子节点开始依次遍历所有的子节点，调用其evaluate方法，当发现存在可以运行的子节点时，记录子节点索引，停止遍历，返回true 
+// update: 调用可以运行的子节点的update方法，用它所返回的运行状态作为自身的运行状态返回
 
 #include "BevNodePrioritySelector.h"
 
@@ -38,23 +40,27 @@ void BevNodePrioritySelector::onTransition( const BevInputParam &input )
 	}
 }
 
-BevRunningStatus BevNodePrioritySelector::onExecute( const BevInputParam &input, BevOutputParam &output )
+BevRunningStatus BevNodePrioritySelector::onUpdate( const BevInputParam &input, BevOutputParam &output )
 {
 	// 评估可行才会走进来
-	assert(m_nEvaluateSelectIndex != BevInvalidChildNodeIndex);
+	if (!_isIndexValid(m_nEvaluateSelectIndex))
+	{
+		assert(false);
+		return BevRunningStatus::Finish;	
+	}
 
+	// 评估选定的节点和正在运行的节点不同，需要transition
 	if (m_nEvaluateSelectIndex != m_nCurrentSelectIndex)
 	{
-		// 评估选定的节点和正在运行的节点不同，需要transition
 		this->transition(input);
 		m_nCurrentSelectIndex = m_nEvaluateSelectIndex;
 	}
 
-	if (m_nCurrentSelectIndex != BevInvalidChildNodeIndex)
+	// 运行中的节点
+	if (_isIndexValid(m_nCurrentSelectIndex))
 	{
-		// 子节点一次dotick
 		auto node = m_childrenList[m_nCurrentSelectIndex];
-		BevRunningStatus state = node->execute(input, output);
+		BevRunningStatus state = node->update(input, output);
 		if (state != BevRunningStatus::Executing)
 		{
 			// 子节点执行完毕，初始化状态
@@ -63,5 +69,6 @@ BevRunningStatus BevNodePrioritySelector::onExecute( const BevInputParam &input,
 		return state;
 	}
 
+	assert(false);
 	return BevRunningStatus::Finish;
 }

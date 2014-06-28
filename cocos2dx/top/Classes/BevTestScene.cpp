@@ -39,7 +39,7 @@ public:
 	}
 
 protected:
-	virtual BevRunningStatus onAction(const BevInputParam& input, BevOutputParam& output)	
+	virtual BevRunningStatus onExecute(const BevInputParam& input, BevOutputParam& output)	
 	{
 		const InputData &inputData = input.getRealData<InputData>();
 		OutputData &outputData = output.getRealData<OutputData>();
@@ -79,7 +79,7 @@ public:
 	}
 
 protected:
-	virtual BevRunningStatus onAction(const BevInputParam& input, BevOutputParam& output)	
+	virtual BevRunningStatus onExecute(const BevInputParam& input, BevOutputParam& output)	
 	{
 		const InputData &inputData = input.getRealData<InputData>();
 		OutputData &outputData = output.getRealData<OutputData>();
@@ -168,6 +168,6 @@ void BevTestScene::behaviorTreeUpdate(float dt)
 	BevInputParam output(&m_outputData);
 	if (m_bevTreeRoot && m_bevTreeRoot->evaluate(input))
 	{
-		m_bevTreeRoot->execute(input, output);
+		m_bevTreeRoot->update(input, output);
 	}
 }

@@ -137,6 +137,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\BevNode.cpp" />
     <ClCompile Include="..\Classes\BevNodeFactory.cpp" />
+    <ClCompile Include="..\Classes\BevNodeLoop.cpp" />
+    <ClCompile Include="..\Classes\BevNodeNonePrioritySelector.cpp" />
+    <ClCompile Include="..\Classes\BevNodeParallel.cpp" />
+    <ClCompile Include="..\Classes\BevNodeSequence.cpp" />
     <ClCompile Include="..\Classes\BevPrecondition.cpp" />
     <ClCompile Include="..\Classes\BevNodePrioritySelector.cpp" />
     <ClCompile Include="..\Classes\BevNodeAction.cpp" />
@@ -158,6 +162,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\BevDef.h" />
     <ClInclude Include="..\Classes\BevNode.h" />
     <ClInclude Include="..\Classes\BevNodeFactory.h" />
+    <ClInclude Include="..\Classes\BevNodeLoop.h" />
+    <ClInclude Include="..\Classes\BevNodeNonePrioritySelector.h" />
+    <ClInclude Include="..\Classes\BevNodeParallel.h" />
+    <ClInclude Include="..\Classes\BevNodeSequence.h" />
     <ClInclude Include="..\Classes\BevParam.h" />
     <ClInclude Include="..\Classes\BevPrecondition.h" />
     <ClInclude Include="..\Classes\BevNodePrioritySelector.h" />

@@ -12,11 +12,11 @@ public:
 protected:
 	virtual void onEnter(const BevInputParam &input);
 	virtual void onExit(const BevInputParam &input, BevRunningStatus state);
-	virtual BevRunningStatus onAction(const BevInputParam &input, BevOutputParam &output);
+	virtual BevRunningStatus onExecute(const BevInputParam &input, BevOutputParam &output);
 
 protected:
 	virtual void onTransition(const BevInputParam &input);
-	virtual BevRunningStatus onExecute(const BevInputParam &input, BevOutputParam &output);
+	virtual BevRunningStatus onUpdate(const BevInputParam &input, BevOutputParam &output);
 
 private:
 	bool m_isRunning;

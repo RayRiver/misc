@@ -78,6 +78,18 @@
     <ClCompile Include="..\Classes\BevPrecondition.cpp">
       <Filter>Classes\BehaviorTree</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BevNodeNonePrioritySelector.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BevNodeSequence.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BevNodeParallel.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BevNodeLoop.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -138,6 +150,18 @@
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BevParam.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevNodeNonePrioritySelector.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevNodeSequence.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevNodeParallel.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BevNodeLoop.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
   </ItemGroup>

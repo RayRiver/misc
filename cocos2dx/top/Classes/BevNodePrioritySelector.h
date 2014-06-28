@@ -11,7 +11,7 @@ public:
 
 	virtual bool onInternalEvaluate(const BevInputParam &input);
 	virtual void onTransition(const BevInputParam &input);
-	virtual BevRunningStatus onExecute(const BevInputParam &input, BevOutputParam &output);
+	virtual BevRunningStatus onUpdate(const BevInputParam &input, BevOutputParam &output);
 
 protected:
 	int m_nEvaluateSelectIndex;		// 评估选定的节点

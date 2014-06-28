@@ -19,7 +19,7 @@ public:
 	// 转换节点
 	inline void transition(const BevInputParam &input) { onTransition(input); }
 	// 执行节点
-	inline BevRunningStatus execute(const BevInputParam &input, BevOutputParam &output) { return onExecute(input, output); }
+	inline BevRunningStatus update(const BevInputParam &input, BevOutputParam &output) { return onUpdate(input, output); }
 
 	inline void setName(const char *name) { m_name = name; }
 	inline const char *getName() { return m_name.c_str(); }
@@ -30,10 +30,10 @@ public:
 protected:
 	virtual bool onInternalEvaluate(const BevInputParam &input);
 	virtual void onTransition(const BevInputParam &input);
-	virtual BevRunningStatus onExecute(const BevInputParam &input, BevOutputParam &output);
+	virtual BevRunningStatus onUpdate(const BevInputParam &input, BevOutputParam &output);
 
 protected:
-	inline bool _isIndexValid(int index) const { return index != BevInvalidChildNodeIndex; }
+	inline bool _isIndexValid(int index) const { return index>=0 && index<m_childrenList.size(); }
 
 protected:
 	BevPrecondition *m_precondition;

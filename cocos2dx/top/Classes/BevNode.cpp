@@ -55,7 +55,7 @@ void BevNode::onTransition( const BevInputParam &input )
 
 }
 
-BevRunningStatus BevNode::onExecute( const BevInputParam &input, BevOutputParam &output )
+BevRunningStatus BevNode::onUpdate( const BevInputParam &input, BevOutputParam &output )
 {
 	return BevRunningStatus::Finish;
 }

@@ -1,6 +1,8 @@
 #ifndef BevDef_h__
 #define BevDef_h__
 
+#define BevInvalidChildNodeIndex -1
+
 enum class BevRunningStatus
 {
 	Executing = 0,
@@ -8,6 +10,13 @@ enum class BevRunningStatus
 	Terminal = -1, // 节点在executing中transition
 };
 
-#define BevInvalidChildNodeIndex -1
+enum class BevControlNode
+{
+	PrioritySelector,
+	NonePrioritySelector,
+	Sequence,
+	Loop,
+	Parallel,
+};
 
 #endif // BevDef_h__
