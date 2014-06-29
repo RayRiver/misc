@@ -32,7 +32,7 @@ struct OutputData
 	TestSprite *sprite;
 };
 
-class BevNode;
+class BTNode;
 class BevTestScene : public cocos2d::Layer
 {
 public:
@@ -46,7 +46,7 @@ private:
 	InputData m_inputData;
 	OutputData m_outputData;
 
-	BevNode *m_bevTreeRoot;
+	BTNode *m_bevTreeRoot;
 };
 
 #endif // __BEV_TEST_SCENE_H__

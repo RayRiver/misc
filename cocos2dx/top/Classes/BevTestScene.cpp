@@ -29,17 +29,17 @@ bool TestSprite::initWithFile(const std::string& filename)
 	return true;
 }
 
-class NOD_MoveTo : public BevNodeAction
+class NOD_MoveTo : public BTNodeAction
 {
 public:
-	NOD_MoveTo(BevNode *parent)
-		: BevNodeAction(parent)
+	NOD_MoveTo(BTNode *parent)
+		: BTNodeAction(parent)
 	{
 
 	}
 
 protected:
-	virtual BevRunningStatus onExecute(const BevInputParam& input, BevOutputParam& output)	
+	virtual BTRunningStatus onExecute(const BTInputParam& input, BTOutputParam& output)	
 	{
 		const InputData &inputData = input.getRealData<InputData>();
 		OutputData &outputData = output.getRealData<OutputData>();
@@ -53,33 +53,33 @@ protected:
 				sprite->setState(TestSprite::State::Ready);
 			}), nullptr));
 			sprite->setState(TestSprite::State::Running);
-			return BevRunningStatus::Executing;
+			return BTRunningStatus::Executing;
 		}
 		else if (state == TestSprite::State::Running)
 		{
-			return BevRunningStatus::Executing;
+			return BTRunningStatus::Executing;
 		}	
 		else if (state == TestSprite::State::Finish)
 		{
 			sprite->setState(TestSprite::State::Ready);
-			return BevRunningStatus::Finish;
+			return BTRunningStatus::Finish;
 		}
 
-		return BevRunningStatus::Finish;
+		return BTRunningStatus::Finish;
 	}
 };
 
-class NOD_Turn : public BevNodeAction
+class NOD_Turn : public BTNodeAction
 {
 public:
-	NOD_Turn(BevNode *parent)
-		: BevNodeAction(parent)
+	NOD_Turn(BTNode *parent)
+		: BTNodeAction(parent)
 	{
 
 	}
 
 protected:
-	virtual BevRunningStatus onExecute(const BevInputParam& input, BevOutputParam& output)	
+	virtual BTRunningStatus onExecute(const BTInputParam& input, BTOutputParam& output)	
 	{
 		const InputData &inputData = input.getRealData<InputData>();
 		OutputData &outputData = output.getRealData<OutputData>();
@@ -93,27 +93,27 @@ protected:
 				sprite->setState(TestSprite::State::Ready);
 			}), nullptr));
 			sprite->setState(TestSprite::State::Running);
-			return BevRunningStatus::Executing;
+			return BTRunningStatus::Executing;
 		}
 		else if (state == TestSprite::State::Running)
 		{
-			return BevRunningStatus::Executing;
+			return BTRunningStatus::Executing;
 		}	
 		else if (state == TestSprite::State::Finish)
 		{
 			sprite->setState(TestSprite::State::Ready);
-			return BevRunningStatus::Finish;
+			return BTRunningStatus::Finish;
 		}
 
-		return BevRunningStatus::Finish;
+		return BTRunningStatus::Finish;
 	}
 
 };
 
-class CON_ReachedTargetArea : public BevPrecondition
+class CON_ReachedTargetArea : public BTPrecondition
 {
 public:
-	virtual bool onEvaluate(const BevInputParam& input) const
+	virtual bool onEvaluate(const BTInputParam& input) const
 	{
 		const InputData&  inputData	= input.getRealData<InputData>();
 
@@ -152,10 +152,10 @@ bool BevTestScene::init()
 	m_inputData.sprite = sprite;
 	m_outputData.sprite = sprite;
 
-	BevNode &ret = BevNodeFactory::createPrioritySelectorNode(nullptr, "root");
+	BTNode &ret = BTNodeFactory::createPrioritySelectorNode(nullptr, "root");
 	m_bevTreeRoot = &ret;
-	BevNodeFactory::createActionNode<NOD_Turn>(m_bevTreeRoot, "action turn").setPrecondition(new CON_ReachedTargetArea());
-	BevNodeFactory::createActionNode<NOD_MoveTo>(m_bevTreeRoot, "action move to").setPrecondition(new BevPreconditionTRUE());
+	BTNodeFactory::createActionNode<NOD_Turn>(m_bevTreeRoot, "action turn").setPrecondition(new CON_ReachedTargetArea());
+	BTNodeFactory::createActionNode<NOD_MoveTo>(m_bevTreeRoot, "action move to").setPrecondition(new BTPreconditionTRUE());
 
 	this->schedule(schedule_selector(BevTestScene::behaviorTreeUpdate), 0.2f); // 200ms做一次决策
 
@@ -164,8 +164,8 @@ bool BevTestScene::init()
 
 void BevTestScene::behaviorTreeUpdate(float dt)
 {
-	BevInputParam input(&m_inputData);
-	BevInputParam output(&m_outputData);
+	BTInputParam input(&m_inputData);
+	BTInputParam output(&m_outputData);
 	if (m_bevTreeRoot && m_bevTreeRoot->evaluate(input))
 	{
 		m_bevTreeRoot->update(input, output);

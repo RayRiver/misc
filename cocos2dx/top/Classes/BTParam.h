@@ -1,13 +1,13 @@
-#ifndef BevNodeParam_h__
-#define BevNodeParam_h__
+#ifndef BTParam_h__
+#define BTParam_h__
 
 #include <assert.h>
 
-class BevParam
+class BTParam
 {
 public:
 	template<typename RealDataType>
-	BevParam(RealDataType *data)
+	BTParam(RealDataType *data)
 		: m_realData(data)
 	{}
 
@@ -24,7 +24,7 @@ public:
 	}
 
 	template<typename RealDataType>
-	BevParam& operator =(RealDataType* data)
+	BTParam& operator =(RealDataType* data)
 	{
 		set<RealDataType>(data);
 		return *this;
@@ -41,7 +41,7 @@ private:
 	void *m_realData;
 };
 
-typedef BevParam BevInputParam;
-typedef BevParam BevOutputParam;
+typedef BTParam BTInputParam;
+typedef BTParam BTOutputParam;
 
-#endif // BevNodeParam_h__
+#endif // BTParam_h__

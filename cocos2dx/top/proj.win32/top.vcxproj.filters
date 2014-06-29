@@ -60,34 +60,34 @@
     <ClCompile Include="..\Classes\InputController.cpp">
       <Filter>Classes\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BevNode.cpp">
-      <Filter>Classes\BehaviorTree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BevNodeFactory.cpp">
-      <Filter>Classes\BehaviorTree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BevNodePrioritySelector.cpp">
-      <Filter>Classes\BehaviorTree</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\BevTestScene.cpp">
       <Filter>Classes\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BevNodeAction.cpp">
+    <ClCompile Include="..\Classes\BTNode.cpp">
       <Filter>Classes\BehaviorTree</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BevPrecondition.cpp">
+    <ClCompile Include="..\Classes\BTNodeAction.cpp">
       <Filter>Classes\BehaviorTree</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BevNodeNonePrioritySelector.cpp">
+    <ClCompile Include="..\Classes\BTNodeFactory.cpp">
       <Filter>Classes\BehaviorTree</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BevNodeSequence.cpp">
+    <ClCompile Include="..\Classes\BTNodeLoop.cpp">
       <Filter>Classes\BehaviorTree</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BevNodeParallel.cpp">
+    <ClCompile Include="..\Classes\BTNodeNonePrioritySelector.cpp">
       <Filter>Classes\BehaviorTree</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BevNodeLoop.cpp">
+    <ClCompile Include="..\Classes\BTNodeParallel.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTNodePrioritySelector.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTNodeSequence.cpp">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTPrecondition.cpp">
       <Filter>Classes\BehaviorTree</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,43 +125,43 @@
     <ClInclude Include="..\Classes\InputController.h">
       <Filter>Classes\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BevNodeFactory.h">
-      <Filter>Classes\BehaviorTree</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BevNode.h">
-      <Filter>Classes\BehaviorTree</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BevDef.h">
-      <Filter>Classes\BehaviorTree</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BevNodePrioritySelector.h">
-      <Filter>Classes\BehaviorTree</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\BevTestScene.h">
       <Filter>Classes\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BehaviorTree.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BevNodeAction.h">
+    <ClInclude Include="..\Classes\BTDef.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BevPrecondition.h">
+    <ClInclude Include="..\Classes\BTNode.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BevParam.h">
+    <ClInclude Include="..\Classes\BTNodeAction.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BevNodeNonePrioritySelector.h">
+    <ClInclude Include="..\Classes\BTNodeFactory.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BevNodeSequence.h">
+    <ClInclude Include="..\Classes\BTNodeLoop.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BevNodeParallel.h">
+    <ClInclude Include="..\Classes\BTNodeNonePrioritySelector.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BevNodeLoop.h">
+    <ClInclude Include="..\Classes\BTNodeParallel.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTNodePrioritySelector.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTNodeSequence.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTParam.h">
+      <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTPrecondition.h">
       <Filter>Classes\BehaviorTree</Filter>
     </ClInclude>
   </ItemGroup>
