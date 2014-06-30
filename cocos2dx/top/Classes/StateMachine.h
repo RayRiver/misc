@@ -6,7 +6,9 @@
 
 #include "cocos2d.h"
 
-class StateMachine : public cocos2d::Component
+#include "EntityComponent.h"
+
+class StateMachine : public EntityComponent
 {
 public:
 	static const char *NAME;

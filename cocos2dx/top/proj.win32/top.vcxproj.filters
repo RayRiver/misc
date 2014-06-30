@@ -90,6 +90,12 @@
     <ClCompile Include="..\Classes\BTPrecondition.cpp">
       <Filter>Classes\BehaviorTree</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameEntity.cpp">
+      <Filter>Classes\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EntityComponent.cpp">
+      <Filter>Classes\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -163,6 +169,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BTPrecondition.h">
       <Filter>Classes\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameEntity.h">
+      <Filter>Classes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EntityComponent.h">
+      <Filter>Classes\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

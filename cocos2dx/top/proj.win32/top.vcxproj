@@ -145,7 +145,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\BTNodePrioritySelector.cpp" />
     <ClCompile Include="..\Classes\BTNodeAction.cpp" />
     <ClCompile Include="..\Classes\BevTestScene.cpp" />
+    <ClCompile Include="..\Classes\EntityComponent.cpp" />
     <ClCompile Include="..\Classes\GameCharacter.cpp" />
+    <ClCompile Include="..\Classes\GameEntity.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\InputController.cpp" />
@@ -171,7 +173,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\BTNodePrioritySelector.h" />
     <ClInclude Include="..\Classes\BTNodeAction.h" />
     <ClInclude Include="..\Classes\BevTestScene.h" />
+    <ClInclude Include="..\Classes\EntityComponent.h" />
     <ClInclude Include="..\Classes\GameCharacter.h" />
+    <ClInclude Include="..\Classes\GameEntity.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\InputController.h" />

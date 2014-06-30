@@ -2,10 +2,11 @@
 #define GameCharacter_h__
 
 #include "cocos2d.h"
+#include "GameEntity.h"
 #include "AnimationController.h"
 #include "StateMachine.h"
 
-class GameCharacter : public cocos2d::Node 
+class GameCharacter : public GameEntity 
 {
 public:
 	enum class Direction

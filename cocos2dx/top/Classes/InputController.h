@@ -4,8 +4,9 @@
 #include "cocos2d.h"
 
 #include "InputManager.h"
+#include "EntityComponent.h"
 
-class InputController : public cocos2d::Component 
+class InputController : public EntityComponent 
 {
 public:
 	static const char *NAME;

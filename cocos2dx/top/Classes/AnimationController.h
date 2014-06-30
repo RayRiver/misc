@@ -7,7 +7,9 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 
-class AnimationController : public cocos2d::Component 
+#include "EntityComponent.h"
+
+class AnimationController : public EntityComponent 
 {
 public:
 	static const char *NAME;
