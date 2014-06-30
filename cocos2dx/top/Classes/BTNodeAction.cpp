@@ -1,7 +1,9 @@
 #include "BTNodeAction.h"
 
-BTNodeAction::BTNodeAction( BTNode *parent, BTPrecondition *precondition /*= nullptr*/ )
-	: BTNode(parent, precondition)
+#include "cocos2d.h"
+
+BTNodeAction::BTNodeAction( BTPrecondition *precondition /*= nullptr*/ )
+	: BTNode(precondition)
 	, m_isRunning(false)
 {
 
@@ -9,12 +11,12 @@ BTNodeAction::BTNodeAction( BTNode *parent, BTPrecondition *precondition /*= nul
 
 void BTNodeAction::onEnter( const BTInputParam &input )
 {
-
+	cocos2d::log("%s onEnter", this->m_name.c_str());
 }
 
 void BTNodeAction::onExit( const BTInputParam &input, BTRunningStatus state )
 {
-
+	cocos2d::log("%s onExit", this->m_name.c_str());
 }
 
 BTRunningStatus BTNodeAction::onExecute( const BTInputParam &input, BTOutputParam &output )

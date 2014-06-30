@@ -19,8 +19,12 @@ public:
 	inline State getState() { return m_state; }
 	inline void setState(State state) { m_state = state; }
 
+	inline bool getMoved() { return m_bMoved; }
+	inline void setMoved(bool moved) { m_bMoved = moved; }
+
 private:
 	State m_state;
+	bool m_bMoved;
 };
 
 struct InputData

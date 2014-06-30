@@ -5,7 +5,7 @@
 
 using namespace std;
 
-BTNode::BTNode(BTNode *parent, BTPrecondition *precondition/* = nullptr*/)
+BTNode::BTNode(BTPrecondition *precondition/* = nullptr*/)
 	: m_precondition(precondition)
 {
 
@@ -26,10 +26,20 @@ BTNode::~BTNode()
 	}
 }
 
-BTNode & BTNode::addChild( BTNode *child )
+BTNode * BTNode::addChild( const char *name, BTNode *child )
 {
 	m_childrenList.push_back(child);
-	return *this;
+	if (name)
+	{
+		child->setName(name);
+	}
+	return this;
+}
+
+BTNode * BTNode::addChild(BTNode *child)
+{
+	m_childrenList.push_back(child);
+	return this;
 }
 
 BTNode & BTNode::setPrecondition( BTPrecondition *precondition )

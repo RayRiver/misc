@@ -5,8 +5,8 @@
 
 #include "BTNodeLoop.h"
 
-BTNodeLoop::BTNodeLoop( BTNode *parent, BTPrecondition *precondition /*= nullptr*/, int nLoopCount /*= BTNodeLoop::InfiniteLoop*/ )
-	: BTNode(parent, precondition)
+BTNodeLoop::BTNodeLoop( int nLoopCount /*= BTNodeLoop::InfiniteLoop*/, BTPrecondition *precondition /*= nullptr*/ )
+	: BTNode(precondition)
 	, m_nLoopCount(nLoopCount)
 	, m_nCurrentLoopCount(0)
 {

@@ -7,7 +7,7 @@ class BTPrecondition;
 class BTNodeParallel : public BTNode
 {
 public:
-	BTNodeParallel(BTNode *parent, BTPrecondition *precondition = nullptr);
+	BTNodeParallel(BTPrecondition *precondition = nullptr);
 
 	virtual bool onInternalEvaluate(const BTInputParam &input);
 	virtual void onTransition(const BTInputParam &input);

@@ -5,8 +5,8 @@
 
 #include "BTNodeSequence.h"
 
-BTNodeSequence::BTNodeSequence( BTNode *parent, BTPrecondition *precondition /*= nullptr*/ )
-	: BTNode(parent, precondition)
+BTNodeSequence::BTNodeSequence( BTPrecondition *precondition /*= nullptr*/ )
+	: BTNode(precondition)
 	, m_nCurrentSelectIndex(BTInvalidChildNodeIndex)
 {
 
@@ -36,13 +36,13 @@ void BTNodeSequence::onTransition( const BTInputParam &input )
 
 BTRunningStatus BTNodeSequence::onUpdate( const BTInputParam &input, BTOutputParam &output )
 {
-	int n = 0;
-	if (_isIndexValid(m_nCurrentSelectIndex))
+	//int n = 0;
+	if (!_isIndexValid(m_nCurrentSelectIndex))
 	{
-		n = m_nCurrentSelectIndex;
+		m_nCurrentSelectIndex = 0;
 	}
 
-	auto node = m_childrenList[n];
+	auto node = m_childrenList[m_nCurrentSelectIndex];
 	BTRunningStatus runningState = node->update(input, output);
 	if (runningState == BTRunningStatus::Finish)
 	{

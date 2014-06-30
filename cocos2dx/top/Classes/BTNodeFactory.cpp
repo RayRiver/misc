@@ -12,45 +12,41 @@ void BTNodeFactory::_createNode( BTNode *me, BTNode *parent, const char *name /*
 {
 	if (parent)
 	{
-		parent->addChild(me);
-	}
-	if (name)
-	{
-		me->setName(name);
+		parent->addChild(name, me);
 	}
 }
 
 BTNode & BTNodeFactory::createPrioritySelectorNode( BTNode *parent, const char *name /*= nullptr*/ )
 {
-	BTNode *node = new BTNodePrioritySelector(parent);
+	BTNode *node = new BTNodePrioritySelector();
 	BTNodeFactory::_createNode(node, parent, name);
 	return *node;
 }
 
 BTNode & BTNodeFactory::createNonePrioritySelectorNode( BTNode *parent, const char *name /*= nullptr*/ )
 {
-	BTNode *node = new BTNodeNonePrioritySelector(parent);
+	BTNode *node = new BTNodeNonePrioritySelector();
 	BTNodeFactory::_createNode(node, parent, name);
 	return *node;
 }
 
 BTNode & BTNodeFactory::createSequenceNode( BTNode *parent, const char *name /*= nullptr*/ )
 {
-	BTNode *node = new BTNodeSequence(parent);
+	BTNode *node = new BTNodeSequence();
 	BTNodeFactory::_createNode(node, parent, name);
 	return *node;
 }
 
-BTNode & BTNodeFactory::createLoopNode( BTNode *parent, const char *name /*= nullptr*/ )
+BTNode & BTNodeFactory::createLoopNode( BTNode *parent, const char *name /*= nullptr*/, int nLoopCount /*= BTNodeLoop::InfiniteLoop*/ )
 {
-	BTNode *node = new BTNodeLoop(parent);
+	BTNode *node = new BTNodeLoop(nLoopCount);
 	BTNodeFactory::_createNode(node, parent, name);
 	return *node;
 }
 
 BTNode & BTNodeFactory::createParallelNode( BTNode *parent, const char *name /*= nullptr*/ )
 {
-	BTNode *node = new BTNodeParallel(parent);
+	BTNode *node = new BTNodeParallel();
 	BTNodeFactory::_createNode(node, parent, name);
 	return *node;
 }

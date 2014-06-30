@@ -6,7 +6,7 @@
 class BTNodeAction : public BTNode
 {
 public:
-	BTNodeAction(BTNode *parent, BTPrecondition *precondition = nullptr);
+	BTNodeAction(BTPrecondition *precondition = nullptr);
 
 	// override these functions
 protected:

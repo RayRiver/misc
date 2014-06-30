@@ -7,7 +7,7 @@ class BTPrecondition;
 class BTNodeSequence : public BTNode
 {
 public:
-	BTNodeSequence(BTNode *parent, BTPrecondition *precondition = nullptr);
+	BTNodeSequence(BTPrecondition *precondition = nullptr);
 
 	virtual bool onInternalEvaluate(const BTInputParam &input);
 	virtual void onTransition(const BTInputParam &input);

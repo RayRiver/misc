@@ -8,7 +8,7 @@ class BTPrecondition;
 class BTNodeNonePrioritySelector : public BTNodePrioritySelector
 {
 public:
-	BTNodeNonePrioritySelector(BTNode *parent, BTPrecondition *precondition = nullptr);
+	BTNodeNonePrioritySelector(BTPrecondition *precondition = nullptr);
 
 	virtual bool onInternalEvaluate(const BTInputParam &input);
 };

@@ -5,8 +5,8 @@
 
 #include "BTNodePrioritySelector.h"
 
-BTNodePrioritySelector::BTNodePrioritySelector( BTNode *parent, BTPrecondition *precondition /*= nullptr*/ )
-	: BTNode(parent, precondition)
+BTNodePrioritySelector::BTNodePrioritySelector( BTPrecondition *precondition /*= nullptr*/ )
+	: BTNode(precondition)
 	, m_nEvaluateSelectIndex(BTInvalidChildNodeIndex)
 	, m_nCurrentSelectIndex(BTInvalidChildNodeIndex)
 {

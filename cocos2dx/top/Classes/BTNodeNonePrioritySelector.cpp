@@ -5,8 +5,8 @@
 
 #include "BTNodeNonePrioritySelector.h"
 
-BTNodeNonePrioritySelector::BTNodeNonePrioritySelector( BTNode *parent, BTPrecondition *precondition /*= nullptr*/ )
-	: BTNodePrioritySelector(parent, precondition)
+BTNodeNonePrioritySelector::BTNodeNonePrioritySelector( BTPrecondition *precondition /*= nullptr*/ )
+	: BTNodePrioritySelector(precondition)
 {
 
 }

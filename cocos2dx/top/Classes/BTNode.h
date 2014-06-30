@@ -11,7 +11,7 @@
 class BTNode
 {
 public:
-	BTNode(BTNode *parent, BTPrecondition *precondition = nullptr);
+	BTNode(BTPrecondition *precondition = nullptr);
 	virtual ~BTNode();
 
 	// 评估选择哪个节点
@@ -23,7 +23,8 @@ public:
 
 	inline void setName(const char *name) { m_name = name; }
 	inline const char *getName() { return m_name.c_str(); }
-	BTNode &addChild(BTNode *child);
+	BTNode *addChild(const char *name, BTNode *child);
+	BTNode *addChild(BTNode *child);
 
 	BTNode &setPrecondition(BTPrecondition *precondition);
 

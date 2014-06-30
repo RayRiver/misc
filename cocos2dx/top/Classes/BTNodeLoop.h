@@ -10,7 +10,7 @@ public:
 	enum { InfiniteLoop = -1 };
 
 public:
-	BTNodeLoop(BTNode *parent, BTPrecondition *precondition = nullptr, int nLoopCount = BTNodeLoop::InfiniteLoop);
+	BTNodeLoop(int nLoopCount = BTNodeLoop::InfiniteLoop, BTPrecondition *precondition = nullptr);
 
 	virtual bool onInternalEvaluate(const BTInputParam &input);
 	virtual void onTransition(const BTInputParam &input);

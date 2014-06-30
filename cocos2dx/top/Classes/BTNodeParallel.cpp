@@ -5,8 +5,8 @@
 
 #include "BTNodeParallel.h"
 
-BTNodeParallel::BTNodeParallel( BTNode *parent, BTPrecondition *precondition /*= nullptr*/ )
-	: BTNode(parent, precondition)
+BTNodeParallel::BTNodeParallel( BTPrecondition *precondition /*= nullptr*/ )
+	: BTNode(precondition)
 {
 
 }
