@@ -25,6 +25,7 @@ bool TestSprite::initWithFile(const std::string& filename)
 	}
 
 	m_state = State::Ready;
+	m_state2 = State::Ready;
 	m_bMoved = false;
 
 	return true;
@@ -139,14 +140,14 @@ protected:
 		OutputData &outputData = output.getRealData<OutputData>();
 
 		auto sprite = inputData.sprite;
-		TestSprite::State state = sprite->getState();
+		TestSprite::State state = sprite->getState2();
 
 		if (state == TestSprite::State::Ready)
 		{
 			sprite->runAction(Sequence::create(JumpBy::create(1.0f, Point::ZERO, 50.0f, 1), DelayTime::create(1.0f), CallFunc::create([=]() {
-				sprite->setState(TestSprite::State::Finish);
+				sprite->setState2(TestSprite::State::Finish);
 			}), nullptr));
-			sprite->setState(TestSprite::State::Running);
+			sprite->setState2(TestSprite::State::Running);
 			return BTRunningStatus::Executing;
 		}
 		else if (state == TestSprite::State::Running)
@@ -155,7 +156,7 @@ protected:
 		}	
 		else if (state == TestSprite::State::Finish)
 		{
-			sprite->setState(TestSprite::State::Ready);
+			sprite->setState2(TestSprite::State::Ready);
 			return BTRunningStatus::Finish;
 		}
 
@@ -256,7 +257,7 @@ bool BevTestScene::init()
 
 
 	// another way
-	if (1)
+	if (0)
 	{
 		m_bevTreeRoot = new BTNodePrioritySelector(nullptr);
 
@@ -272,9 +273,33 @@ bool BevTestScene::init()
 		->addChild(
 			"control sequence 2", (new BTNodeSequence(new CON_ReachedTargetArea))
 				->addChild("action turn 2", new NOD_Turn)
-				->addChild("action jump", new NOD_Jump)
+				->addChild("control parallel", (new BTNodeParallel(BTNodeParallel::FinishCondition::AND))
+					->addChild("action mixed jump", new NOD_Jump)
+					->addChild("action mixed turn", new NOD_Turn)
+				)
 				->addChild("action seq end 2", new NOD_SequenceEnd)
 		);
+
+		/*
+		m_bevTreeRoot
+		->addChild(new NOD_MoveTo(new BTPreconditionNOT(new CON_HasMoved)) )
+		->addChild(
+			(new BTNodeSequence(new BTPreconditionNOT(new CON_ReachedTargetArea))) 
+				->addChild((new BTNodeLoop(2))
+					->addChild(new NOD_Turn)
+				)
+				->addChild(new NOD_SequenceEnd)
+		)
+		->addChild(
+			(new BTNodeSequence(new CON_ReachedTargetArea))
+				->addChild(new NOD_Turn)
+				->addChild((new BTNodeParallel(BTNodeParallel::FinishCondition::AND))
+					->addChild(new NOD_Jump)
+					->addChild(new NOD_Turn)
+				)
+				->addChild(new NOD_SequenceEnd)
+		);
+		*/
 	}
 	else
 	{
@@ -302,7 +327,11 @@ bool BevTestScene::init()
 				BTNode &seq = BTNodeFactory::createSequenceNode(&root, "control sequence").setPrecondition(new CON_ReachedTargetArea);
 				{
 					BTNodeFactory::createActionNode<NOD_Turn>(&seq, "action turn 2");
-					BTNodeFactory::createActionNode<NOD_Jump>(&seq, "action jump");
+					BTNode &parallel = BTNodeFactory::createParallelNode(&seq, "control parallel");
+					{
+						BTNodeFactory::createActionNode<NOD_Turn>(&parallel, "action mixed turn");
+						BTNodeFactory::createActionNode<NOD_Jump>(&parallel, "action mixed jump");
+					}
 					BTNodeFactory::createActionNode<NOD_SequenceEnd>(&seq, "action seq end 2");
 				}
 			}
@@ -310,7 +339,9 @@ bool BevTestScene::init()
 	}	
 
 
-
+	//sprite->setPosition(VisibleRect::center());
+	//sprite->runAction(Sequence::create(ScaleBy::create(1.0f, -1.0f, 1.0f), DelayTime::create(1.0f), CallFunc::create([=](){}), nullptr));
+	//sprite->runAction(Sequence::create(JumpBy::create(1.0f, Point::ZERO, 50.0f, 1), DelayTime::create(1.0f), CallFunc::create([=](){}), nullptr));
 
 
 	this->schedule(schedule_selector(BevTestScene::behaviorTreeUpdate), 0.2f); // 200ms做一次决策

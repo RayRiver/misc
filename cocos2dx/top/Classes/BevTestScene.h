@@ -18,12 +18,15 @@ public:
 
 	inline State getState() { return m_state; }
 	inline void setState(State state) { m_state = state; }
+	inline State getState2() { return m_state2; }
+	inline void setState2(State state) { m_state2 = state; }
 
 	inline bool getMoved() { return m_bMoved; }
 	inline void setMoved(bool moved) { m_bMoved = moved; }
 
 private:
 	State m_state;
+	State m_state2;
 	bool m_bMoved;
 };
 
