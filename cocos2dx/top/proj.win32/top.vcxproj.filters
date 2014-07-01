@@ -108,9 +108,6 @@
     <ClCompile Include="..\Classes\BTDebugNode.cpp">
       <Filter>Classes\BehaviorTreeDebug</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BTDebugLine.cpp">
-      <Filter>Classes\BehaviorTreeDebug</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -198,9 +195,6 @@
       <Filter>Classes\BehaviorTreeDebug</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BTDebugNode.h">
-      <Filter>Classes\BehaviorTreeDebug</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BTDebugLine.h">
       <Filter>Classes\BehaviorTreeDebug</Filter>
     </ClInclude>
   </ItemGroup>
