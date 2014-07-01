@@ -355,8 +355,8 @@ bool BevTestScene::init()
 		if (m_bevTreeRoot && m_bevTreeRoot->evaluate(input))
 		{
 			m_bevTreeRoot->update(input, output);
+			renderer->render();
 		}
-		renderer->render();
 	}, this, 0.2f, !_running, "behaviorTreeUpdate");
 
 	return true;

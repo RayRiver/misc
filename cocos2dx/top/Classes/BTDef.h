@@ -17,6 +17,12 @@ enum class BTRunningStatus
 	Terminal = -1, // 节点在executing中transition
 };
 
+enum class BTNodeEvent
+{
+	enter,
+	exit,
+};
+
 enum class BTControlNode
 {
 	PrioritySelector,

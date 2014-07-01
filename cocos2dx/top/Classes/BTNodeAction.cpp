@@ -1,6 +1,9 @@
 #include "BTNodeAction.h"
 
+#ifdef _BEHAVIOR_TREE_DEBUG
 #include "cocos2d.h"
+#include "BTDebugRenderer.h"
+#endif // _BEHAVIOR_TREE_DEBUG
 
 BTNodeAction::BTNodeAction( BTPrecondition *precondition /*= nullptr*/ )
 	: BTNode(precondition)
@@ -11,12 +14,24 @@ BTNodeAction::BTNodeAction( BTPrecondition *precondition /*= nullptr*/ )
 
 void BTNodeAction::onEnter( const BTInputParam &input )
 {
+#ifdef _BEHAVIOR_TREE_DEBUG
 	cocos2d::log("%s onEnter", this->m_name.c_str());
+	if (BTDebugRenderer::getInstance())
+	{
+		BTDebugRenderer::getInstance()->renderNode(this, BTNodeEvent::enter);
+	}
+#endif // _BEHAVIOR_TREE_DEBUG
 }
 
 void BTNodeAction::onExit( const BTInputParam &input, BTRunningStatus state )
 {
+#ifdef _BEHAVIOR_TREE_DEBUG
 	cocos2d::log("%s onExit", this->m_name.c_str());
+	if (BTDebugRenderer::getInstance())
+	{
+		BTDebugRenderer::getInstance()->renderNode(this, BTNodeEvent::exit);
+	}
+#endif // _BEHAVIOR_TREE_DEBUG
 }
 
 BTRunningStatus BTNodeAction::onExecute( const BTInputParam &input, BTOutputParam &output )

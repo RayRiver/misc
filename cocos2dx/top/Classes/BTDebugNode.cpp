@@ -33,6 +33,9 @@ bool BTDebugNode::init( BTNode *btnode )
 
 	m_btnode = btnode;
 
+	m_drawNode = DrawNode::create();
+	this->addChild(m_drawNode);
+
 	const int width = 100;
 	const int height = 60;
 	const char *fontName = "SimSun.ttf";
@@ -104,11 +107,10 @@ bool BTDebugNode::init( BTNode *btnode )
 	max_height += (vChildren.size()+1)*interval;
 
 
+	Vec2 vertexes[4] = {Vec2(-max_width/2, -max_height/2), Vec2(-max_width/2, +max_height/2), Vec2(+max_width/2, +max_height/2), Vec2(+max_width/2, -max_height/2)};
+	m_drawNode->drawPolygon(vertexes, 4, Color4F(0.5, 0, 0, 0.5f), 0.5f, Color4F(1, 1, 1, 0.5f));
+
 	auto node = Node::create();
-	//float x = this->getPositionX();
-	//float y = this->getPositionY();
-	//Vec2 vertexes[4] = {Vec2(x-max_width/2, y-max_height/2), Vec2(x-max_width/2, y+max_height/2), Vec2(x+max_width/2, y+max_height/2), Vec2(x+max_width/2, y-max_height/2)};
-	//m_manager->getDrawNode()->drawPolygon(vertexes, 4, Color4F(0.5, 0, 0, 0.5f), 0.5f, Color4F(1, 1, 1, 0.5f));
 	node->setContentSize(Size(max_width, max_height));
 
 	float origin_y = -max_height/2;
@@ -127,5 +129,24 @@ bool BTDebugNode::init( BTNode *btnode )
 	//drawNode->addChild(text);
 
 	return true;
+}
+
+void BTDebugNode::sendEvent( BTNodeEvent event )
+{
+	m_drawNode->clear();
+	const Size &size = this->getContentSize();
+	auto w = size.width;
+	auto h = size.height;
+	Vec2 vertexes[4] = {Vec2(-w/2, -h/2), Vec2(-w/2, +h/2), Vec2(+w/2, +h/2), Vec2(+w/2, -h/2)};
+
+	if (event == BTNodeEvent::enter)
+	{
+		m_drawNode->drawPolygon(vertexes, 4, Color4F(0, 0.5, 0, 0.5f), 0.5f, Color4F(1, 1, 1, 0.5f));
+	}
+	else if (event == BTNodeEvent::exit)
+	{
+		m_drawNode->drawPolygon(vertexes, 4, Color4F(0.5, 0, 0, 0.5f), 0.5f, Color4F(1, 1, 1, 0.5f));
+	}
+
 }
 
