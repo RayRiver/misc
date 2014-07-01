@@ -14,6 +14,10 @@ void BTNodeFactory::_createNode( BTNode *me, BTNode *parent, const char *name /*
 	{
 		parent->addChild(name, me);
 	}
+	else if (name)
+	{
+		me->setName(name);
+	}
 }
 
 BTNode & BTNodeFactory::createPrioritySelectorNode( BTNode *parent, const char *name /*= nullptr*/ )

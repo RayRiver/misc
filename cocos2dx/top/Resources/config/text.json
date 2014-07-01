@@ -1,0 +1,22 @@
+{
+	"test": "测试",
+	"string_btprecondition_default_desc": "（前提条件未描述）",
+	"string_btnode_default_desc": "（节点信息未描述）",
+
+	"btnode_control_priority_select": "控制节点：优先级选择",
+	"btnode_control_none_priority_select": "控制节点：无优先级选择",
+	"btnode_control_sequence": "控制节点：顺序",
+	"btnode_control_loop": "控制节点：循环",
+	"btnode_control_parallel": "控制节点：并行",
+
+	"btnode_action_moveto": "行为节点：移动",
+	"btnode_action_turn": "行为节点：反转",
+	"btnode_action_jump": "行为节点：跳跃",
+	"btnode_action_seqend": "行为节点：序列完成",
+
+	"btprecondition_hadmoved": "前提：已经移动过",
+	"btprecondition_not_reachedtargetarea": "前提：未移动到指定区域",
+	"btprecondition_reachedtargetarea": "前提：已移动到指定区域",
+
+	"": ""
+}

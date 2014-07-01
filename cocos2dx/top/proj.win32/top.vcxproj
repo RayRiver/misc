@@ -135,6 +135,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClCompile Include="..\Classes\AnimationController.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\BTDebugLine.cpp" />
+    <ClCompile Include="..\Classes\BTDebugNode.cpp" />
+    <ClCompile Include="..\Classes\BTDebugRenderer.cpp" />
     <ClCompile Include="..\Classes\BTNode.cpp" />
     <ClCompile Include="..\Classes\BTNodeFactory.cpp" />
     <ClCompile Include="..\Classes\BTNodeLoop.cpp" />
@@ -154,6 +157,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\KeyboardLayer.cpp" />
     <ClCompile Include="..\Classes\InputManager.cpp" />
     <ClCompile Include="..\Classes\StateMachine.cpp" />
+    <ClCompile Include="..\Classes\Utils.cpp" />
     <ClCompile Include="..\Classes\VisibleRect.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -161,6 +165,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AnimationController.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\BehaviorTree.h" />
+    <ClInclude Include="..\Classes\BTDebugLine.h" />
+    <ClInclude Include="..\Classes\BTDebugNode.h" />
+    <ClInclude Include="..\Classes\BTDebugRenderer.h" />
     <ClInclude Include="..\Classes\BTDef.h" />
     <ClInclude Include="..\Classes\BTNode.h" />
     <ClInclude Include="..\Classes\BTNodeFactory.h" />
@@ -182,6 +189,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\KeyboardLayer.h" />
     <ClInclude Include="..\Classes\InputManager.h" />
     <ClInclude Include="..\Classes\StateMachine.h" />
+    <ClInclude Include="..\Classes\Utils.h" />
     <ClInclude Include="..\Classes\VisibleRect.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

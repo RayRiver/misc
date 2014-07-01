@@ -1,7 +1,9 @@
 #include "BevTestScene.h"
 
 #include "VisibleRect.h"
+#include "Utils.h"
 #include "BehaviorTree.h"
+#include "BTDebugRenderer.h"
 
 USING_NS_CC;
 
@@ -303,48 +305,59 @@ bool BevTestScene::init()
 	}
 	else
 	{
-		BTNode &ret = BTNodeFactory::createPrioritySelectorNode(nullptr, "root");
+		BTNode &ret = BTNodeFactory::createPrioritySelectorNode(nullptr, Utils::gettext("btnode_control_priority_select"));
 		m_bevTreeRoot = &ret;
 		{
 			auto &root = *m_bevTreeRoot;
 
 			{
-				BTNodeFactory::createActionNode<NOD_MoveTo>(&root, "action move to").setPrecondition(new BTPreconditionNOT(new CON_HasMoved));
+				BTNodeFactory::createActionNode<NOD_MoveTo>(&root, Utils::gettext("btnode_action_moveto")).setPrecondition(new BTPreconditionNOT(new CON_HasMoved), Utils::gettext("btprecondition_hadmoved"));
 			}
 
 			{
-				BTNode &seq = BTNodeFactory::createSequenceNode(&root, "control sequence").setPrecondition(new BTPreconditionNOT(new CON_ReachedTargetArea));
+				BTNode &seq = BTNodeFactory::createSequenceNode(&root, Utils::gettext("btnode_control_sequence")).setPrecondition(new BTPreconditionNOT(new CON_ReachedTargetArea), Utils::gettext("btprecondition_not_reachedtargetarea"));
 				{
-					BTNode &loop = BTNodeFactory::createLoopNode(&seq, "control loop", 2);
+					BTNode &loop = BTNodeFactory::createLoopNode(&seq, Utils::gettext("btnode_control_loop"), 2);
 					{
-						BTNodeFactory::createActionNode<NOD_Turn>(&loop, "action turn 1");
+						BTNodeFactory::createActionNode<NOD_Turn>(&loop, Utils::gettext("btnode_action_turn"));
 					}
-					BTNodeFactory::createActionNode<NOD_SequenceEnd>(&seq, "action seq end 1");
+					BTNodeFactory::createActionNode<NOD_SequenceEnd>(&seq, Utils::gettext("btnode_action_seqend"));
 				}
 			}
 
 			{
-				BTNode &seq = BTNodeFactory::createSequenceNode(&root, "control sequence").setPrecondition(new CON_ReachedTargetArea);
+				BTNode &seq = BTNodeFactory::createSequenceNode(&root, Utils::gettext("btnode_control_sequence")).setPrecondition(new CON_ReachedTargetArea, Utils::gettext("btprecondition_reachedtargetarea"));
 				{
-					BTNodeFactory::createActionNode<NOD_Turn>(&seq, "action turn 2");
-					BTNode &parallel = BTNodeFactory::createParallelNode(&seq, "control parallel");
+					BTNodeFactory::createActionNode<NOD_Turn>(&seq, Utils::gettext("btnode_action_turn"));
+					BTNode &parallel = BTNodeFactory::createParallelNode(&seq, Utils::gettext("btnode_control_parallel"));
 					{
-						BTNodeFactory::createActionNode<NOD_Turn>(&parallel, "action mixed turn");
-						BTNodeFactory::createActionNode<NOD_Jump>(&parallel, "action mixed jump");
+						BTNodeFactory::createActionNode<NOD_Turn>(&parallel, Utils::gettext("btnode_action_turn"));
+						BTNodeFactory::createActionNode<NOD_Jump>(&parallel, Utils::gettext("btnode_action_jump"));
 					}
-					BTNodeFactory::createActionNode<NOD_SequenceEnd>(&seq, "action seq end 2");
+					BTNodeFactory::createActionNode<NOD_SequenceEnd>(&seq, Utils::gettext("btnode_action_seqend"));
 				}
 			}
 		}
 	}	
 
+	auto renderer = BTDebugRenderer::create(m_bevTreeRoot);
+	this->addChild(renderer, 10001);
 
 	//sprite->setPosition(VisibleRect::center());
 	//sprite->runAction(Sequence::create(ScaleBy::create(1.0f, -1.0f, 1.0f), DelayTime::create(1.0f), CallFunc::create([=](){}), nullptr));
 	//sprite->runAction(Sequence::create(JumpBy::create(1.0f, Point::ZERO, 50.0f, 1), DelayTime::create(1.0f), CallFunc::create([=](){}), nullptr));
 
 
-	this->schedule(schedule_selector(BevTestScene::behaviorTreeUpdate), 0.2f); // 200ms做一次决策
+	//this->schedule(schedule_selector(BevTestScene::behaviorTreeUpdate), 0.2f); // 200ms做一次决策
+	this->getScheduler()->schedule([=](float dt) {
+		BTInputParam input(&m_inputData);
+		BTInputParam output(&m_outputData);
+		if (m_bevTreeRoot && m_bevTreeRoot->evaluate(input))
+		{
+			m_bevTreeRoot->update(input, output);
+		}
+		renderer->render();
+	}, this, 0.2f, !_running, "behaviorTreeUpdate");
 
 	return true;
 }

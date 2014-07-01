@@ -25,6 +25,9 @@
     <Filter Include="Classes\BehaviorTree">
       <UniqueIdentifier>{ac9d133a-1332-4db7-bf35-68687f171850}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\BehaviorTreeDebug">
+      <UniqueIdentifier>{c13153f2-d07c-4f04-a91b-d260b95ab026}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -95,6 +98,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\EntityComponent.cpp">
       <Filter>Classes\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Utils.cpp">
+      <Filter>Classes\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTDebugRenderer.cpp">
+      <Filter>Classes\BehaviorTreeDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTDebugNode.cpp">
+      <Filter>Classes\BehaviorTreeDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTDebugLine.cpp">
+      <Filter>Classes\BehaviorTreeDebug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +190,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\EntityComponent.h">
       <Filter>Classes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils.h">
+      <Filter>Classes\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTDebugRenderer.h">
+      <Filter>Classes\BehaviorTreeDebug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTDebugNode.h">
+      <Filter>Classes\BehaviorTreeDebug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTDebugLine.h">
+      <Filter>Classes\BehaviorTreeDebug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

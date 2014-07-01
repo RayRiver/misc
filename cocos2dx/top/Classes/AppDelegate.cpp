@@ -3,6 +3,8 @@
 #include "GameScene.h"
 #include "BevTestScene.h"
 
+#include "Utils.h"
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -22,6 +24,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
+	if (Utils::init())
+	{
+		log("Utils init error!!!");
+	}
+
     // turn on display FPS
     //director->setDisplayStats(true);
 
@@ -29,7 +36,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
 	// set design resolution
-	glview->setDesignResolutionSize(480, 320, ResolutionPolicy::NO_BORDER);
+	float design_resolution_width = Utils::getGlobalSettingFloat("design_resolution_width", 960);
+	float design_resolution_height = Utils::getGlobalSettingFloat("design_resolution_height", 640);
+	glview->setDesignResolutionSize(design_resolution_width, design_resolution_height, ResolutionPolicy::NO_BORDER);
 
     // create a scene. it's an autorelease object
     auto scene = BevTestScene::createScene();

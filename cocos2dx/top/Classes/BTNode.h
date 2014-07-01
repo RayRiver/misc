@@ -26,7 +26,10 @@ public:
 	BTNode *addChild(const char *name, BTNode *child);
 	BTNode *addChild(BTNode *child);
 
-	BTNode &setPrecondition(BTPrecondition *precondition);
+	BTNode &setPrecondition(BTPrecondition *precondition, const char *desc = nullptr);
+	inline BTPrecondition *getPrecondition() { return m_precondition; }
+	inline const char *getPreconditionDesc() { return m_preconditionDesc.c_str(); }
+	inline std::vector<BTNode *> &getChildrenList() { return m_childrenList; }
 
 protected:
 	virtual bool onInternalEvaluate(const BTInputParam &input);
@@ -38,6 +41,7 @@ protected:
 
 protected:
 	BTPrecondition *m_precondition;
+	std::string m_preconditionDesc;
 	std::string m_name;
 	std::vector<BTNode *> m_childrenList;
 
