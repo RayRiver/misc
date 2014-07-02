@@ -166,7 +166,7 @@ void BTDebugNode::drawNode( BTNodeEvent event, bool isActionNode )
 		m_drawNode->drawPolygon(rectVerts, 4, rect_fillcolor_enter, rect_border_width, Color4F(1, 1, 1, 0.5f));
 		if (prevDebugNode)
 		{
-			m_drawNode->drawSegment(segmentV1, segmentV2, 1.5f, Color4F(1, 1, 1, 0.8));
+			m_drawNode->drawSegment(segmentV1, segmentV2, 1.5f, Color4F(1.0f, 1.0f, 1.0f, 0.8f));
 		}
 	}
 	else if (event == BTNodeEvent::exit)

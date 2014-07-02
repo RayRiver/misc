@@ -26,7 +26,7 @@ public:
 	BTNode *addChild(const char *name, BTNode *child);
 	BTNode *addChild(BTNode *child);
 
-	BTNode &setPrecondition(BTPrecondition *precondition, const char *desc = nullptr);
+	BTNode *setPrecondition(BTPrecondition *precondition, const char *desc = nullptr);
 	inline BTPrecondition *getPrecondition() { return m_precondition; }
 	inline const char *getPreconditionDesc() { return m_preconditionDesc.c_str(); }
 	inline std::vector<BTNode *> &getChildrenList() { return m_childrenList; }

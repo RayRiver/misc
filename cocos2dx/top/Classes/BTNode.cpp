@@ -42,7 +42,7 @@ BTNode * BTNode::addChild(BTNode *child)
 	return this;
 }
 
-BTNode & BTNode::setPrecondition( BTPrecondition *precondition, const char *desc /*= nullptr*/ )
+BTNode * BTNode::setPrecondition( BTPrecondition *precondition, const char *desc /*= nullptr*/ )
 {
 	if (m_precondition != precondition)
 	{
@@ -56,7 +56,7 @@ BTNode & BTNode::setPrecondition( BTPrecondition *precondition, const char *desc
 			m_preconditionDesc = desc;
 		}
 	}
-	return *this;
+	return this;
 }
 
 bool BTNode::onInternalEvaluate( const BTInputParam &input )

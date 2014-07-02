@@ -80,8 +80,8 @@ bool BTDebugRenderer::init(BTNode *root)
 
 void BTDebugRenderer::initNodes( NodeList &nodes, float origin_x )
 {
-	const float interval_x = 20.0f;
-	const float interval_y = 10.0f;
+	const float interval_x = 30.0f;
+	const float interval_y = 15.0f;
 
 	NodeList nextNodes;
 	float max_width = 0.0f;

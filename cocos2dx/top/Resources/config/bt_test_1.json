@@ -1,0 +1,95 @@
+
+[
+	{
+		"class": "BTNodePrioritySelector",
+		"desc": "控制：带优先级选择",
+		"children":
+		[	
+			{
+				"class": "BTNodeAction",
+				"imp": "NOD_MoveTo",
+				"desc": "行为：移动",
+				"precondition": {
+					"class": "BTPreconditionNOT",
+					"lhs": {
+						"class": "BTPrecondition",
+						"imp": "CON_HasMoved"
+					}
+				},
+				"precondition_desc": "前提：未移动过"
+			},
+			{
+				"class": "BTNodeSequence",	
+				"desc": "控制：顺序",
+				"precondition": {
+					"class": "BTPreconditionNOT",
+					"lhs": {
+						"class": "BTPrecondition",
+						"imp": "CON_ReachedTargetArea"
+					}
+				},
+				"precondition_desc": "前提：未到达指定区域",
+				"children": 
+				[
+					{
+						"class": "BTNodeLoop",
+						"desc": "控制：循环 x 2",
+						"count": 2,
+						"children":
+						[
+							{
+								"class": "BTNodeAction",
+								"imp": "NOD_Turn",
+								"desc": "行为：反转"
+							}
+						]
+					},
+					{
+						"class": "BTNodeAction",
+						"imp": "NOD_SequenceEnd",
+						"desc": "行为：序列完成"
+					}
+				]
+			},
+			{
+				"class": "BTNodeSequence",	
+				"desc": "控制：顺序",
+				"precondition": {
+					"class": "BTPrecondition",
+					"imp": "CON_ReachedTargetArea"
+				},
+				"precondition_desc": "前提：已到达指定区域",
+				"children":
+				[
+					{
+						"class": "BTNodeAction",
+						"imp": "NOD_Turn",
+						"desc": "行为：反转"
+					},
+					{
+						"class": "BTNodeParallel",
+						"desc": "控制：并行",
+						"children":
+						[
+							{
+								"class": "BTNodeAction",
+								"imp": "NOD_Turn",	
+								"desc": "行为：反转"
+							},
+							{
+								"class": "BTNodeAction",
+								"imp": "NOD_Jump",	
+								"desc": "行为：跳跃"
+							}
+						]
+					},
+					{
+						"class": "BTNodeAction",
+						"imp": "NOD_SequenceEnd",
+						"desc": "行为：序列完成"
+					}
+				]
+			}
+		]	
+	}
+]

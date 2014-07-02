@@ -4,6 +4,7 @@
 #include "Utils.h"
 #include "BehaviorTree.h"
 #include "BTDebugRenderer.h"
+#include "BTReader.h"
 
 USING_NS_CC;
 
@@ -84,6 +85,7 @@ protected:
 		return BTRunningStatus::Finish;
 	}
 };
+BT_REGISTER_ACTION_NODE(NOD_MoveTo)
 
 class NOD_Turn : public BTNodeAction
 {
@@ -123,8 +125,8 @@ protected:
 
 		return BTRunningStatus::Finish;
 	}
-
 };
+BT_REGISTER_ACTION_NODE(NOD_Turn)
 
 class NOD_Jump : public BTNodeAction
 {
@@ -166,6 +168,7 @@ protected:
 	}
 
 };
+BT_REGISTER_ACTION_NODE(NOD_Jump)
 
 class NOD_SequenceEnd : public BTNodeAction
 {
@@ -208,6 +211,7 @@ protected:
 	}
 
 };
+BT_REGISTER_ACTION_NODE(NOD_SequenceEnd)
 
 class CON_HasMoved : public BTPrecondition
 {
@@ -228,6 +232,7 @@ public:
 		}
 	}
 };
+BT_REGISTER_PRECONDITION(CON_HasMoved)
 
 class CON_ReachedTargetArea : public BTPrecondition
 {
@@ -248,6 +253,7 @@ public:
 		}
 	}
 };
+BT_REGISTER_PRECONDITION(CON_ReachedTargetArea)
 
 Scene* BevTestScene::createScene()
 {
@@ -276,24 +282,25 @@ bool BevTestScene::init()
 	if (0)
 	{
 		m_bevTreeRoot = new BTNodePrioritySelector(nullptr);
+		m_bevTreeRoot->setName(Utils::gettext("btnode_control_priority_select"));
 
 		m_bevTreeRoot
-		->addChild("action move to", new NOD_MoveTo(new BTPreconditionNOT(new CON_HasMoved)) )
+		->addChild(Utils::gettext("btnode_action_moveto"), (new NOD_MoveTo())->setPrecondition(new BTPreconditionNOT(new CON_HasMoved), Utils::gettext("btprecondition_hadmoved")))
 		->addChild(
-			"control sequence 1", (new BTNodeSequence(new BTPreconditionNOT(new CON_ReachedTargetArea))) 
-				->addChild("control loop 1", (new BTNodeLoop(2))
-					->addChild("action turn 1", new NOD_Turn)
+			Utils::gettext("btnode_control_sequence"), (new BTNodeSequence())->setPrecondition(new BTPreconditionNOT(new CON_ReachedTargetArea), Utils::gettext("btprecondition_not_reachedtargetarea")) 
+				->addChild(Utils::gettext("btnode_control_loop"), (new BTNodeLoop(2))
+					->addChild(Utils::gettext("btnode_action_turn"), new NOD_Turn)
 				)
-				->addChild("action seq end 1", new NOD_SequenceEnd)
+				->addChild(Utils::gettext("btnode_action_seqend"), new NOD_SequenceEnd)
 		)
 		->addChild(
-			"control sequence 2", (new BTNodeSequence(new CON_ReachedTargetArea))
-				->addChild("action turn 2", new NOD_Turn)
-				->addChild("control parallel", (new BTNodeParallel(BTNodeParallel::FinishCondition::AND))
-					->addChild("action mixed jump", new NOD_Jump)
-					->addChild("action mixed turn", new NOD_Turn)
+			Utils::gettext("btnode_control_sequence"), (new BTNodeSequence())->setPrecondition(new CON_ReachedTargetArea, Utils::gettext("btprecondition_reachedtargetarea"))
+				->addChild(Utils::gettext("btnode_action_turn"), new NOD_Turn)
+				->addChild(Utils::gettext("btnode_control_parallel"), (new BTNodeParallel(BTNodeParallel::FinishCondition::AND))
+					->addChild(Utils::gettext("btnode_action_jump"), new NOD_Jump)
+					->addChild(Utils::gettext("btnode_action_turn"), new NOD_Turn)
 				)
-				->addChild("action seq end 2", new NOD_SequenceEnd)
+				->addChild(Utils::gettext("btnode_action_seqend"), new NOD_SequenceEnd)
 		);
 
 		/*
@@ -317,42 +324,45 @@ bool BevTestScene::init()
 		);
 		*/
 	}
-	else
+	else if (0)
 	{
-		BTNode &ret = BTNodeFactory::createPrioritySelectorNode(nullptr, Utils::gettext("btnode_control_priority_select"));
-		m_bevTreeRoot = &ret;
+		m_bevTreeRoot = BTNodeFactory::createPrioritySelectorNode(nullptr, Utils::gettext("btnode_control_priority_select"));
 		{
-			auto &root = *m_bevTreeRoot;
+			auto root = m_bevTreeRoot;
 
 			{
-				BTNodeFactory::createActionNode<NOD_MoveTo>(&root, Utils::gettext("btnode_action_moveto")).setPrecondition(new BTPreconditionNOT(new CON_HasMoved), Utils::gettext("btprecondition_hadmoved"));
+				BTNodeFactory::createActionNode<NOD_MoveTo>(root, Utils::gettext("btnode_action_moveto"))->setPrecondition(new BTPreconditionNOT(new CON_HasMoved), Utils::gettext("btprecondition_hadmoved"));
 			}
 
 			{
-				BTNode &seq = BTNodeFactory::createSequenceNode(&root, Utils::gettext("btnode_control_sequence")).setPrecondition(new BTPreconditionNOT(new CON_ReachedTargetArea), Utils::gettext("btprecondition_not_reachedtargetarea"));
+				BTNode *seq = BTNodeFactory::createSequenceNode(root, Utils::gettext("btnode_control_sequence"))->setPrecondition(new BTPreconditionNOT(new CON_ReachedTargetArea), Utils::gettext("btprecondition_not_reachedtargetarea"));
 				{
-					BTNode &loop = BTNodeFactory::createLoopNode(&seq, Utils::gettext("btnode_control_loop"), 2);
+					BTNode *loop = BTNodeFactory::createLoopNode(seq, Utils::gettext("btnode_control_loop"), 2);
 					{
-						BTNodeFactory::createActionNode<NOD_Turn>(&loop, Utils::gettext("btnode_action_turn"));
+						BTNodeFactory::createActionNode<NOD_Turn>(loop, Utils::gettext("btnode_action_turn"));
 					}
-					BTNodeFactory::createActionNode<NOD_SequenceEnd>(&seq, Utils::gettext("btnode_action_seqend"));
+					BTNodeFactory::createActionNode<NOD_SequenceEnd>(seq, Utils::gettext("btnode_action_seqend"));
 				}
 			}
 
 			{
-				BTNode &seq = BTNodeFactory::createSequenceNode(&root, Utils::gettext("btnode_control_sequence")).setPrecondition(new CON_ReachedTargetArea, Utils::gettext("btprecondition_reachedtargetarea"));
+				BTNode *seq = BTNodeFactory::createSequenceNode(root, Utils::gettext("btnode_control_sequence"))->setPrecondition(new CON_ReachedTargetArea, Utils::gettext("btprecondition_reachedtargetarea"));
 				{
-					BTNodeFactory::createActionNode<NOD_Turn>(&seq, Utils::gettext("btnode_action_turn"));
-					BTNode &parallel = BTNodeFactory::createParallelNode(&seq, Utils::gettext("btnode_control_parallel"));
+					BTNodeFactory::createActionNode<NOD_Turn>(seq, Utils::gettext("btnode_action_turn"));
+					BTNode *parallel = BTNodeFactory::createParallelNode(seq, Utils::gettext("btnode_control_parallel"));
 					{
-						BTNodeFactory::createActionNode<NOD_Turn>(&parallel, Utils::gettext("btnode_action_turn"));
-						BTNodeFactory::createActionNode<NOD_Jump>(&parallel, Utils::gettext("btnode_action_jump"));
+						BTNodeFactory::createActionNode<NOD_Turn>(parallel, Utils::gettext("btnode_action_turn"));
+						BTNodeFactory::createActionNode<NOD_Jump>(parallel, Utils::gettext("btnode_action_jump"));
 					}
-					BTNodeFactory::createActionNode<NOD_SequenceEnd>(&seq, Utils::gettext("btnode_action_seqend"));
+					BTNodeFactory::createActionNode<NOD_SequenceEnd>(seq, Utils::gettext("btnode_action_seqend"));
 				}
 			}
 		}
 	}	
+	else
+	{
+		m_bevTreeRoot = BTReader::getInstance()->readFromFile("config/bt_test_1.json");
+	}
 
 	auto renderer = BTDebugRenderer::create(m_bevTreeRoot);
 	this->addChild(renderer, 10001);

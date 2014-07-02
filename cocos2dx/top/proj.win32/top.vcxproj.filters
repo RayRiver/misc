@@ -28,6 +28,9 @@
     <Filter Include="Classes\BehaviorTreeDebug">
       <UniqueIdentifier>{c13153f2-d07c-4f04-a91b-d260b95ab026}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\BehaviorTreeHelper">
+      <UniqueIdentifier>{f355e709-10e1-4fa7-8bfe-ff6a0e8c89de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -107,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\BTDebugNode.cpp">
       <Filter>Classes\BehaviorTreeDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTReader.cpp">
+      <Filter>Classes\BehaviorTreeHelper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BTDebugNode.h">
       <Filter>Classes\BehaviorTreeDebug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTReader.h">
+      <Filter>Classes\BehaviorTreeHelper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
