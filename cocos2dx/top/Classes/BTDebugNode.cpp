@@ -9,10 +9,10 @@
 USING_NS_CC;
 using namespace std;
 
-BTDebugNode * BTDebugNode::create( BTNode *btnode )
+BTDebugNode * BTDebugNode::create( BTNode *btnode, BTDebugNode *prevDebugNode )
 {
 	auto ret = new BTDebugNode();
-	if (ret && ret->init(btnode))
+	if (ret && ret->init(btnode, prevDebugNode))
 	{
 		ret->autorelease();
 	}
@@ -24,7 +24,7 @@ BTDebugNode * BTDebugNode::create( BTNode *btnode )
 	return ret;
 }
 
-bool BTDebugNode::init( BTNode *btnode )
+bool BTDebugNode::init( BTNode *btnode, BTDebugNode *prevDebugNode )
 {
 	if (!Node::init())
 	{
@@ -32,12 +32,11 @@ bool BTDebugNode::init( BTNode *btnode )
 	}
 
 	m_btnode = btnode;
+	m_prev = prevDebugNode;
 
 	m_drawNode = DrawNode::create();
 	this->addChild(m_drawNode);
 
-	const int width = 100;
-	const int height = 60;
 	const char *fontName = "SimSun.ttf";
 	const int fontSize = 12;
 	const float fontBorder = 3.0f;
@@ -59,8 +58,6 @@ bool BTDebugNode::init( BTNode *btnode )
 		size.height += 2*fontBorder;
 
 		auto node = Node::create();
-		//Vec2 vertexes[4] = {Vec2(-size.width/2, -size.height/2), Vec2(-size.width/2, size.height/2), Vec2(size.width/2, size.height/2), Vec2(size.width/2, -size.height/2)};
-		//draw->drawPolygon(vertexes, 4, Color4F(0, 0, 0.5, 0.5f), 0.5f, Color4F(1, 1, 1, 0.5f));
 		node->setContentSize(size);
 
 		node->addChild(text);
@@ -82,8 +79,6 @@ bool BTDebugNode::init( BTNode *btnode )
 		size.height += 2*fontBorder;
 
 		auto node = Node::create();
-		//Vec2 vertexes[4] = {Vec2(-size.width/2, -size.height/2), Vec2(-size.width/2, size.height/2), Vec2(size.width/2, size.height/2), Vec2(size.width/2, -size.height/2)};
-		//draw->drawPolygon(vertexes, 4, Color4F(0, 0, 0.5, 0.5f), 0.5f, Color4F(1, 1, 1, 0.5f));
 		node->setContentSize(size);
 
 		node->addChild(text);
@@ -125,28 +120,68 @@ bool BTDebugNode::init( BTNode *btnode )
 	this->setContentSize(node->getContentSize());
 	this->addChild(node);
 
-	//auto text = Label::createWithSystemFont(Utils::gettext("test"), fontName, fontSize);
-	//drawNode->addChild(text);
-
 	return true;
 }
 
 void BTDebugNode::sendEvent( BTNodeEvent event )
 {
-	m_drawNode->clear();
-	const Size &size = this->getContentSize();
+	drawNode(event, true);
+}
+
+void BTDebugNode::drawNode( BTNodeEvent event, bool isActionNode )
+{
+	auto debugNode = this;
+	auto prevDebugNode = this->m_prev;
+
+	const Size &size = debugNode->getContentSize();
 	auto w = size.width;
 	auto h = size.height;
-	Vec2 vertexes[4] = {Vec2(-w/2, -h/2), Vec2(-w/2, +h/2), Vec2(+w/2, +h/2), Vec2(+w/2, -h/2)};
+	Vec2 rectVerts[4] = {Vec2(-w/2, -h/2), Vec2(-w/2, +h/2), Vec2(+w/2, +h/2), Vec2(+w/2, -h/2)};	
+	Vec2 segmentV1;
+	Vec2 segmentV2;
+	if (prevDebugNode)
+	{
+		segmentV1 = Vec2(prevDebugNode->getPositionX()-debugNode->getPositionX()+prevDebugNode->getContentSize().width/2, prevDebugNode->getPositionY()-debugNode->getPositionY());
+		segmentV2 = Vec2(-debugNode->getContentSize().width/2, 0);
+	}
+	Color4F rect_fillcolor_enter;
+	Color4F rect_fillcolor_exit;
+	float rect_border_width;
+	if (isActionNode)
+	{
+		rect_fillcolor_enter = Color4F(0.0f, 0.8f, 0.0f, 0.5f);
+		rect_fillcolor_exit = Color4F(0.8f, 0.0f, 0.0f, 0.5f);
+		rect_border_width = 1.0f;
+	}
+	else
+	{
+		rect_fillcolor_enter = Color4F(0.0f, 0.5f, 0.0f, 0.5f);
+		rect_fillcolor_exit = Color4F(0.5f, 0.0f, 0.0f, 0.5f);
+		rect_border_width = 0.5f;
+	}
 
 	if (event == BTNodeEvent::enter)
 	{
-		m_drawNode->drawPolygon(vertexes, 4, Color4F(0, 0.5, 0, 0.5f), 0.5f, Color4F(1, 1, 1, 0.5f));
+		m_drawNode->clear();
+		m_drawNode->drawPolygon(rectVerts, 4, rect_fillcolor_enter, rect_border_width, Color4F(1, 1, 1, 0.5f));
+		if (prevDebugNode)
+		{
+			m_drawNode->drawSegment(segmentV1, segmentV2, 1.5f, Color4F(1, 1, 1, 0.8));
+		}
 	}
 	else if (event == BTNodeEvent::exit)
 	{
-		m_drawNode->drawPolygon(vertexes, 4, Color4F(0.5, 0, 0, 0.5f), 0.5f, Color4F(1, 1, 1, 0.5f));
+		m_drawNode->clear();
+		m_drawNode->drawPolygon(rectVerts, 4, rect_fillcolor_exit, rect_border_width, Color4F(1, 1, 1, 0.5f));
+		if (prevDebugNode)
+		{
+			m_drawNode->drawSegment(segmentV1, segmentV2, 0.5f, Color4F(1, 1, 1, 0.5));
+		}
 	}
 
+	if (prevDebugNode)
+	{
+		prevDebugNode->drawNode(event, false);
+	}
 }
 

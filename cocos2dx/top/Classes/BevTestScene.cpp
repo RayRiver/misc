@@ -187,9 +187,23 @@ protected:
 
 		if (state == TestSprite::State::Ready)
 		{
+			sprite->runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]() {
+				sprite->setState(TestSprite::State::Finish);
+			}), nullptr));
+			sprite->setState(TestSprite::State::Running);
+			return BTRunningStatus::Executing;
+		}
+		else if (state == TestSprite::State::Running)
+		{
+			return BTRunningStatus::Executing;
+		}	
+		else if (state == TestSprite::State::Finish)
+		{
 			sprite->setState(TestSprite::State::Ready);
 			sprite->setMoved(false);
+			return BTRunningStatus::Finish;
 		}
+
 		return BTRunningStatus::Finish;
 	}
 

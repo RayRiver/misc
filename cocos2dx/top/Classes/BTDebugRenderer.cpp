@@ -88,7 +88,7 @@ void BTDebugRenderer::initNodes( NodeList &nodes, float origin_x )
 	float max_height = 0.0f;
 	for (auto &node : nodes)	
 	{
-		BTDebugNode *debugNode = BTDebugNode::create(node);
+		BTDebugNode *debugNode = BTDebugNode::create(node, m_nodeMap[node].prevDebugNode);
 		m_nodeMap[node].debugNode = debugNode;
 
 		const Size &size = debugNode->getContentSize();
@@ -123,22 +123,8 @@ void BTDebugRenderer::initNodes( NodeList &nodes, float origin_x )
 		debugNode->setPosition(origin_x + interval_x + size.width/2, origin_y - interval_y - size.height/2);
 		this->addChild(debugNode);
 
-		// 渲染节点背景
-		//float x = debugNode->getPositionX();
-		//float y = debugNode->getPositionY();
-		//float w = debugNode->getContentSize().width;
-		//float h = debugNode->getContentSize().height;
-		//Vec2 vertexes[4] = {Vec2(x-w/2, y-h/2), Vec2(x-w/2, y+h/2), Vec2(x+w/2, y+h/2), Vec2(x+w/2, y-h/2)};
-		//m_drawNode->drawPolygon(vertexes, 4, Color4F(0.5, 0, 0, 0.5f), 0.5f, Color4F(1, 1, 1, 0.5f));
-
-		// 连线
-		if (prevDebugNode)
-		{
-			m_drawNode->drawSegment(
-				Vec2(prevDebugNode->getPositionX()+prevDebugNode->getContentSize().width/2, prevDebugNode->getPositionY()),
-				Vec2(debugNode->getPositionX()-debugNode->getContentSize().width/2, debugNode->getPositionY()),
-				1.0f, Color4F(1, 1, 1, 0.5));
-		}
+		// 
+		debugNode->sendEvent(BTNodeEvent::exit);
 
 		origin_y -= (interval_y+size.height);
 	}
