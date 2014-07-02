@@ -115,8 +115,8 @@ BTNode * BTReader::readFromFile( const char *filename )
 
 BTNode * BTReader::_parseDoc( const rapidjson::Document &doc )
 {
-	const auto &nodeVal = DICTOOL->getSubDictionary_json(doc, 0);
-	return _parseNode(nodeVal, nullptr);
+	//const auto &nodeVal = DICTOOL->getSubDictionary_json(doc, 0);
+	return _parseNode(doc, nullptr);
 }
 
 BTNode * BTReader::_parseNode( const rapidjson::Value &nodeVal, BTNode *parent )
