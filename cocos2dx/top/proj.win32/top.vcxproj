@@ -135,8 +135,15 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClCompile Include="..\Classes\AnimationController.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\BehaviorTreeEditor.cpp" />
     <ClCompile Include="..\Classes\BTDebugNode.cpp" />
     <ClCompile Include="..\Classes\BTDebugRenderer.cpp" />
+    <ClCompile Include="..\Classes\BTECanvasLayer.cpp" />
+    <ClCompile Include="..\Classes\BTEControlLayer.cpp" />
+    <ClCompile Include="..\Classes\BTELayer.cpp" />
+    <ClCompile Include="..\Classes\BTENode.cpp" />
+    <ClCompile Include="..\Classes\BTEResponder.cpp" />
+    <ClCompile Include="..\Classes\BTEWidget.cpp" />
     <ClCompile Include="..\Classes\BTNode.cpp" />
     <ClCompile Include="..\Classes\BTNodeFactory.cpp" />
     <ClCompile Include="..\Classes\BTNodeLoop.cpp" />
@@ -165,9 +172,16 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AnimationController.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\BehaviorTree.h" />
+    <ClInclude Include="..\Classes\BehaviorTreeEditor.h" />
     <ClInclude Include="..\Classes\BTDebugNode.h" />
     <ClInclude Include="..\Classes\BTDebugRenderer.h" />
     <ClInclude Include="..\Classes\BTDef.h" />
+    <ClInclude Include="..\Classes\BTECanvasLayer.h" />
+    <ClInclude Include="..\Classes\BTEControlLayer.h" />
+    <ClInclude Include="..\Classes\BTELayer.h" />
+    <ClInclude Include="..\Classes\BTENode.h" />
+    <ClInclude Include="..\Classes\BTEResponder.h" />
+    <ClInclude Include="..\Classes\BTEWidget.h" />
     <ClInclude Include="..\Classes\BTNode.h" />
     <ClInclude Include="..\Classes\BTNodeFactory.h" />
     <ClInclude Include="..\Classes\BTNodeLoop.h" />
@@ -206,6 +220,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </ProjectReference>
     <ProjectReference Include="..\cocos2d\cocos\ui\proj.win32\libGUI.vcxproj">
       <Project>{7e06e92c-537a-442b-9e4a-4761c84f8a1a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\cocos2d\extensions\proj.win32\libExtensions.vcxproj">
+      <Project>{21b2c324-891f-48ea-ad1a-5ae13de12e28}</Project>
     </ProjectReference>
     <ProjectReference Include="..\cocos2d\external\chipmunk\proj.win32\chipmunk.vcxproj">
       <Project>{207bc7a9-ccf1-4f2f-a04d-45f72242ae25}</Project>

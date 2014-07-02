@@ -31,6 +31,9 @@
     <Filter Include="Classes\BehaviorTreeHelper">
       <UniqueIdentifier>{f355e709-10e1-4fa7-8bfe-ff6a0e8c89de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\BehaviorTreeEditor">
+      <UniqueIdentifier>{b698e2cb-c2f1-49c6-9eae-432719f085d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -113,6 +116,27 @@
     </ClCompile>
     <ClCompile Include="..\Classes\BTReader.cpp">
       <Filter>Classes\BehaviorTreeHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BehaviorTreeEditor.cpp">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTEControlLayer.cpp">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTECanvasLayer.cpp">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTENode.cpp">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTELayer.cpp">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTEResponder.cpp">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BTEWidget.cpp">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +229,27 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BTReader.h">
       <Filter>Classes\BehaviorTreeHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BehaviorTreeEditor.h">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTEControlLayer.h">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTECanvasLayer.h">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTENode.h">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTELayer.h">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTEResponder.h">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BTEWidget.h">
+      <Filter>Classes\BehaviorTreeEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
