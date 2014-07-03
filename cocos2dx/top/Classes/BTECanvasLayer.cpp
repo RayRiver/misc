@@ -3,7 +3,6 @@
 #include "VisibleRect.h"
 
 #include "BTEResponder.h"
-#include "BTECanvas.h"
 #include "BTENode.h"
 
 USING_NS_CC;

@@ -43,9 +43,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	glview->setDesignResolutionSize(design_resolution_width, design_resolution_height, ResolutionPolicy::NO_BORDER);
 
     // create a scene. it's an autorelease object
-    //auto scene = BevTestScene::createScene();
+    auto scene = BevTestScene::createScene();
 
-	auto scene = BehaviorTreeEditor::create();
+	//auto scene = BehaviorTreeEditor::create();
 
     // run
     director->runWithScene(scene);

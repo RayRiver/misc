@@ -155,6 +155,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\BTNodeAction.cpp" />
     <ClCompile Include="..\Classes\BevTestScene.cpp" />
     <ClCompile Include="..\Classes\BTReader.cpp" />
+    <ClCompile Include="..\Classes\Display.cpp" />
     <ClCompile Include="..\Classes\EntityComponent.cpp" />
     <ClCompile Include="..\Classes\GameCharacter.cpp" />
     <ClCompile Include="..\Classes\GameEntity.cpp" />
@@ -194,6 +195,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\BTNodeAction.h" />
     <ClInclude Include="..\Classes\BevTestScene.h" />
     <ClInclude Include="..\Classes\BTReader.h" />
+    <ClInclude Include="..\Classes\Display.h" />
     <ClInclude Include="..\Classes\EntityComponent.h" />
     <ClInclude Include="..\Classes\GameCharacter.h" />
     <ClInclude Include="..\Classes\GameEntity.h" />

@@ -138,6 +138,9 @@
     <ClCompile Include="..\Classes\BTEWidget.cpp">
       <Filter>Classes\BehaviorTreeEditor</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Display.cpp">
+      <Filter>Classes\Helper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BTEWidget.h">
       <Filter>Classes\BehaviorTreeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Display.h">
+      <Filter>Classes\Helper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
