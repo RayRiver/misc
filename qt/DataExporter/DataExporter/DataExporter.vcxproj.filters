@@ -164,6 +164,9 @@
     <ClCompile Include="DataStructs.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_xlsxdocument.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.h">
