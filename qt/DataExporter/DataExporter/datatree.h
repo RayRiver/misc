@@ -17,7 +17,7 @@ public:
 
 	void clearData();
 	bool loadData(const QString &filename);
-	bool exportData();
+	bool exportData(const QString &exportPath);
 
 	QTreeWidgetItem *addFile(const QString &filename);
 	QTreeWidgetItem *addSheet(QTreeWidgetItem *fileItem, const QString &sheetname);

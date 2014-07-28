@@ -8,7 +8,7 @@ class QDropEvent;
 class QDropEnterEvent;
 class QDropMoveEvent;
 
-class MainWindow : public QMainWindow
+class MainWindow : public QDialog
 {
 	Q_OBJECT
 
@@ -17,6 +17,7 @@ public:
 	~MainWindow();
 
 private slots:
+	void onSetExportPath();
 	void onExportData();
 
 protected:
@@ -24,8 +25,12 @@ protected:
 	void dragMoveEvent(QDragMoveEvent *event);
 	void dropEvent(QDropEvent *event);
 
+	// 加载和保存已打开文件列表;
+	void loadOpenedFileList();
+	void saveOpenedFileList();
+
 private:
-	Ui::MainWindowClass ui;
+	Ui::Dialog ui;
 };
 
 #endif // MAINWINDOW_H

@@ -97,7 +97,7 @@ bool DataTree::loadData( const QString &filename )
 	return true;
 }
 
-bool DataTree::exportData()
+bool DataTree::exportData(const QString &exportPath)
 {
 	for (auto it=m_dataTableMap.begin(); it!=m_dataTableMap.end(); ++it)
 	{
@@ -109,9 +109,10 @@ bool DataTree::exportData()
 			auto dataTable = dataTableInfo.dataTable;
 
 			// 获取导出文件路径;			
-			auto filepath = dataFile->getName();
-			QFileInfo &fileInfo = QFileInfo(filepath);
-			filepath = fileInfo.absolutePath();
+			//auto filepath = dataFile->getName();
+			//QFileInfo &fileInfo = QFileInfo(filepath);
+			//filepath = fileInfo.absolutePath();
+			auto &filepath = exportPath;
 
 			DataReader::instance()->exportLua(dataTable, filepath);
 			DataReader::instance()->exportXml(dataTable, filepath);
