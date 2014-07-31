@@ -19,6 +19,7 @@ public:
 private slots:
 	void onSetExportPath();
 	void onExportData();
+	void onHelp();
 
 protected:
 	void dragEnterEvent(QDragEnterEvent *event);    

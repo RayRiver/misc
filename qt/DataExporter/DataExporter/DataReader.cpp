@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QFile>
 #include <QTextCodec>
+#include <QDir>
 
 #include "xlsxdocument.h"
 QTXLSX_USE_NAMESPACE;
@@ -64,9 +65,23 @@ DataFile * DataReader::loadData( const QString &filename )
 				if (val.type() == QVariant::String)
 				{
 					const auto &s = val.toString();
-					if (s.length() >=2 && s[0] == QChar('#') && s[1] == QChar('^'))
+					if (sheetName.compare("LOCALE", Qt::CaseSensitivity::CaseInsensitive) == 0 &&
+						s.compare("LOCALE", Qt::CaseSensitivity::CaseInsensitive) == 0)
 					{
-						// 找到表头;
+						auto table = this->parseLocale(sheet, row, col);
+						if (table)
+						{
+							if (!dataSheet)
+							{
+								dataSheet = new DataSheet(sheetName);
+							}
+
+							dataSheet->addTable(table);
+						}	
+					}
+					else if (s.length() >=2 && s[0] == QChar('#') && s[1] == QChar('^'))
+					{
+						// 普通数据表;
 						qDebug() << QObject::tr("find table at ") << row << QObject::tr(", ") << col;
 						auto table = this->parseTable(sheet, row, col);
 						if (table)
@@ -211,6 +226,85 @@ DataTable *DataReader::parseTable( Worksheet *sheet, int tableRow, int tableCol 
 	return dataTable;
 }
 
+DataTable *DataReader::parseLocale( QXlsx::Worksheet *sheet, int tableRow, int tableCol )
+{
+	auto dataTable = new DataTable("LOCALE");
+
+	// 有效列;
+	QList<int> cols;
+
+	// 有效列名;
+	QStringList names;
+
+	// 行列范围;
+	auto range = sheet->dimension();
+
+	// 解析表头;
+	for (int col=tableCol; col<=range.lastColumn(); ++col)
+	{
+		auto cell = sheet->cellAt(tableRow, col);
+		if (!cell) continue;
+
+		auto &val = cell->value();
+		if (val.type() == QVariant::String)
+		{
+			const auto &s = val.toString();
+
+			// 有效列;
+			if (!s.isEmpty())
+			{
+				// 解析列名;
+				auto &colName = s;
+				names.push_back(colName);
+				cols.push_back(col);
+			}
+		}
+	}
+
+	// 设置表头;
+	dataTable->setHeader(names);
+
+	// 解析表记录;
+	for (int row=tableRow+1; row<=range.lastRow(); ++row)
+	{
+		auto cell = sheet->cellAt(row, tableCol);
+		if (!cell) continue;
+
+		auto &val = cell->value();
+		if (val.type() == QVariant::String)
+		{
+			const auto &s = val.toString();
+
+			// 有效行;
+			if (!s.isEmpty())
+			{
+				// 根据有效列解析数据;
+				QVariantList vars;
+				for (auto it=cols.begin(); it!=cols.end(); ++it)
+				{
+					auto col = *it;
+
+					auto dataCell = sheet->cellAt(row, col);
+					if (!dataCell) 
+					{
+						// 数据为空，填入默认值;
+						vars.push_back(QString());
+					}
+					else
+					{
+						vars.push_back(dataCell->value().toString());
+					}
+				}
+
+				// 加入数据表格;
+				dataTable->addRecord(vars);
+			}
+		}
+	}
+
+	return dataTable;
+}
+
 bool DataReader::exportLua( DataTable *dataTable, const QString &path )
 {
 	const QString &name = dataTable->getName();
@@ -218,11 +312,20 @@ bool DataReader::exportLua( DataTable *dataTable, const QString &path )
 	const QList<int> &keys = dataTable->getKeys();
 	const QList<QVariantList> &records = dataTable->getRecords();
 
-	auto filename = path;
-	filename.append("/");
-	filename.append(name.toLower());
-	filename.append(".lua");
+	// 创建目录;
+	QString dir_path = path + QObject::tr("/lua");
+	QDir dir;
+	bool exist = dir.exists(dir_path);
+	if (!exist)
+	{
+		bool ok = dir.mkdir(dir_path);
+		if (!ok)
+		{
+			return false;
+		}
+	}
 
+	auto filename = dir_path + QObject::tr("/") + name.toLower() + QObject::tr(".lua");
 
 	QString content;
 
@@ -445,10 +548,20 @@ bool DataReader::exportXml( DataTable *dataTable, const QString &path )
 	const QStringList &header = dataTable->getHeader();
 	const QList<QVariantList> &records = dataTable->getRecords();
 
-	auto filename = path;
-	filename.append("/");
-	filename.append(name.toLower());
-	filename.append(".xml");
+	// 创建目录;
+	QString dir_path = path + QObject::tr("/xml");
+	QDir dir;
+	bool exist = dir.exists(dir_path);
+	if (!exist)
+	{
+		bool ok = dir.mkdir(dir_path);
+		if (!ok)
+		{
+			return false;
+		}
+	}
+
+	auto filename = dir_path + QObject::tr("/") + name.toLower() + QObject::tr(".xml");
 
 	QString content;
 
@@ -495,3 +608,116 @@ bool DataReader::exportXml( DataTable *dataTable, const QString &path )
 
 	return true;
 }
+
+bool DataReader::exportLocale( DataTable *dataTable, const QString &path )
+{
+	const QString &name = dataTable->getName();
+	const QStringList &header = dataTable->getHeader();
+	const QList<QVariantList> &records = dataTable->getRecords();
+
+	auto locale_path = path + QObject::tr("/locale");
+
+	// 创建locale目录;
+	QDir locale_dir;
+	bool exist = locale_dir.exists(locale_path);
+	if (!exist)
+	{
+		bool ok = locale_dir.mkdir(locale_path);
+		if (!ok)
+		{
+			return false;
+		}
+	}
+
+	QStringList origins;
+
+	// 解析不同语言;
+	int col = 0;
+	for (auto it=header.begin(); it!=header.end(); ++it, ++col) 
+	{
+		const auto &lang = *it;
+		if (lang.isEmpty()) continue;
+
+		// 解析原字符串;
+		if (lang.compare("LOCALE", Qt::CaseSensitivity::CaseInsensitive) == 0) 
+		{
+			for (auto it=records.begin(); it!=records.end(); ++it)
+			{
+				const auto &val = *it;
+				const auto &s = val[col].toString();
+				origins.push_back(s);
+			}
+			continue;
+		}
+
+		auto lang_path = locale_path + QObject::tr("/") + lang;
+
+		// 创建语言目录;
+		QDir lang_dir;
+		bool exist = lang_dir.exists(lang_path);
+		if (!exist)
+		{
+			bool ok = lang_dir.mkdir(lang_path);
+			if (!ok)
+			{
+				return false;
+			}
+		}
+
+		QString content;
+
+		// json头;
+		content.append("{\n");
+
+		// 解析所有字符串;
+		int row = 0;
+		for (auto it=records.begin(); it!=records.end(); ++it, ++row)
+		{
+			const auto &record = *it;
+			const auto &s = record[col].toString();
+
+			content.append("    \"");
+			content.append(origins[row]);
+			content.append("\" : \"");
+			content.append(s);
+			content.append("\",\n");
+		}
+
+		// json尾;
+		content.append("    \"\" : \"\"\n}\n");
+
+		// 输出文件;
+		auto filename = lang_path + QObject::tr("/text.json");
+		QFile f(filename);
+		if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+		{
+			QTextStream output(&f);
+			output.setCodec("utf-8");
+			output << content << endl;
+			f.close();
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+
+	return true;
+}
+
+bool DataReader::exportData( DataTable *dataTable, const QString &path )
+{
+	if (dataTable->getName().compare("LOCALE", Qt::CaseSensitivity::CaseInsensitive) == 0)
+	{
+		this->exportLocale(dataTable, path);
+	}
+	else
+	{
+		this->exportLua(dataTable, path);
+		this->exportXml(dataTable, path);
+	}
+
+	return true;
+}
+

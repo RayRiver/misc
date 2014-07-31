@@ -14,6 +14,7 @@
 #include <QSettings>
 
 #include "DataReader.h"
+#include "helpdialog.h"
 
 #define MIMETYPE "application/x-qt-windows-mime;value=\"FileNameW\""
 
@@ -41,6 +42,12 @@ MainWindow::MainWindow(QWidget *parent)
 	if (setExportPathButton)
 	{
 		this->connect(setExportPathButton, SIGNAL(clicked()), this, SLOT(onSetExportPath()));
+	}
+
+	auto helpButton = this->findChild<QPushButton *>(tr("pushButton_help"));
+	if (helpButton)
+	{
+		this->connect(helpButton, SIGNAL(clicked()), this, SLOT(onHelp()));
 	}
 
 	this->setAcceptDrops(true);
@@ -194,4 +201,10 @@ void MainWindow::saveOpenedFileList()
 	settings.setValue(tr("opened_file_list"), vallist);
 	settings.setValue(tr("latest_file"), latest_file);
 	settings.endGroup();
+}
+
+void MainWindow::onHelp()
+{
+	auto dialog = new HelpDialog(this);
+	dialog->show();
 }

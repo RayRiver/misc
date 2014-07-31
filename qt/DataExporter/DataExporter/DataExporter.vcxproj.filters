@@ -167,6 +167,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_xlsxdocument.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="helpdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_helpdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_helpdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.h">
@@ -186,6 +195,12 @@
     </CustomBuild>
     <CustomBuild Include="..\qtxlsx\xlsxdocument.h">
       <Filter>qtxlsx</Filter>
+    </CustomBuild>
+    <CustomBuild Include="helpdialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="helpdialog.ui">
+      <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +341,9 @@
     </ClInclude>
     <ClInclude Include="DataStructs.h">
       <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_helpdialog.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

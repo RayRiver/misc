@@ -114,8 +114,8 @@ bool DataTree::exportData(const QString &exportPath)
 			//filepath = fileInfo.absolutePath();
 			auto &filepath = exportPath;
 
-			DataReader::instance()->exportLua(dataTable, filepath);
-			DataReader::instance()->exportXml(dataTable, filepath);
+			DataReader::instance()->exportData(dataTable, filepath);
+
 		}
 	}
 
