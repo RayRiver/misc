@@ -20,6 +20,9 @@
     <ClInclude Include="Fixed.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="FixedRect.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -29,6 +32,9 @@
       <Filter>Classes</Filter>
     </ClCompile>
     <ClCompile Include="FixedBase.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedRect.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
   </ItemGroup>

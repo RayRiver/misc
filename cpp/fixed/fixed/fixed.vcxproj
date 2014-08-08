@@ -80,10 +80,12 @@
   <ItemGroup>
     <ClInclude Include="Fixed.h" />
     <ClInclude Include="FixedBase.h" />
+    <ClInclude Include="FixedRect.h" />
     <ClInclude Include="FixedVec2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FixedBase.cpp" />
+    <ClCompile Include="FixedRect.cpp" />
     <ClCompile Include="FixedVec2.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
