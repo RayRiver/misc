@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\PathFinder">
+      <UniqueIdentifier>{85dbb6a0-b81a-40c1-8f89-aee332f64000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\utils">
+      <UniqueIdentifier>{c6af5a45-cfea-4dbd-814a-ac42e4263cd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\TSP">
+      <UniqueIdentifier>{188683db-4610-4071-81e6-eab954a8954b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Sweeper">
+      <UniqueIdentifier>{45eb57ac-289d-48db-bea8-4c0f7668699a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PathFinder\PathMap.cpp">
+      <Filter>Classes\PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PathFinder\GenomeManager.cpp">
+      <Filter>Classes\PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PathFinder\MapManager.cpp">
+      <Filter>Classes\PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\helper.cpp">
+      <Filter>Classes\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TSP\TSPMap.cpp">
+      <Filter>Classes\TSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ListScene.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BaseScene.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TSP\TSPGenome.cpp">
+      <Filter>Classes\TSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TSP\TSPAlgorithm.cpp">
+      <Filter>Classes\TSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\NeuralNet.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\GeneticAlgorithm.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\Sweeper.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\SweeperController.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\Display.cpp">
+      <Filter>Classes\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PathFinder\PathGenome.cpp">
+      <Filter>Classes\PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\FixedVec2.cpp">
+      <Filter>Classes\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\FixedBase.cpp">
+      <Filter>Classes\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\Mine.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\FixedRect.cpp">
+      <Filter>Classes\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\SweeperConstants.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PathFinder\PathMap.h">
+      <Filter>Classes\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PathFinder\GenomeManager.h">
+      <Filter>Classes\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PathFinder\MapManager.h">
+      <Filter>Classes\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\helper.h">
+      <Filter>Classes\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TSP\TSPMap.h">
+      <Filter>Classes\TSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ListScene.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BaseScene.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TSP\TSPGenome.h">
+      <Filter>Classes\TSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TSP\TSPAlgorithm.h">
+      <Filter>Classes\TSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\NeuralNet.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\GeneticAlgorithm.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\Sweeper.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\SweeperController.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\Display.h">
+      <Filter>Classes\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PathFinder\PathGenome.h">
+      <Filter>Classes\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\FixedBase.h">
+      <Filter>Classes\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\FixedVec2.h">
+      <Filter>Classes\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\Fixed.h">
+      <Filter>Classes\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\Mine.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\FixedRect.h">
+      <Filter>Classes\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\SweeperConstants.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

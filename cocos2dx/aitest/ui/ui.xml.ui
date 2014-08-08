@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>D:\dev\misc\cocos2dx\aitest\ui</ProjectDir>
+  <Version>1.5.0.1</Version>
+  <Resources>D:\dev\misc\cocos2dx\aitest\ui\Resources</Resources>
+  <Name>ui</Name>
+  <JsonFileName>ui.json</JsonFileName>
+  <JsonFolder>D:\dev\misc\cocos2dx\aitest\ui\Json</JsonFolder>
+  <JsonList>
+    <string>ui_pathfinder.json</string>
+    <string>ui_tsp.json</string>
+  </JsonList>
+  <CanvasSize>
+    <Width>960</Width>
+    <Height>640</Height>
+  </CanvasSize>
+  <filePath>D:\dev\misc\cocos2dx\aitest\ui\ui.xml.ui</filePath>
+  <ProjectType>UIProject</ProjectType>
+  <ResRelativePath />
+  <imageFileList />
+  <imagePngList>
+    <string>GUI/slider_bar.png</string>
+    <string>GUI/slider_bar_button.png</string>
+    <string>GUI/button.png</string>
+    <string>GUI/slider_bar.png</string>
+    <string>GUI/slider_bar_button.png</string>
+    <string>GUI/button.png</string>
+  </imagePngList>
+  <JsonSuffix>.json</JsonSuffix>
+  <CurrentUIJson>ui_tsp.json</CurrentUIJson>
+</UIProject>
