@@ -35,7 +35,7 @@ inline void FixedPrint(const Fixed &f)
 {
 	printf("%lf", f);
 }
-inline bool FixedEqual(const Fixed &f, const Fixed &other)
+inline bool FixedEquals(const Fixed &f, const Fixed &other)
 {
 	return ::fabs(f-other) < FLT_EPSILON;
 }
@@ -263,19 +263,19 @@ public:
 		Fixed::_print(f);
 	}
 
-	friend inline bool FixedEqual(const Fixed &f, const Fixed &val)
+	friend inline bool FixedEquals(const Fixed &f, const Fixed &val)
 	{
 		return f == val;
 	}
-	friend inline bool FixedEqual(const Fixed &f, int val)
+	friend inline bool FixedEquals(const Fixed &f, int val)
 	{
 		return f == Fixed(val);
 	}
-	friend inline bool FixedEqual(const Fixed &f, float val)
+	friend inline bool FixedEquals(const Fixed &f, float val)
 	{
 		return f == Fixed(val);
 	}
-	friend inline bool FixedEqual(const Fixed &f, double val)
+	friend inline bool FixedEquals(const Fixed &f, double val)
 	{
 		return f == Fixed(val);
 	}

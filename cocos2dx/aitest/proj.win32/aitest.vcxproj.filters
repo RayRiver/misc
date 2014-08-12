@@ -63,9 +63,6 @@
     <ClCompile Include="..\Classes\Sweeper\GeneticAlgorithm.cpp">
       <Filter>Classes\Sweeper</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Sweeper\Sweeper.cpp">
-      <Filter>Classes\Sweeper</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Sweeper\SweeperController.cpp">
       <Filter>Classes\Sweeper</Filter>
     </ClCompile>
@@ -81,13 +78,22 @@
     <ClCompile Include="..\Classes\utils\FixedBase.cpp">
       <Filter>Classes\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Sweeper\Mine.cpp">
-      <Filter>Classes\Sweeper</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\utils\FixedRect.cpp">
       <Filter>Classes\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Sweeper\SweeperConstants.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\SweeperObject.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\SweeperView.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\MineObject.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\MineView.cpp">
       <Filter>Classes\Sweeper</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,9 +137,6 @@
     <ClInclude Include="..\Classes\Sweeper\GeneticAlgorithm.h">
       <Filter>Classes\Sweeper</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Sweeper\Sweeper.h">
-      <Filter>Classes\Sweeper</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Sweeper\SweeperController.h">
       <Filter>Classes\Sweeper</Filter>
     </ClInclude>
@@ -152,13 +155,22 @@
     <ClInclude Include="..\Classes\utils\Fixed.h">
       <Filter>Classes\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Sweeper\Mine.h">
-      <Filter>Classes\Sweeper</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\utils\FixedRect.h">
       <Filter>Classes\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Sweeper\SweeperConstants.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\SweeperObject.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\SweeperView.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\MineObject.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\MineView.h">
       <Filter>Classes\Sweeper</Filter>
     </ClInclude>
   </ItemGroup>

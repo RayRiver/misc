@@ -111,14 +111,14 @@ public:
 
 	inline FixedVec2 operator/(const Fixed &f) const
 	{
-		if (FixedEqual(f, FixedZero)) assert(false);
+		if (FixedEquals(f, FixedZero)) assert(false);
 		FixedVec2 result;
 		FixedVec2::_scale(*this, f, result);
 		return result;
 	}
 	inline void operator/=(const Fixed &f)
 	{
-		if (FixedEqual(f, FixedZero)) assert(false);
+		if (FixedEquals(f, FixedZero)) assert(false);
 		FixedVec2::_scale(*this, f, *this);
 	}
 	inline void operator/=(int val)
@@ -228,7 +228,7 @@ private:
 		n = FixedSqrt(n);
 
 		// Too close to zero.
-		if (FixedEqual(n, FixedZero))
+		if (FixedEquals(n, FixedZero))
 		{
 			return;
 		}

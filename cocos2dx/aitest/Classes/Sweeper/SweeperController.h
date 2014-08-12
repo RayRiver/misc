@@ -9,8 +9,8 @@
 #include "utils/Fixed.h"
 
 #include "GeneticAlgorithm.h"
-#include "Sweeper.h"
-#include "Mine.h"
+#include "SweeperObject.h"
+#include "MineObject.h"
 
 class SweeperController : public BaseScene
 {
@@ -39,8 +39,8 @@ private:
 
 	GeneticAlgorithm m_algorithm;
 
-	std::set<Mine *> m_mines;
-	std::vector<Sweeper *> m_sweepers;
+	std::set<MineObject *> m_mines;
+	std::vector<SweeperObject *> m_sweepers;
 
 };
 

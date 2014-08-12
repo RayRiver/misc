@@ -3,8 +3,10 @@
 #include "utils/Display.h"
 #include "utils/helper.h"
 
-#include "Sweeper.h"
-#include "Mine.h"
+#include "SweeperObject.h"
+#include "SweeperView.h"
+#include "MineObject.h"
+#include "MineView.h"
 #include "SweeperConstants.h"
 
 USING_NS_CC;
@@ -51,8 +53,9 @@ bool SweeperController::init()
 	// 创建地雷;
 	for (int i=0; i<CONSTANTS.MineNumber; ++i)
 	{
-		auto mine = Mine::create();
-		this->addChild(mine);
+		auto mineView = MineView::create();
+		auto mine = MineObject::create(mineView);
+		this->addChild(mineView);
 		m_mines.insert(mine);
 
 		// 设置随机位置;
@@ -86,8 +89,12 @@ void SweeperController::start()
 	// 创建sweeper;
 	for (int i=0; i<CONSTANTS.SweeperNumber; ++i)
 	{
-		auto sweeper = Sweeper::create();
-		this->addChild(sweeper);
+		auto sweeperView = SweeperView::create();
+		auto sweeper = SweeperObject::create(sweeperView);
+
+		sweeper->setFixedSize(FixedSize(20, 20));
+
+		this->addChild(sweeperView);
 		m_sweepers.push_back(sweeper);
 
 		// 设置随机位置;
@@ -137,7 +144,7 @@ void SweeperController::update( float dt )
 	for (auto sweeper : m_sweepers)
 	{
 		// 获取最近地雷;
-		Mine *pClosestMine = nullptr;
+		MineObject *pClosestMine = nullptr;
 		Fixed closestDistance2 = 9999*9999;
 		for (auto mine : m_mines)
 		{
