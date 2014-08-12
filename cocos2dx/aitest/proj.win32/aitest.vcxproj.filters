@@ -63,9 +63,6 @@
     <ClCompile Include="..\Classes\Sweeper\GeneticAlgorithm.cpp">
       <Filter>Classes\Sweeper</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Sweeper\SweeperController.cpp">
-      <Filter>Classes\Sweeper</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\utils\Display.cpp">
       <Filter>Classes\utils</Filter>
     </ClCompile>
@@ -94,6 +91,15 @@
       <Filter>Classes\Sweeper</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Sweeper\MineView.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\SweeperStatisticsScene.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\SweeperLiveScene.cpp">
+      <Filter>Classes\Sweeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sweeper\SweeperEntryScene.cpp">
       <Filter>Classes\Sweeper</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,9 +143,6 @@
     <ClInclude Include="..\Classes\Sweeper\GeneticAlgorithm.h">
       <Filter>Classes\Sweeper</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Sweeper\SweeperController.h">
-      <Filter>Classes\Sweeper</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\utils\Display.h">
       <Filter>Classes\utils</Filter>
     </ClInclude>
@@ -171,6 +174,15 @@
       <Filter>Classes\Sweeper</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Sweeper\MineView.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\SweeperStatisticsScene.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\SweeperLiveScene.h">
+      <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sweeper\SweeperEntryScene.h">
       <Filter>Classes\Sweeper</Filter>
     </ClInclude>
   </ItemGroup>

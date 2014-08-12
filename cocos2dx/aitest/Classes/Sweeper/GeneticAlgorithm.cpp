@@ -4,6 +4,17 @@
 
 using namespace std;
 
+GeneticAlgorithm * GeneticAlgorithm::s_instance = nullptr;
+
+GeneticAlgorithm * GeneticAlgorithm::instance()
+{
+	if (!s_instance)
+	{
+		s_instance = new GeneticAlgorithm;
+	}
+	return s_instance;
+}
+
 Genome::Genome()
 	: fitness(0.0)
 {
@@ -48,6 +59,7 @@ void GeneticAlgorithm::init( const Fixed &crossoverRate, const Fixed &mutateRate
 	m_totalFitness = 0;
 	m_bestFitness = 0;
 	m_worstFitness = 999999;
+	m_averageFitness = 0;
 	m_fittestIndex = 0;
 
 	m_population.clear();
@@ -186,6 +198,20 @@ void GeneticAlgorithm::updateFitness()
 
 		m_totalFitness += genome.fitness;
 	}
+
+	// 平均适应值;
+	m_averageFitness = m_totalFitness / m_nPopSize;
+	
+	// 记录统计数据;
+	if (m_nGeneration >= m_statisticsData.size())
+	{
+		m_statisticsData.push_back(GenerationStatisticsData());		
+	}
+	m_statisticsData[m_nGeneration].generation = m_nGeneration;
+	m_statisticsData[m_nGeneration].bestFitness = m_bestFitness;
+	m_statisticsData[m_nGeneration].worstFitness = m_worstFitness;
+	m_statisticsData[m_nGeneration].averageFitness = m_averageFitness;
+
 }
 
 

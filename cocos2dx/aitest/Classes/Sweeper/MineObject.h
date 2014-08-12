@@ -12,6 +12,8 @@ public:
 
 	static MineObject *create(MineView *view);
 
+	inline MineView *getView() { return m_view; }
+
 	inline const FixedVec2 &getFixedPosition() const { return m_fixedPosition; }
 	void setFixedPosition(const FixedVec2 &p);
 

@@ -3,7 +3,7 @@
 #include "utils/helper.h"
 #include "PathFinder/MapManager.h"
 #include "TSP/TSPMap.h"
-#include "Sweeper/SweeperController.h"
+#include "Sweeper/SweeperEntryScene.h"
 
 USING_NS_CC;
 
@@ -38,7 +38,7 @@ bool ListScene::init()
 	});
 	auto lbl_sweeper = Label::createWithSystemFont("Sweeper", "Arial", 32);
 	auto menuitem_sweeper = MenuItemLabel::create(lbl_sweeper, [=](Ref *sender) {
-		auto scene = SweeperController::instance();
+		auto scene = SweeperEntryScene::create();
 		Director::getInstance()->replaceScene(scene);
 	});
 

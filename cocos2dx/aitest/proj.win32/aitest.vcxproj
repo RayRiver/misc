@@ -144,9 +144,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Sweeper\MineObject.cpp" />
     <ClCompile Include="..\Classes\Sweeper\MineView.cpp" />
     <ClCompile Include="..\Classes\Sweeper\NeuralNet.cpp" />
+    <ClCompile Include="..\Classes\Sweeper\SweeperEntryScene.cpp" />
     <ClCompile Include="..\Classes\Sweeper\SweeperObject.cpp" />
     <ClCompile Include="..\Classes\Sweeper\SweeperConstants.cpp" />
-    <ClCompile Include="..\Classes\Sweeper\SweeperController.cpp" />
+    <ClCompile Include="..\Classes\Sweeper\SweeperLiveScene.cpp" />
+    <ClCompile Include="..\Classes\Sweeper\SweeperStatisticsScene.cpp" />
     <ClCompile Include="..\Classes\Sweeper\SweeperView.cpp" />
     <ClCompile Include="..\Classes\TSP\TSPAlgorithm.cpp" />
     <ClCompile Include="..\Classes\TSP\TSPGenome.cpp" />
@@ -170,9 +172,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Sweeper\MineObject.h" />
     <ClInclude Include="..\Classes\Sweeper\MineView.h" />
     <ClInclude Include="..\Classes\Sweeper\NeuralNet.h" />
+    <ClInclude Include="..\Classes\Sweeper\SweeperEntryScene.h" />
     <ClInclude Include="..\Classes\Sweeper\SweeperObject.h" />
     <ClInclude Include="..\Classes\Sweeper\SweeperConstants.h" />
-    <ClInclude Include="..\Classes\Sweeper\SweeperController.h" />
+    <ClInclude Include="..\Classes\Sweeper\SweeperLiveScene.h" />
+    <ClInclude Include="..\Classes\Sweeper\SweeperStatisticsScene.h" />
     <ClInclude Include="..\Classes\Sweeper\SweeperView.h" />
     <ClInclude Include="..\Classes\TSP\TSPAlgorithm.h" />
     <ClInclude Include="..\Classes\TSP\TSPGenome.h" />

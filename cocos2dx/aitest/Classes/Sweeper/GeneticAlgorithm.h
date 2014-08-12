@@ -21,22 +21,38 @@ struct Genome
 class GeneticAlgorithm
 {
 public:
-	GeneticAlgorithm();
+	// 时代统计数据结构;
+	struct GenerationStatisticsData
+	{
+		int generation;
+		Fixed bestFitness;
+		Fixed worstFitness;
+		Fixed averageFitness;
+	};
+
+public:
+	static GeneticAlgorithm *instance();
 	~GeneticAlgorithm();
 
 	// 初始化算法;
 	void init(const Fixed &crossoverRate, const Fixed &mutateRate, int nPopSize, int nGeneNum);
 
-	// 获取基因;
-	inline const Genome &getGenome(int index) { return m_population[index]; }
-
 	// 开始新时代;
 	void epoch();
+
+	// 获取基因;
+	inline const Genome &getGenome(int index) { return m_population[index]; }
 
 	// 获取当前时代;
 	inline int getGeneration() { return m_nGeneration; }
 
+	// 获取统计数据;
+	inline const std::vector<GenerationStatisticsData> &getStatisticsData() { return m_statisticsData; }
+
 private:
+	static GeneticAlgorithm *s_instance;
+	GeneticAlgorithm();
+
 	// 创建初始群体;
 	void createStartPopulation();
 
@@ -66,8 +82,11 @@ private:
 	Fixed m_totalFitness;						// 群体总适应值;
 	Fixed m_bestFitness;						// 最优个体适应值;
 	Fixed m_worstFitness;						// 最差个体适应值;
+	Fixed m_averageFitness;						// 平均个体适应值;
 	int m_fittestIndex;							// 最优个体索引;
 
+	// 记录每一代的统计数据;
+	std::vector<GenerationStatisticsData> m_statisticsData;
 
 };
 

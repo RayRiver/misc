@@ -1,4 +1,4 @@
-#include "SweeperController.h"
+#include "SweeperLiveScene.h"
 
 #include "utils/Display.h"
 #include "utils/helper.h"
@@ -9,46 +9,87 @@
 #include "MineView.h"
 #include "SweeperConstants.h"
 
+#include "GeneticAlgorithm.h"
+
+#include "SweeperStatisticsScene.h"
+
 USING_NS_CC;
 
-SweeperController * SweeperController::s_instance = nullptr;
-
-SweeperController * SweeperController::instance()
-{
-	if (!s_instance)
-	{
-		s_instance = new SweeperController;
-		s_instance->init();
-	}
-	return s_instance;
-}
-
-void SweeperController::destroy()
-{
-	if (s_instance)
-	{
-		delete s_instance;
-		s_instance = nullptr;
-	}
-}
-
-SweeperController::SweeperController()
+SweeperLiveScene::SweeperLiveScene()
 	: m_generationCurrentTicks(0)
 {
 
 }
 
-SweeperController::~SweeperController()
+SweeperLiveScene::~SweeperLiveScene()
 {
-
+	for (auto sweeper : m_sweepers)
+	{
+		delete sweeper;
+	}
+	m_sweepers.clear();
+	for (auto mine : m_mines)
+	{
+		delete mine;
+	}
+	m_mines.clear();
 }
 
-bool SweeperController::init()
+bool SweeperLiveScene::init()
 {
 	if (!BaseScene::init())
 	{
 		return false;
 	}
+
+	// 创建时代显示标签;
+	m_labelGeneration = Label::createWithSystemFont("Generation: 0", "Arial", 20);
+	m_labelGeneration->setAnchorPoint(Vec2(0, 1));
+	m_labelGeneration->setPosition(DISPLAY->left(), DISPLAY->top());
+	this->addChild(m_labelGeneration);
+
+	// 创建切换按钮;
+	auto label = Label::createWithSystemFont("Switch Statistics", "Arial", 20);
+	auto item = MenuItemLabel::create(label, [=](Ref *) {
+		auto scene = SweeperStatisticsScene::create();
+		Director::getInstance()->replaceScene(scene);
+	});
+	auto menu = Menu::create(item, nullptr);
+	menu->setPosition(DISPLAY->right()-100, DISPLAY->top()-20);
+	this->addChild(menu);
+
+
+	this->scheduleUpdate();
+
+	// 开始时代;
+	this->startGeneration();
+
+	return true;
+}
+
+void SweeperLiveScene::startGeneration()
+{
+	// 销毁已存在的sweeper和地雷;
+	for (auto sweeper : m_sweepers)
+	{
+		auto view = sweeper->getView();
+		this->removeChild(view);
+		delete sweeper;
+	}
+	m_sweepers.clear();
+	for (auto mine : m_mines)
+	{
+		auto view = mine->getView();
+		this->removeChild(view);
+		delete mine;
+	}
+	m_mines.clear();
+
+	// 显示当前时代;
+	int nGeneration = GeneticAlgorithm::instance()->getGeneration();
+	char szGeneration[32];
+	sprintf(szGeneration, "Generation: %d", nGeneration);
+	m_labelGeneration->setString(szGeneration);
 
 	// 创建地雷;
 	for (int i=0; i<CONSTANTS.MineNumber; ++i)
@@ -61,30 +102,6 @@ bool SweeperController::init()
 		// 设置随机位置;
 		mine->setFixedPosition(this->randomFixedPosition());
 	}
-
-	// 创建时代显示标签;
-	m_labelGeneration = Label::createWithSystemFont("Generation: 0", "Arial", 20);
-	m_labelGeneration->setAnchorPoint(Vec2(0, 1));
-	m_labelGeneration->setPosition(DISPLAY->left(), DISPLAY->top());
-	this->addChild(m_labelGeneration);
-
-
-	this->scheduleUpdate();
-
-	this->start();
-
-	return true;
-}
-
-void SweeperController::clear()
-{
-
-}
-
-void SweeperController::start()
-{
-	// 初始化遗传算法;
-	m_algorithm.init(CONSTANTS.CrossoverRate, CONSTANTS.MutateRate, CONSTANTS.SweeperNumber, CONSTANTS.InputNumber);
 
 	// 创建sweeper;
 	for (int i=0; i<CONSTANTS.SweeperNumber; ++i)
@@ -101,12 +118,12 @@ void SweeperController::start()
 		sweeper->setFixedPosition(this->randomFixedPosition());
 
 		// 设置基因;
-		const auto &genes = m_algorithm.getGenome(i);
+		const auto &genes = GeneticAlgorithm::instance()->getGenome(i);
 		sweeper->setGenome(genes);
 	}
 }
 
-void SweeperController::update( float dt )
+void SweeperLiveScene::update( float dt )
 {
 	// 满足条件，进入新时代;
 	if (m_generationCurrentTicks >= CONSTANTS.TicksPerGeneration)
@@ -114,27 +131,9 @@ void SweeperController::update( float dt )
 		m_generationCurrentTicks = 0;
 
 		// 进入新时代;
-		m_algorithm.epoch();
+		GeneticAlgorithm::instance()->epoch();
 
-		// 更新时代显示;
-		char s[32];
-		sprintf(s, "Generation: %d", m_algorithm.getGeneration());
-		m_labelGeneration->setString(s);
-
-		// 创建子代sweeper;
-		for (int i=0; i<CONSTANTS.SweeperNumber; ++i)
-		{
-			auto sweeper = m_sweepers[i];
-
-			// 设置随机位置;
-			sweeper->setFixedPosition(this->randomFixedPosition());
-
-			sweeper->resetFitness();
-
-			// 设置基因;
-			const auto &genes = m_algorithm.getGenome(i);
-			sweeper->setGenome(genes);
-		}
+		this->startGeneration();
 
 		return;
 	}
@@ -190,12 +189,7 @@ void SweeperController::update( float dt )
 	}
 }
 
-void SweeperController::nextGeneration( float dt )
-{
-
-}
-
-FixedPoint SweeperController::randomFixedPosition()
+FixedPoint SweeperLiveScene::randomFixedPosition()
 {
 	FixedPoint p;
 	p.x = DISPLAY->left() + helper::randFixed() * DISPLAY->width();
