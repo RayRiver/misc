@@ -70,7 +70,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;$(EngineRoot)cocos\editor-support;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_FIXED_USE_FLOAT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_FIXED_USE_FLOAT;CC_ENABLE_PROFILERS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -158,6 +158,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\utils\FixedRect.cpp" />
     <ClCompile Include="..\Classes\utils\FixedVec2.cpp" />
     <ClCompile Include="..\Classes\utils\helper.cpp" />
+    <ClCompile Include="..\Classes\utils\Profiler.cpp" />
+    <ClCompile Include="..\Classes\utils\TimeVal.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +189,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\utils\FixedRect.h" />
     <ClInclude Include="..\Classes\utils\FixedVec2.h" />
     <ClInclude Include="..\Classes\utils\helper.h" />
+    <ClInclude Include="..\Classes\utils\Profiler.h" />
+    <ClInclude Include="..\Classes\utils\TimeVal.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

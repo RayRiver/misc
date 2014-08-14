@@ -20,9 +20,9 @@
 	"sweeper_hidden_layers": 1,
 	"sweeper_neurons_per_hidden_layer": 4,
 
-	"sweeper_number": 15,
-	"sweeper_mine_number": 100,
-	"sweeper_ticks_per_generation": 1000,
+	"sweeper_number": 30,
+	"sweeper_mine_number": 40,
+	"sweeper_ticks_per_generation": 2000,
 
 	"sweeper_crossover_rate": 0.4,
 	"sweeper_mutate_rate": 0.1,

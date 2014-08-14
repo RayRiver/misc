@@ -102,6 +102,12 @@
     <ClCompile Include="..\Classes\Sweeper\SweeperEntryScene.cpp">
       <Filter>Classes\Sweeper</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utils\Profiler.cpp">
+      <Filter>Classes\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\TimeVal.cpp">
+      <Filter>Classes\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -184,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Sweeper\SweeperEntryScene.h">
       <Filter>Classes\Sweeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\Profiler.h">
+      <Filter>Classes\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\TimeVal.h">
+      <Filter>Classes\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

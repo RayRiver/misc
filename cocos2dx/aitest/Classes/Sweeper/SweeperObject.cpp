@@ -2,6 +2,7 @@
 
 #include "utils/helper.h"
 #include "utils/Display.h"
+#include "utils/Profiler.h"
 
 #include "SweeperView.h"
 
@@ -45,19 +46,26 @@ bool SweeperObject::init(SweeperView *view)
 
 bool SweeperObject::update(const FixedVec2 &closestPos)
 {
+	PROFILE_BEGIN("sub_normalize nn");
 	FixedVec2 closestVector = closestPos - m_fixedPosition;
 	closestVector.normalize();
+	PROFILE_END("sub_normalize nn");
 
+	PROFILE_BEGIN("sub_push nn");
 	// 神经网络输入;
 	NeuralNetInputs inputs;
 	inputs.push_back(closestVector.x);	
 	inputs.push_back(closestVector.y);	
 	inputs.push_back(m_lookat.x);	
 	inputs.push_back(m_lookat.y);	
+	PROFILE_END("sub_push nn");
 
+	PROFILE_BEGIN("sub_update nn");
 	// 更新神经网络，获得反馈;
 	NeuralNetOutputs outputs = m_brain.update(inputs);
+	PROFILE_END("sub_update nn");
 
+	PROFILE_BEGIN("sub_xxx nn");
 	// 输出值赋值到左右履带;
 	m_lTrack = outputs[0];
 	m_rTrack = outputs[1];
@@ -71,11 +79,15 @@ bool SweeperObject::update(const FixedVec2 &closestPos)
 
 	// 更新角度;
 	Fixed rotation = m_rotation + rotForce;
+	PROFILE_END("sub_xxx nn");
 	
+	PROFILE_BEGIN("sub_sincos nn");
 	// 更新视线;
 	m_lookat.x = FixedSin(rotation);
 	m_lookat.y = FixedCos(rotation);
+	PROFILE_END("sub_sincos nn");
 
+	PROFILE_BEGIN("sub_updatepo nn");
 	// 更新位置;
 	auto delta = m_lookat * m_speed;
 	FixedPoint pos = m_fixedPosition + delta;
@@ -85,12 +97,15 @@ bool SweeperObject::update(const FixedVec2 &closestPos)
 	if (pos.x > DISPLAY->right()) pos.x = DISPLAY->left();
 	if (pos.y < DISPLAY->bottom()) pos.y = DISPLAY->top();
 	if (pos.y > DISPLAY->top()) pos.y = DISPLAY->bottom();
+	PROFILE_END("sub_updatepo nn");
 
+	PROFILE_BEGIN("sub_position nn");
 	// 刷新位置显示;
 	this->setFixedPosition(pos);
 
 	// 刷新角度显示;
 	this->setFixedRotation(rotation);
+	PROFILE_END("sub_position nn");
 
 	return true;
 }

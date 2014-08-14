@@ -23,7 +23,6 @@ public:
 
 private:
 	bool init();
-
 	FixedPoint randomFixedPosition();
 
 private:

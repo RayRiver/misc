@@ -84,8 +84,11 @@ void GeneticAlgorithm::epoch()
 	// 创建子代群体;
 	vector<Genome> vChildren;
 
-	// TODO: 选择精英送入子代;
-
+	// 选择精英送入子代;
+	Genome g = m_population[m_fittestIndex];
+	g.fitness = 0;
+	vChildren.push_back(g);
+	vChildren.push_back(g);
 
 	// 循环创建子代个体;
 	while (vChildren.size() < m_nPopSize) 
@@ -200,6 +203,8 @@ void GeneticAlgorithm::updateFitness()
 	}
 
 	// 平均适应值;
+	m_bestFitness = highest;
+	m_worstFitness = lowest;
 	m_averageFitness = m_totalFitness / m_nPopSize;
 	
 	// 记录统计数据;
