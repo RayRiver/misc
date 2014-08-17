@@ -1,0 +1,2 @@
+
+Timer				PROTO x:DWORD
