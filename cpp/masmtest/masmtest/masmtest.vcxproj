@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <MASM Include="main.asm" />
+    <MASM Include="test1.asm" />
+    <MASM Include="test2.asm" />
     <MASM Include="timer.asm" />
   </ItemGroup>
   <ItemGroup>

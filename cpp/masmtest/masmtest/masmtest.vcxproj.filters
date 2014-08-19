@@ -15,10 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <MASM Include="timer.asm">
+      <Filter>源文件</Filter>
+    </MASM>
+    <MASM Include="test1.asm">
+      <Filter>源文件</Filter>
+    </MASM>
     <MASM Include="main.asm">
       <Filter>源文件</Filter>
     </MASM>
-    <MASM Include="timer.asm">
+    <MASM Include="test2.asm">
       <Filter>源文件</Filter>
     </MASM>
   </ItemGroup>
