@@ -1,0 +1,10 @@
+module gx
+{
+	class ECSManager : public cc.Ref
+	{
+		ECSManager();
+
+		Entity *createEntity();
+		void removeEntity(Entity *entity);
+	};
+};

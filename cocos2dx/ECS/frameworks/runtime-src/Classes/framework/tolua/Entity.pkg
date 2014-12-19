@@ -1,0 +1,7 @@
+module gx
+{
+	class Entity : public cc.Ref
+	{
+		void sendEvent(const std::string &eventName);
+	};
+};
