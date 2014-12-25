@@ -2,7 +2,7 @@ module gx
 {
 	class ECSManager : public cc.Ref
 	{
-		ECSManager();
+		static ECSManager *create();
 
 		Entity *createEntity();
 		void removeEntity(Entity *entity);

@@ -133,6 +133,12 @@
     <ClInclude Include="..\Classes\framework\ECS\Entity.h">
       <Filter>Classes\framework\ECS</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\framework\ECS\System.h">
+      <Filter>Classes\framework\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\framework\ECS\Com.h">
+      <Filter>Classes\framework\ECS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -225,6 +231,12 @@
     <ClCompile Include="..\Classes\framework\lua_cocos2dx_framework.cpp">
       <Filter>Classes\framework</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\framework\ECS\Com.cpp">
+      <Filter>Classes\framework\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\framework\ECS\System.cpp">
+      <Filter>Classes\framework\ECS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -248,6 +260,12 @@
       <Filter>Classes\framework\tolua</Filter>
     </None>
     <None Include="..\Classes\framework\tolua\ECSManager.pkg">
+      <Filter>Classes\framework\tolua</Filter>
+    </None>
+    <None Include="..\Classes\framework\tolua\Com.pkg">
+      <Filter>Classes\framework\tolua</Filter>
+    </None>
+    <None Include="..\Classes\framework\tolua\System.pkg">
       <Filter>Classes\framework\tolua</Filter>
     </None>
   </ItemGroup>

@@ -20,6 +20,8 @@ private:
 	static Entity *createWithId(const entity_id_type &id);
 	void initWithId(const entity_id_type &id);
 
+	inline const entity_id_type &getId() { return m_id; }
+
 	entity_id_type m_id;
 
 public:

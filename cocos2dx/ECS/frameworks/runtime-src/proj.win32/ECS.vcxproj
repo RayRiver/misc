@@ -183,8 +183,10 @@ copy "$(ProjectDir)..\..\..\config.json" "$(LocalDebuggerWorkingDirectory)\confi
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\ConfigParser.h" />
+    <ClInclude Include="..\Classes\framework\ECS\Com.h" />
     <ClInclude Include="..\Classes\framework\ECS\ECSManager.h" />
     <ClInclude Include="..\Classes\framework\ECS\Entity.h" />
+    <ClInclude Include="..\Classes\framework\ECS\System.h" />
     <ClInclude Include="..\Classes\framework\GameSystem\GameSystem.h" />
     <ClInclude Include="..\Classes\framework\GXMacros.h" />
     <ClInclude Include="..\Classes\protobuf-lite\google\protobuf\extension_set.h" />
@@ -220,8 +222,10 @@ copy "$(ProjectDir)..\..\..\config.json" "$(LocalDebuggerWorkingDirectory)\confi
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\ConfigParser.cpp" />
+    <ClCompile Include="..\Classes\framework\ECS\Com.cpp" />
     <ClCompile Include="..\Classes\framework\ECS\ECSManager.cpp" />
     <ClCompile Include="..\Classes\framework\ECS\Entity.cpp" />
+    <ClCompile Include="..\Classes\framework\ECS\System.cpp" />
     <ClCompile Include="..\Classes\framework\GameSystem\GameSystem.cpp" />
     <ClCompile Include="..\Classes\framework\lua_cocos2dx_framework.cpp" />
     <ClCompile Include="..\Classes\protobuf-lite\google\protobuf\extension_set.cc" />
@@ -261,9 +265,11 @@ copy "$(ProjectDir)..\..\..\config.json" "$(LocalDebuggerWorkingDirectory)\confi
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Classes\framework\tolua\Com.pkg" />
     <None Include="..\Classes\framework\tolua\ECSManager.pkg" />
     <None Include="..\Classes\framework\tolua\Entity.pkg" />
     <None Include="..\Classes\framework\tolua\lua_cocos2dx_framework.pkg" />
+    <None Include="..\Classes\framework\tolua\System.pkg" />
     <None Include="..\Classes\framework\tolua\tolua_builder.bat" />
     <None Include="..\Classes\framework\tolua\tolua_builder.lua" />
   </ItemGroup>
