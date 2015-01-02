@@ -1,6 +1,6 @@
 
-local COM_NAME = "EntryCom"
-local SYSTEM_NAME = "EntrySystem"
+local COM_NAME = "EntrySceneCom"
+local SYSTEM_NAME = "EntrySceneSystem"
 
 local SystemClass
 SystemClass = class(SYSTEM_NAME, function()

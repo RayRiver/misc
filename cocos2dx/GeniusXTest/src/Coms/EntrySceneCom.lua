@@ -1,5 +1,5 @@
 
-local COM_NAME = "EntryCom"
+local COM_NAME = "EntrySceneCom"
 
 local ComClass
 ComClass = class(COM_NAME, function() 
