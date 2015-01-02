@@ -23,11 +23,10 @@ function SystemClass:onAttached()
 end
 
 function SystemClass:onClickButtonPlay(sender)
-    print("touch play!")
+    app:enterScene("GameScene")
 end
 
 function SystemClass:onClickButtonExit(sender)
-    print("touch exit!")
     cc.Director:getInstance():endToLua()
 end
 
