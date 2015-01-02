@@ -16,11 +16,19 @@ function SystemClass:onAttached()
     if node then
         local play = node:getNodeByName("play")
         play:addTouchEventListener(handlerTouchEnded(self, self.onClickButtonPlay))
+        
+        local exit = node:getNodeByName("exit")
+        exit:addTouchEventListener(handlerTouchEnded(self, self.onClickButtonExit))
     end
 end
 
 function SystemClass:onClickButtonPlay(sender)
     print("touch play!")
+end
+
+function SystemClass:onClickButtonExit(sender)
+    print("touch exit!")
+    cc.Director:getInstance():endToLua()
 end
 
 return SystemClass

@@ -23,10 +23,10 @@
       },
       {
         "type": "Button",
-        "name": "shop",
+        "name": "exit",
         "anchor": "{0.5,0.5}",
         "position": "{150,-150}",
-        "titleText": "Shop",
+        "titleText": "Exit",
         "titleFont": "fonts/DFLiJinHeiW8-GB.ttf",
         "titleSize": 50,
         "normal": "images/button.png"
@@ -34,6 +34,6 @@
     ]
   },
   {
-    "type": "EntryCom"
+    "type": "EntrySceneCom"
   }
 ]
