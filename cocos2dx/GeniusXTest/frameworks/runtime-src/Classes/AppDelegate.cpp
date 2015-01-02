@@ -76,6 +76,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     //register custom function
     //LuaStack* stack = engine->getLuaStack();
     //register_custom_function(stack->getLuaState());
+	int register_all_geniusx(lua_State* tolua_S);
+	register_all_geniusx(L);
+	int register_geniusx_manual(lua_State* tolua_S);
+	register_geniusx_manual(L);
     
 #if (COCOS2D_DEBUG > 0 && CC_CODE_IDE_DEBUG_SUPPORT > 0)
     // NOTE:Please don't remove this call if you want to debug with Cocos Code IDE
