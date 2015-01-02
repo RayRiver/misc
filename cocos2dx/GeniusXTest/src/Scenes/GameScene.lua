@@ -1,8 +1,6 @@
 
-local SCENE_NAME = "GameScene"
-
-local SceneClass = class(SCENE_NAME, function()
-    return ECS.createScene(SCENE_NAME)
+local SceneClass = class("GameScene", function(scene_name)
+    return ECS.createScene(scene_name)
 end)
 
 function SceneClass:ctor()

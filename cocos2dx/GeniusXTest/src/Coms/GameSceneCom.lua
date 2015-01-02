@@ -1,9 +1,6 @@
 
-local COM_NAME = "GameSceneCom"
-
-local ComClass
-ComClass = class(COM_NAME, function() 
-    return ECS.createCom(ComClass, COM_NAME)
+local ComClass = class("GameSceneCom", function(com_name) 
+    return ECS.createCom(com_name)
 end)
 
 function ComClass:ctor()

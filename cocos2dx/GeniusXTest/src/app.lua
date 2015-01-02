@@ -12,14 +12,14 @@ function AppClass:ctor()
     
     local content = cc.FileUtils:getInstance():getStringFromFile("ECS/Coms.json")
     local ECS_COMS = json.decode(content)
-    for _, com_name in ipairs(ECS_COMS) do
-        ecs:registerCom(require("Coms." .. com_name).new())
+    for _, com in ipairs(ECS_COMS) do
+        ecs:registerCom(ECS.comFactory(com.name))
     end
     
     local content = cc.FileUtils:getInstance():getStringFromFile("ECS/Systems.json")
     local ECS_SYSTEMS = json.decode(content)
-    for _, system_name in ipairs(ECS_SYSTEMS) do
-        ecs:registerSystem(require("Systems." .. system_name).new())
+    for _, system in ipairs(ECS_SYSTEMS) do
+        ecs:registerSystem(ECS.systemFactory(system.name, system.com))
     end
 end
 
@@ -28,7 +28,7 @@ function AppClass:run()
 end
 
 function AppClass:enterScene(scene_name)
-    local scene = require("Scenes." .. scene_name).new()
+    local scene = ECS.sceneFactory(scene_name)
     if cc.Director:getInstance():getRunningScene() then
         cc.Director:getInstance():replaceScene(scene)
     else

@@ -1,15 +1,8 @@
 
-local COM_NAME = "EntrySceneCom"
-local SYSTEM_NAME = "EntrySceneSystem"
-
 local SystemClass
-SystemClass = class(SYSTEM_NAME, function()
-    return ECS.createSystem(SystemClass, SYSTEM_NAME, COM_NAME)
+SystemClass = class("EntrySceneSystem", function(system_name, com_name)
+    return ECS.createSystem(system_name, com_name)
 end)
-
-function SystemClass:ctor()
-
-end
 
 function SystemClass:onAttached()
     local node = self:getComByType("NodeCom")

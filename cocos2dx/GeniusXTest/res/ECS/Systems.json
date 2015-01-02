@@ -1,4 +1,10 @@
 [
-	"EntrySceneSystem",
-	"GameSceneSystem"
+	{
+		"name": "EntrySceneSystem",
+		"com": "EntrySceneCom"
+	},
+	{
+		"name": "GameSceneSystem",
+		"com": "GameSceneCom"
+	}
 ]

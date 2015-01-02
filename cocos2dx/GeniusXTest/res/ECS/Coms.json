@@ -1,4 +1,8 @@
 [
-	"EntrySceneCom",
-	"GameSceneCom"
+	{
+		"name": "EntrySceneCom"
+	},
+	{
+		"name": "GameSceneCom"
+	}
 ]
