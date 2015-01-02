@@ -11,5 +11,17 @@ function SystemClass:ctor()
 
 end
 
+function SystemClass:onAttached()
+    local node = self:getComByType("NodeCom")
+    if node then
+        local play = node:getNodeByName("play")
+        play:addTouchEventListener(handlerTouchEnded(self, self.onClickButtonPlay))
+    end
+end
+
+function SystemClass:onClickButtonPlay(sender)
+    print("touch play!")
+end
+
 return SystemClass
 

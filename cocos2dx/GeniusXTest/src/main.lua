@@ -36,21 +36,7 @@ local function main()
     
     cc.Director:getInstance():getOpenGLView():setDesignResolutionSize(960, 640, 1)
     
-    require("framework.init")
-    
-    -- 初始化game system
-    local game_system = gx.GameSystem:getInstance()
-    local ecs = game_system:getECS()
-    ecs:registerSystem(require("Systems.EntrySystem").new())
-    ecs:registerCom(require("Coms.EntryCom").new())
-
-    -- 测试
-    local scene = require("Scenes.EntryScene").new()
-    if cc.Director:getInstance():getRunningScene() then
-        cc.Director:getInstance():replaceScene(scene)
-    else
-        cc.Director:getInstance():runWithScene(scene)
-    end
+    require("app").new():run()
 
     --[[
     --create scene 

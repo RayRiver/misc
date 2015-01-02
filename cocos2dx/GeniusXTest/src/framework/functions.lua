@@ -196,3 +196,11 @@ function handler(obj, method)
         return method(obj, ...)
     end
 end
+
+function handlerTouchEnded(obj, method)
+    return function(sender, event_type)
+        if event_type == ccui.TouchEventType.ended then
+            return method(obj, sender)
+        end
+    end
+end

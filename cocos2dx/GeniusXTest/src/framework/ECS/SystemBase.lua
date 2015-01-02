@@ -9,6 +9,10 @@ local SystemBase = class("SystemBase", function(system_class, system_name, com_n
     system:registerScriptHandler(function(eventname, custom) 
         if eventname == "clone" then
             custom:setSystem(system_class.new())
+        elseif eventname == "attached" then
+            if system.onAttached then
+                system:onAttached()
+            end
         end
     end)
     
