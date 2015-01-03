@@ -3,17 +3,13 @@
     "type": "NodeCom",
     "secondType": "10",
     "Node": [
-      {
-        "type": "Sprite",
-        "filename": "images/ghost2.png",
-        "anchor": "{0.5,0.5}",
-        "anchorPoint": "{0.5,0.5}",
-        "position": "{0,0}",
-        "name": "logo"
-      }
+
     ]
   },
   {
     "type": "GameSceneCom"
+  },
+  {
+    "type": "Manager/MonsterFactoryCom"
   }
 ]

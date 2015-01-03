@@ -4,5 +4,11 @@
 	},
 	{
 		"name": "GameSceneCom"
+	},
+	{
+		"name": "Manager/MonsterFactoryCom"
+	},
+	{
+		"name": "AI/MoveToTargetCom"
 	}
 ]

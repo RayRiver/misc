@@ -1,6 +1,5 @@
 
-local SystemClass
-SystemClass = class("GameSceneSystem", function(system_name, com_name)
+local SystemClass = class("GameSceneSystem", function(system_name, com_name)
     return ECS.createSystem(system_name, com_name)
 end)
 
@@ -10,20 +9,31 @@ function SystemClass:onAttached()
 
     end
     
-    self:registerEvent("onTest", handler(self, self.onTest))
+    -- 创建小象
+    local elephant = ECS.createObject("Elephant")
+    elephant:getNode():setPosition(display.cx, display.cy)
+    self:getNode():addChild(elephant:getNode())
     
-
-    self:getNode():runAction(cc.Sequence:create(
-        cc.DelayTime:create(3),
-        cc.CallFunc:create(function() 
-            self:dispatchEvent("onTest", {test=99})
-        end)
-    ))
-
+    -- 创建怪物工厂
+    local monster_factory = ECS.createObject("Manager/MonsterFactory")
+    local com = monster_factory:getComByType("Manager/MonsterFactoryCom")
+    if com then
+        com.target = elephant
+    else
+        ASSERT(false)
+    end
+    
+    -- 注册事件
+    self:registerEvent("onMonsterCreated", handler(self, self.onMonsterCreated))
+    self:registerEvent("onMonsterDestroyed", handler(self, self.onMonsterDestroyed))
 end
 
-function SystemClass:onTest(event)
-    print("onTest", tostring(event), tostring(event.args.test))
+function SystemClass:onMonsterCreated(event)
+    self:getNode():addChild(event.args.node)
+end
+
+function SystemClass:onMonsterDestroyed(event)
+    self:getNode():removeChild(event.args.node)
 end
 
 return SystemClass

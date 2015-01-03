@@ -1,4 +1,6 @@
 
+local Cache = {}
+
 local ComBase = class("ComBase", function(com_name) 
     assert(com_name)
 
@@ -12,16 +14,23 @@ local ComFactory = class("ComFactory", function(com_name)
 
     local com = gx.Com:create(com_name)
     
-    -- 是否实现了com类
     local com_class
-    local file_exists = cc.FileUtils:getInstance():isFileExist("src/Coms/" .. com_name .. ".lua")
-    if file_exists then
-        com_class = require("Coms." .. com_name)
+    
+    local cached_class = Cache[com_name]
+    if cached_class then
+        com_class = cached_class
     else
-        com_class = ComBase
+        -- 是否实现了com类
+        local file_exists = cc.FileUtils:getInstance():isFileExist("src/Coms/" .. com_name .. ".lua")
+        if file_exists then
+            com_class = require("Coms/" .. com_name)
+        else
+            com_class = ComBase
+        end
+        
+        Cache[com_name] = com_class
     end
 
-    -- 创建新的com
     com:registerScriptHandler(function(eventname, custom) 
         if eventname == "clone" then
             custom:setCom(com_class.new(com_name))

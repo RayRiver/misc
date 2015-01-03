@@ -19,7 +19,9 @@ function AppClass:ctor()
     local content = cc.FileUtils:getInstance():getStringFromFile("ECS/Systems.json")
     local ECS_SYSTEMS = json.decode(content)
     for _, system in ipairs(ECS_SYSTEMS) do
-        ecs:registerSystem(ECS.systemFactory(system.name, system.com))
+        local s = ECS.systemFactory(system.name, system.com)
+        ecs:registerSystem(s)
+        print("register system: ", tostring(system.name), tostring(s))
     end
 end
 
@@ -28,7 +30,7 @@ function AppClass:run()
 end
 
 function AppClass:enterScene(scene_name)
-    local scene = ECS.sceneFactory(scene_name)
+    local scene = ECS.createScene(scene_name)
     if cc.Director:getInstance():getRunningScene() then
         cc.Director:getInstance():replaceScene(scene)
     else

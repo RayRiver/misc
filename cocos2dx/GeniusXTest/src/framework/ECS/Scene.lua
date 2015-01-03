@@ -1,4 +1,6 @@
 
+local Cache = {}
+
 local SceneBase = class("SceneBase", function(scene_name)
     assert(scene_name)
 
@@ -12,14 +14,22 @@ end)
 
 local SceneFactory = class("SceneFactory", function(scene_name)
     assert(scene_name)
-
-    -- 检查是否实现了scene类
+    
     local scene_class
-    local file_exists = cc.FileUtils:getInstance():isFileExist("src/Scenes/" .. scene_name .. ".lua")
-    if file_exists then
-        scene_class = require("Scenes." .. scene_name)
+    
+    local cached_class = Cache[scene_name]
+    if cached_class then
+        scene_class = cached_class
     else
-        scene_class = SceneBase
+        -- 检查是否实现了scene类
+        local file_exists = cc.FileUtils:getInstance():isFileExist("src/Scenes/" .. scene_name .. ".lua")
+        if file_exists then
+            scene_class = require("Scenes/" .. scene_name)
+        else
+            scene_class = SceneBase
+        end
+       
+        Cache[scene_name] = scene_class
     end
 
     local scene = scene_class.new(scene_name)
@@ -29,10 +39,6 @@ end)
 local _M = {}
 
 function _M.createScene(scene_name)
-    return SceneBase.new(scene_name)
-end
-
-function _M.sceneFactory(scene_name)
     return SceneFactory.new(scene_name)
 end
 

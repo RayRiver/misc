@@ -1,6 +1,5 @@
 
-local SystemClass
-SystemClass = class("EntrySceneSystem", function(system_name, com_name)
+local SystemClass = class("EntrySceneSystem", function(system_name, com_name)
     return ECS.createSystem(system_name, com_name)
 end)
 
