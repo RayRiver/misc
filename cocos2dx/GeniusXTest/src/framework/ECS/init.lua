@@ -18,4 +18,9 @@ for k, v in pairs(module) do
     _M[k] = v
 end
 
+local module = import(".Object")
+for k, v in pairs(module) do
+    _M[k] = v
+end
+
 return _M
