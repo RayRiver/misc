@@ -71,7 +71,7 @@ function SystemClass:createMonster()
     if com_factory and com_ai then
         com_ai.target = com_factory.target
     else
-        ASSERT(false)
+        assert(false)
     end
 
     -- 通知怪物已经创建好

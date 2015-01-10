@@ -20,7 +20,7 @@ function SystemClass:onAttached()
     if com then
         com.target = elephant
     else
-        ASSERT(false)
+        assert(false)
     end
     
     -- 注册事件

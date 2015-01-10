@@ -221,6 +221,7 @@ copy "$(ProjectDir)..\..\..\config.json" "$(LocalDebuggerWorkingDirectory)\confi
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\ConfigParser.cpp" />
+    <ClCompile Include="..\Classes\LuaHelper.cpp" />
     <ClCompile Include="..\Classes\lua_geniusx_auto.cpp" />
     <ClCompile Include="..\Classes\lua_geniusx_manual.cpp" />
     <ClCompile Include="..\Classes\protobuf-lite\google\protobuf\extension_set.cc" />

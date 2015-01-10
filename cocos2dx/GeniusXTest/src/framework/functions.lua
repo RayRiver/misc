@@ -206,10 +206,3 @@ function handlerTouchEnded(obj, method)
 end
 
 
-function ASSERT(cond, msg)
-    if not cond then
-        msg = "assert failed: " .. tostring(msg)
-        error()
-    end
-end
-
