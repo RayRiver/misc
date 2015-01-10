@@ -8,6 +8,7 @@ function SystemClass:onUpdate()
     if com and com.target then
         local entity = com:getEntity()
         local target = com.target
+        assert(not target)
 
         local pos_x, pos_y = entity:getNode():getPosition()
         local target_x, target_y = target:getNode():getPosition()

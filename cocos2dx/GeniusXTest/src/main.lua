@@ -8,6 +8,7 @@ require "cocos.init"
 function assert(cond, msg)
     if not cond then
         --msg = "assert failed: " .. tostring(msg)
+        msg = msg or "[unknown error]"
         error(msg)
     end
 end
