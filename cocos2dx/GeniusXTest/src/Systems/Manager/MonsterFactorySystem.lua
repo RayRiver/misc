@@ -1,4 +1,6 @@
 
+local n = 1
+
 local SystemClass = class("MonsterFactorySystem", function(system_name, com_name)
     return ECS.createSystem(system_name, com_name)
 end)

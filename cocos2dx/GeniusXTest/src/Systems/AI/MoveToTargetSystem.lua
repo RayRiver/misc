@@ -4,11 +4,10 @@ local SystemClass = class("MoveToTargetSystem", function(system_name, com_name)
 end)
 
 function SystemClass:onUpdate()
-    local com = self:getComByType("AI/MoveToTargetCom") 
+    local com = self:getComByType("AI/MoveToTargetCom")
     if com and com.target then
         local entity = com:getEntity()
         local target = com.target
-        assert(not target)
 
         local pos_x, pos_y = entity:getNode():getPosition()
         local target_x, target_y = target:getNode():getPosition()

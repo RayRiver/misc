@@ -8,8 +8,5 @@
   },
   {
     "type": "GameSceneCom"
-  },
-  {
-    "type": "Manager/MonsterFactoryCom"
   }
 ]
