@@ -1,6 +1,6 @@
 
 local SystemClass = class("GameSceneSystem", function(system_name, com_name)
-    return ECS.createSystem(system_name, com_name)
+    return ECS.createSystemBase(system_name, com_name)
 end)
 
 function SystemClass:onAttached()
@@ -8,10 +8,14 @@ function SystemClass:onAttached()
     if node then
 
     end
-    
+
+    -- 创建地图
+    self.m_map = ECS.createObject("Map/Map2")
+    self:getNode():addChild(self.m_map:getNode())
+
     -- 创建小象
     local elephant = ECS.createObject("Elephant")
-    elephant:getNode():setPosition(display.cx, display.cy)
+    elephant:getNode():setPosition(100, 100)
     self:getNode():addChild(elephant:getNode())
     
     -- 创建怪物工厂

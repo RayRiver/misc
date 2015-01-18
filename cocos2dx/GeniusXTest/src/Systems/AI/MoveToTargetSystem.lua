@@ -1,6 +1,6 @@
 
 local SystemClass = class("MoveToTargetSystem", function(system_name, com_name)
-    return ECS.createSystem(system_name, com_name)
+    return ECS.createSystemBase(system_name, com_name)
 end)
 
 function SystemClass:onUpdate()

@@ -48,7 +48,7 @@ local function main()
     --set FPS. the default value is 1.0/60 if you don't call this
     director:setAnimationInterval(1.0 / 60)
     
-    cc.Director:getInstance():getOpenGLView():setDesignResolutionSize(960, 640, 1)
+    cc.Director:getInstance():getOpenGLView():setDesignResolutionSize(720, 480, 1)
 
     local listener = cc.EventListenerKeyboard:create()
     listener:registerScriptHandler(function(keycode, event)

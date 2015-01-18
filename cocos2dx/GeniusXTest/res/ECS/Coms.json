@@ -8,6 +8,15 @@
 	{
 		"name": "Manager/MonsterFactoryCom"
 	},
+    {
+        "name": "Manager/MapManagerCom"
+    },
+    {
+        "name": "ControllableCom"
+    },
+    {
+        "name": "DynamicObjectCom"
+    },
 	{
 		"name": "AI/MoveToTargetCom"
 	}

@@ -39,6 +39,11 @@ local SystemBase = class("SystemBase", function(system_name, com_name)
             if system.onUpdate then
                 system:onUpdate()
             end
+        else
+            local event = "onEvent_" .. eventname
+            if system[event] then
+                system[event](eventname)
+            end
         end
     end)
 
@@ -129,7 +134,7 @@ end)
 
 local _M = {}
 
-function _M.createSystem(system_name, com_name)
+function _M.createSystemBase(system_name, com_name)
     return SystemBase.new(system_name, com_name)
 end
 

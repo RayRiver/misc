@@ -1,0 +1,15 @@
+[
+    {
+        "type": "NodeCom",
+        "Node": [
+            {
+                "type": "TiledMap",
+                "filename": "map/map2.tmx",
+                "name": "map"
+            }
+        ]
+    },
+    {
+        "type": "Manager/MapManagerCom"
+    }
+]
