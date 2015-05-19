@@ -1,1 +1,7 @@
-"D:\Program Files (x86)\LOVE\love.exe" .
+@echo off
+
+set DIR=%~dp0
+
+cmd /C "%DIR%\build\run.bat"
+
+pause
