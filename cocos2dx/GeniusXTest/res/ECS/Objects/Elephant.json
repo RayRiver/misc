@@ -1,27 +1,36 @@
 [
-  {
-    "type": "NodeCom",
-    "secondType": "10",
-    "Node": [
-      {
-        "type": "Label",
-        "name": "title",
-        "localZOrder": 2,
-        "position": "{0,50}",
-        "anchorPoint": "{0.5,0.5}",
-        "font": "fonts/DFLiJinHeiW8-GB.ttf",
-        "fontSize": "20",
-        "text": "It's ME!"
-      },
-      {
-        "type": "Sprite",
-        "filename": "images/ghost2.png",
-        "localZOrder": 0,
-        "position": "{0,0}",
-        "anchorPoint": "{0.5,0.5}",
-        "scale": "{1,1}",
-        "name": "image"
-      }
-    ]
-  }
+    {
+        "type": "NodeCom",
+        "secondType": "10",
+        "Node": [
+            {
+                "type": "Label",
+                "name": "title",
+                "localZOrder": 2,
+                "position": "{0,50}",
+                "anchorPoint": "{0.5,0.5}",
+                "font": "fonts/DFLiJinHeiW8-GB.ttf",
+                "fontSize": "20",
+                "text": "It's ME!"
+            },
+            {
+                "type": "Sprite",
+                "filename": "images/ghost2.png",
+                "localZOrder": 0,
+                "position": "{0,0}",
+                "anchorPoint": "{0.5,0.5}",
+                "scale": "{0.5,0.5}",
+                "name": "image"
+            }
+        ]
+    },
+    {
+        "type": "DynamicObjectCom"
+    },
+    {
+        "type": "ControllableCom"
+    },
+    {
+        "type": "PlayerCom"
+    }
 ]

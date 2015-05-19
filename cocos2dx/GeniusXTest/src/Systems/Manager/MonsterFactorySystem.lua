@@ -1,6 +1,8 @@
 
+local n = 1
+
 local SystemClass = class("MonsterFactorySystem", function(system_name, com_name)
-    return ECS.createSystem(system_name, com_name)
+    return ECS.createSystemBase(system_name, com_name)
 end)
 
 function SystemClass:onAttached()
@@ -71,7 +73,7 @@ function SystemClass:createMonster()
     if com_factory and com_ai then
         com_ai.target = com_factory.target
     else
-        ASSERT(false)
+        assert(false)
     end
 
     -- 通知怪物已经创建好

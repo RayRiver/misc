@@ -11,6 +11,18 @@
 		"name": "Manager/MonsterFactorySystem",
 		"com": "Manager/MonsterFactoryCom"
 	},
+    {
+        "name": "Manager/MapManagerSystem",
+        "com": "Manager/MapManagerCom"
+    },
+    {
+        "name": "ControllableSystem",
+        "com": "ControllableCom"
+    },
+    {
+        "name": "DynamicObjectSystem",
+        "com": "DynamicObjectCom"
+    },
 	{
 		"name": "AI/MoveToTargetSystem",
 		"com": "AI/MoveToTargetCom"

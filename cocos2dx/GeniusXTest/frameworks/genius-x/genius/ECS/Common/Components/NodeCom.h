@@ -95,6 +95,7 @@ protected:
     cocos2d::ui::Button* initButton(rapidjson::Value&);
     cocos2d::extension::TableView* initTable(rapidjson::Value&);
     cocos2d::ProgressTimer* initTimer(rapidjson::Value&);
+    cocos2d::TMXTiledMap* initTiledMap(rapidjson::Value&);
     
     cocos2d::Point getRealPosition(const cocos2d::Size& size, const cocos2d::Point& pos,const cocos2d::Point& alignment) const;
     

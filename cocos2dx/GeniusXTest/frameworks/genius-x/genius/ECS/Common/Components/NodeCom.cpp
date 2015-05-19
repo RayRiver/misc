@@ -124,6 +124,9 @@ void NodeCom::initWithMap(rapidjson::Value& value)
                 else if (strcmp("ProgressTimer", type)==0){
                     child=initTimer(nodeValue);
                 }
+                else if (strcmp("TiledMap", type)==0){
+                    child=initTiledMap(nodeValue);
+                }
                     
                 
                 if (child!=nullptr) {
@@ -294,6 +297,12 @@ cocos2d::Layer* NodeCom::initLayer(rapidjson::Value&)
 {
     cocos2d::Layer * layer=cocos2d::Layer::create();
     return layer;
+}
+
+cocos2d::TMXTiledMap* NodeCom::initTiledMap(rapidjson::Value& value)
+{
+	cocos2d::TMXTiledMap * layer=cocos2d::TMXTiledMap::create(value["filename"].GetString());
+	return layer;
 }
 
 void NodeCom::setNode(Node* n)

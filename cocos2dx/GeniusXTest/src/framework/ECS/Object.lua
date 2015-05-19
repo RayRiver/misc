@@ -35,6 +35,10 @@ end)
 
 local _M = {}
 
+function _M.createObjectBase(object_name)
+    return ObjectBase.new(object_name)
+end
+
 function _M.createObject(object_name)
     return ObjectFactory.new(object_name)
 end

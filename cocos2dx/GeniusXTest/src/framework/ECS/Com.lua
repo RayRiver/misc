@@ -42,7 +42,7 @@ end)
 
 local _M = {}
 
-function _M.createCom(com_name)
+function _M.createComBase(com_name)
     return ComBase.new(com_name)
 end
 

@@ -1,10 +1,10 @@
 
 local SystemClass = class("MoveToTargetSystem", function(system_name, com_name)
-    return ECS.createSystem(system_name, com_name)
+    return ECS.createSystemBase(system_name, com_name)
 end)
 
 function SystemClass:onUpdate()
-    local com = self:getComByType("AI/MoveToTargetCom") 
+    local com = self:getComByType("AI/MoveToTargetCom")
     if com and com.target then
         local entity = com:getEntity()
         local target = com.target
