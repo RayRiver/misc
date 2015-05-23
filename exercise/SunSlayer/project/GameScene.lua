@@ -4,7 +4,7 @@ local Utils = require("Utils")
 local SceneClass = Utils.Class("GameScene")
 
 function SceneClass:initialize()
-    self.m_cloud_sprite = love.graphics.newImage("texture/cloud.png")
+    self.m_cloud_sprite = love.graphics.newImage("data/texture/cloud.png")
 end
 
 function SceneClass:update(dt)
