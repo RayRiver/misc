@@ -12,7 +12,7 @@ function love.update(dt)
     SceneManager:instance():getRunningScene():update(dt)
     
     if love.keyboard.isDown('escape') then
-        love.event.push('quit')
+    --    love.event.push('quit')
     end
 end
 
