@@ -47,4 +47,8 @@ function ObjectClass:draw()
     )
 end
 
+function ObjectClass:onOverlap(other)
+
+end
+
 return ObjectClass

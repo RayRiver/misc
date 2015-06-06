@@ -1,6 +1,6 @@
 
 function love.conf(t)
-    t.console = false
+    t.console = true
     t.title = "rxi"
     t.resizable = false
     t.vsync = true

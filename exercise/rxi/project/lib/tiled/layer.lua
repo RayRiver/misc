@@ -4,7 +4,7 @@ local Tile = require("lib.tiled.tile")
 local Layer = {}
 Layer.__index = Layer
 
-local function new(class, config, sets)
+local function new(class, config, sets, tilewidth, tileheight)
     local w, h = config.width, config.height
 
     -- tile id界限解析
@@ -43,8 +43,10 @@ local function new(class, config, sets)
                 current_set = set
             else
                 id = 0
+                offset_x = tilewidth * (x-1)
+                offset_y = tileheight * (y-1)
             end
-            local tile = Tile:new(set, id, offset_x, offset_y)
+            local tile = Tile:new(set, id, offset_x, offset_y, tilewidth, tileheight)
             table.insert(tiles, tile)
         end
     end
@@ -57,7 +59,7 @@ local function new(class, config, sets)
     end
     love.graphics.setCanvas()
 
-    return setmetatable({
+    local t = setmetatable({
         x = 0,
         y = 0,
         name = config.name,
@@ -68,6 +70,13 @@ local function new(class, config, sets)
         tiles = tiles,
         canvas = canvas,
     }, Layer)
+
+    t.tiles_map = {}
+    for _, tile in ipairs(tiles) do
+        t.tiles_map[tile.id] = tile
+    end
+
+    return t
 end
 
 function Layer:move(dx, dy)
@@ -81,6 +90,26 @@ end
 function Layer:draw()
     if self.visible then
         love.graphics.draw(self.canvas, self.x, self.y)
+    end
+end
+
+function Layer:getTile(col, row)
+    if row == nil then
+        local id = col
+        return self.tiles_map[id]
+    else
+
+    end
+end
+
+function Layer:foreachTile(func)
+    if type(func) == "function" then
+        for _, tile in ipairs(self.tiles) do
+            local is_stop = func(tile)
+            if is_stop then
+                break
+            end
+        end
     end
 end
 

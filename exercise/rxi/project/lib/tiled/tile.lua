@@ -4,7 +4,7 @@ local Set = require("lib.tiled.set")
 local Tile = {}
 Tile.__index = Tile
 
-local function new(class, set, id, offset_x, offset_y)
+local function new(class, set, id, offset_x, offset_y, w, h)
     local image
     if set then
         image = set.image
@@ -16,8 +16,10 @@ local function new(class, set, id, offset_x, offset_y)
     end
 
     return setmetatable({
-        x = 0,
-        y = 0,
+        x = offset_x,
+        y = offset_y,
+        w = w,
+        h = h,
         set = set,
         id = id,
         offset_x = offset_x,
@@ -34,7 +36,7 @@ end
 
 function Tile:draw()
     if self.set then
-        love.graphics.draw(self.image, self.quad, self.offset_x + self.x, self.offset_y + self.y)
+        love.graphics.draw(self.image, self.quad, self.offset_x, self.offset_y)
     end
 end
 
