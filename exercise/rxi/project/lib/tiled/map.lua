@@ -29,14 +29,6 @@ function Map:load(map)
         self.m_sets:addSet(module.tilesets[i])
     end
 
-    --[[
-    self.m_sets = {}
-    for i = 1, #module.tilesets do
-        local set = Set:new(module.tilesets[i])
-        table.insert(self.m_sets, set)
-    end
-    --]]
-
     self.m_layers = {}
     self.m_layers_map = {}
     for i = 1, #module.layers do

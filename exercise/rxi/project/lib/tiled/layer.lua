@@ -1,44 +1,8 @@
 
-local Tile = require("lib.tiled.tile")
-
 local Layer = {}
 Layer.__index = Layer
 
 local function new(class, config, sets, tilewidth, tileheight)
-    --[[
-    local current_set
-    local tiles = {}
-    for y = 0, h-1 do
-        for x = 0, w-1 do
-            local index = config.data[y * w + x + 1]
-
-            -- 找到属于哪个set
-            local belong_set
-            local tile_config = sets:getTileConfigByGID(index)
-            if tile_config then
-                belong_set = tile_config.set
-            end
-
-            -- 创建tile
-            local id
-            local offset_x
-            local offset_y
-            if belong_set then
-                id = index - set.firstgid
-                offset_x = tilewidth * (x-1)
-                offset_y = tileheight * (y-1)
-                current_set = set
-            else
-                id = 0
-                offset_x = tilewidth * (x-1)
-                offset_y = tileheight * (y-1)
-            end
-            local tile = Tile:new(set, id, offset_x, offset_y, tilewidth, tileheight)
-            table.insert(tiles, tile)
-        end
-    end
-    --]]
-
     local w, h = config.width, config.height
 
     -- 解析tiles
@@ -63,6 +27,7 @@ local function new(class, config, sets, tilewidth, tileheight)
                     h = tileheight,
                     col = x,
                     row = y,
+                    index = index,
                     gid = gid,
                     image = image,
                     quad = quad,
@@ -124,8 +89,8 @@ end
 
 function Layer:foreachTile(func)
     if type(func) == "function" then
-        for index, tile in pairs(self.tiles) do
-            local is_stop = func(tile)
+        for index, tile_config in pairs(self.tiles) do
+            local is_stop = func(tile_config)
             if is_stop then
                 break
             end

@@ -25,7 +25,7 @@ function SceneClass:initialize()
 end
 
 function SceneClass:collide(a, b)
-    if Utils.rectIntersect(a, b) then
+    if a:overlaps(b) then
         a:onOverlap(b)
         b:onOverlap(a)
     end

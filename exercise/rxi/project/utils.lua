@@ -13,6 +13,10 @@ Utils.handler = function(obj, method, ...)
     end
 end
 
+Utils.sign = function(x)
+    return x > 0 and 1 or -1
+end
+
 Utils.rectIntersect = function(a, b)
     if a.x + a.w < b.x or b.x + b.w < a.x or a.y + a.h < b.y or b.y + b.h < a.y then
         return false

@@ -17,6 +17,15 @@ function ObjectClass:set(x, y, width, height)
     self.height = height or self.height
 end
 
+function ObjectClass:clone(dest)
+    dest = dest or ObjectClass()
+    dest.x = self.x
+    dest.y = self.y
+    dest.width = self.width
+    dest.height = self.height
+    return dest
+end
+
 function ObjectClass:getPosition()
     return self.x, self.y
 end
