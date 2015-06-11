@@ -1,5 +1,5 @@
 
-local Set = require("lib.tiled.set")
+local Sets = require("lib.tiled.sets")
 
 local Tile = {}
 Tile.__index = Tile

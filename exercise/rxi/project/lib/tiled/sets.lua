@@ -1,14 +1,14 @@
 
-local Set = {}
-Set.__index = Set
+local Sets = {}
+Sets.__index = Sets
 
 local function new(class)
     return setmetatable({
         tiles = {},
-    }, Set)
+    }, Sets)
 end
 
-function Set:add(set_config)
+function Sets:addSet(set_config)
     local config = set_config
 
     local image = love.graphics.newImage(config.image)
@@ -30,12 +30,12 @@ function Set:add(set_config)
         self.tiles[gid] = {
             image = image,
             quad = quad,
-            set = self,
+            set_config = set_config,
         }
     end
 end
 
-function Set:getTileConfigByGID(gid)
+function Sets:getTileConfigByGID(gid)
     return self.tiles[gid]
 end
 

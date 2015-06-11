@@ -1,5 +1,5 @@
 
-local Set = require("lib.tiled.set")
+local Sets = require("lib.tiled.sets")
 local Layer = require("lib.tiled.layer")
 
 local Map = {}
@@ -24,11 +24,18 @@ function Map:load(map)
     self.tilewidth = module.tilewidth
     self.tileheight = module.tileheight
 
+    self.m_sets = Sets:new()
+    for i = 1, #module.tilesets do
+        self.m_sets:addSet(module.tilesets[i])
+    end
+
+    --[[
     self.m_sets = {}
     for i = 1, #module.tilesets do
         local set = Set:new(module.tilesets[i])
         table.insert(self.m_sets, set)
     end
+    --]]
 
     self.m_layers = {}
     self.m_layers_map = {}

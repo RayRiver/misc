@@ -5,15 +5,7 @@ local Layer = {}
 Layer.__index = Layer
 
 local function new(class, config, sets, tilewidth, tileheight)
-    local w, h = config.width, config.height
-
-    -- tile id界限解析
-    local firstgids = {}
-    for _, set in ipairs(sets) do
-        table.insert(firstgids, set.firstgid)
-    end
-    table.sort(firstgids)
-
+    --[[
     local current_set
     local tiles = {}
     for y = 0, h-1 do
@@ -21,25 +13,20 @@ local function new(class, config, sets, tilewidth, tileheight)
             local index = config.data[y * w + x + 1]
 
             -- 找到属于哪个set
-            local set_id = 0
-            for i, firstgid in ipairs(firstgids) do
-                if index >= firstgid then
-                    set_id = i
-                else
-                    break
-                end
+            local belong_set
+            local tile_config = sets:getTileConfigByGID(index)
+            if tile_config then
+                belong_set = tile_config.set
             end
 
             -- 创建tile
-            local set
             local id
             local offset_x
             local offset_y
-            if set_id > 0 then
-                set = sets[set_id]
+            if belong_set then
                 id = index - set.firstgid
-                offset_x = set.tilewidth * (x-1)
-                offset_y = set.tileheight * (y-1)
+                offset_x = tilewidth * (x-1)
+                offset_y = tileheight * (y-1)
                 current_set = set
             else
                 id = 0
@@ -50,12 +37,48 @@ local function new(class, config, sets, tilewidth, tileheight)
             table.insert(tiles, tile)
         end
     end
+    --]]
 
-    local canvas = love.graphics.newCanvas(current_set.tilewidth * w, current_set.tileheight * h)
+    local w, h = config.width, config.height
+
+    -- 解析tiles
+    local tiles = {}
+    for y = 0, h-1 do
+        for x = 0, w-1 do
+            local index = y * w + x
+            local gid = config.data[index + 1]
+
+            if gid ~= 0 then
+                local tile_config = sets:getTileConfigByGID(gid)
+                local image = tile_config.image
+                local quad = tile_config.quad
+
+                local offset_x = tilewidth * (x-1)
+                local offset_y = tileheight * (y-1)
+
+                tiles[index] = {
+                    x = offset_x,
+                    y = offset_y,
+                    w = tilewidth,
+                    h = tileheight,
+                    col = x,
+                    row = y,
+                    gid = gid,
+                    image = image,
+                    quad = quad,
+                    offset_x = offset_x,
+                    offset_y = offset_y,
+                }
+            end
+        end
+    end
+
+    -- 所有tile先绘制在canvas中
+    local canvas = love.graphics.newCanvas(tilewidth * w, tileheight * h)
     love.graphics.setCanvas(canvas)
     canvas:clear()
-    for _, tile in ipairs(tiles) do
-        tile:draw()
+    for index, tile in pairs(tiles) do
+        love.graphics.draw(tile.image, tile.quad, tile.offset_x, tile.offset_y)
     end
     love.graphics.setCanvas()
 
@@ -71,19 +94,15 @@ local function new(class, config, sets, tilewidth, tileheight)
         canvas = canvas,
     }, Layer)
 
-    t.tiles_map = {}
-    for _, tile in ipairs(tiles) do
-        t.tiles_map[tile.id] = tile
-    end
-
     return t
 end
 
 function Layer:move(dx, dy)
     self.x = self.x + dx
     self.y = self.y + dy
-    for _, tile in ipairs(self.tiles) do
-        tile:move(dx, dy)
+    for index, tile in pairs(self.tiles) do
+        tile.x = tile.x + dx
+        tile.y = tile.y + dy
     end
 end
 
@@ -93,18 +112,19 @@ function Layer:draw()
     end
 end
 
-function Layer:getTile(col, row)
+function Layer:getTile(col_or_index, row)
     if row == nil then
-        local id = col
-        return self.tiles_map[id]
+        local index = col_or_index
+        return self.tiles[index]
     else
-
+        local index = row * self.width + col_or_index
+        return self.tiles[index]
     end
 end
 
 function Layer:foreachTile(func)
     if type(func) == "function" then
-        for _, tile in ipairs(self.tiles) do
+        for index, tile in pairs(self.tiles) do
             local is_stop = func(tile)
             if is_stop then
                 break
