@@ -61,6 +61,7 @@ function ObjectClass:separate(other)
 
     if not self:overlaps(other) then return end
 
+    -- 检测到碰撞
     Rect.clone(self.last, self)
 end
 

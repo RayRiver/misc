@@ -32,6 +32,8 @@ function ObjectClass:initialize()
         local tile = Tile:new(tile_config)
         self.tiles[tile_config.index] = tile
     end)
+
+    Utils.print("tiledmap: ", self)
 end
 
 function ObjectClass:draw()
