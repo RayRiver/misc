@@ -11,6 +11,13 @@ function love.load()
 end
 
 function love.update(dt)
+    --[[
+    local conn = tango_sock:accept()
+    if conn then
+        tango_request_loop(conn)
+    end
+    --]]
+
     SceneManager:instance():getRunningScene():update(dt)
 
     if love.keyboard.isDown('escape') then

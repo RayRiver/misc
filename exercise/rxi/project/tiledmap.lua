@@ -33,7 +33,7 @@ function ObjectClass:initialize()
         self.tiles[tile_config.index] = tile
     end)
 
-    Utils.print("tiledmap: ", self)
+    --Utils.print("tiledmap: ", self)
 end
 
 function ObjectClass:draw()
