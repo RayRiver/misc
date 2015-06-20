@@ -22,6 +22,7 @@ function SceneClass:initialize()
 
     self.m_player = Player:new()
 
+    self.m_world = Utils.Bump.newWorld()
 end
 
 function SceneClass:collide(a, b)

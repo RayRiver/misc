@@ -7,6 +7,12 @@ Utils.Timer = require('lib.timer')
 Utils.Vector = require('lib.vector')
 Utils.Tiled = require('lib.tiled')
 
+Utils.Bump = require("lib.bump")
+Utils.BumpDebug = require("lib.bump_debug")
+Utils.Gamera = require("lib.gamera")
+Utils.ShakyCam = require("lib.shakycam")
+Utils.Stateful = require("lib.stateful")
+
 Utils.handler = function(obj, method, ...)
     return function(...)
         return method(obj, ...)
