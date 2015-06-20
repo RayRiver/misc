@@ -2,6 +2,7 @@
 local Utils = require("utils")
 local Player = require("entities.player")
 local Block = require("entities.block")
+local Guardian = require("entities.guardian")
 
 local sortByUpdateOrder = function(a,b)
     if a:getClassUpdateOrder() < b:getClassUpdateOrder() then
@@ -49,8 +50,27 @@ function Map:reset()
         h = math.random(100, 400)
         x = math.random(100, width - w - 100)
         y = math.random(100, height - h - 100)
+        local area = w * h
 
-        Block:new(self.world, {x=x, y=y, w=w, h=h})
+        for i=1, math.floor(area/7000) do
+            Block:new(self.world, {
+                x = math.random(x, x+w),
+                y = math.random(y, y+h),
+                w = math.random(32, 128),
+                h = math.random(32, 128),
+            })
+        end
+
+        --Block:new(self.world, {x=x, y=y, w=w, h=h})
+    end
+
+    -- guardians
+    for i = 1, 10 do
+        Guardian:new(self.world, {
+            x = math.random(100, width - 100),
+            y = math.random(100, height - 100),
+            target = self.player,
+        })
     end
 end
 

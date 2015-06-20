@@ -161,7 +161,7 @@ function ObjectClass:moveColliding(dt)
 
     local next_x, next_y, cols, len = world:move(self, desired_x, desired_y, function(item, other)
         local kind = other.class.name
-        if kind == 'Block' then
+        if kind == 'Block' or kind == 'Guardian' then
             return 'slide'
         end
     end)

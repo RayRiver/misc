@@ -36,8 +36,8 @@ function ObjectClass:update(dt)
         local cx, cy = self:getCenter()
         local percent = self.lived / self.lifeTime
         if percent < 0.2 then
-            self.w = self.w + (200 + percent) * dt
-            self.h = self.h + (200 + percent) * dt
+            self.w = self.w + (100 + percent) * dt
+            self.h = self.h + (100 + percent) * dt
         else
             self.w = self.w + (20 + percent) * dt
         end
