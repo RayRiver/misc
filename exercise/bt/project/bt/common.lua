@@ -9,6 +9,11 @@ end
 
 Common.Class = BT.import(".class")
 
+Common.FinishCondition = {
+    OR = "or",
+    AND = "and",
+}
+
 Common.RunningStatus = {
     Executing = "Executing",
     Finish = "Finish",

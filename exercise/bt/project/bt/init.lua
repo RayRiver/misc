@@ -126,7 +126,10 @@ _M.Factory = import(".factory")
 local factory = _M.Factory:instance()
 factory:registerNodeClass("PrioritySelectorNode", import(".priority_selector_node"))
 factory:registerNodeClass("NonPrioritySelectorNode", import(".non_priority_selector_node"))
+factory:registerNodeClass("SequenceNode", import(".sequence_node"))
 factory:registerNodeClass("LoopNode", import(".loop_node"))
+factory:registerNodeClass("ParallelNode", import(".parallel_node"))
+
 factory:registerNodeClass("ActionNode", import(".action_node"))
 
 factory:registerCondClass("ConditionTRUE", import(".precondition_true"))
@@ -135,6 +138,8 @@ factory:registerCondClass("ConditionNOT", import(".precondition_not"))
 factory:registerCondClass("ConditionAND", import(".precondition_and"))
 factory:registerCondClass("ConditionOR", import(".precondition_or"))
 factory:registerCondClass("ConditionXOR", import(".precondition_xor"))
+
+_M.Reader = import(".reader")
 
 return _M
 
