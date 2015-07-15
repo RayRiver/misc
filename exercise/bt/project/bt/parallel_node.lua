@@ -12,7 +12,7 @@ end
 
 local ObjectClass = Common.Class("ParallelNode", Node)
 
-function ObjectClass:initialize(finish_condition, name, precondition)
+function ObjectClass:initialize(name, finish_condition, precondition)
     Node.initialize(self, name, precondition)
 
     if type(finish_condition) ~= "string" then

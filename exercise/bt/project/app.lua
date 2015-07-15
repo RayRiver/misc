@@ -12,14 +12,20 @@ function love.load()
     print("load...")
     local bt = require("bt.init")
 
-    local factory = bt.Factory:instance()
+    local factory = bt.Factory
 
-    local root = factory:createNode("PrioritySelectorNode", "root", factory:createCond("ConditionTRUE"))
-    root:addChild(
-        factory:createNode("LoopNode", "loop", 3):addChild(
-            factory:createNode("ActionNode", "action")
+    local root
+    if true then
+        root = factory:createNode("PrioritySelectorNode", "root", factory:createCond("PreconditionTRUE"))
+        root:addChild(
+            factory:createNode("LoopNode", "loop", 3):addChild(
+                factory:createNode("ActionNode", "action")
+            )
         )
-    )
+    else
+        root = bt.Reader.loadFile("bt_test_config")
+        print("root: ", tostring(root))
+    end
 
     updateBT(root)
 end

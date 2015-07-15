@@ -6,7 +6,7 @@ local Common = BT.import(".common")
 local ObjectClass = Common.Class("PreconditionTRUE")
 
 function ObjectClass:initialize()
-
+    BT.debug("precondition true initialize")
 end
 
 function ObjectClass:onEvaluate(input)

@@ -13,11 +13,11 @@ function ObjectClass:initialize(precondition)
 end
 
 function ObjectClass:onEnter(input)
-
+    BT.debugFormat("action %s onEnter...", tostring(self:getName()))
 end
 
 function ObjectClass:onExit(input, state)
-
+    BT.debugFormat("action %s onExit...", tostring(self:getName()))
 end
 
 function ObjectClass:onExecute(input, output)

@@ -10,6 +10,8 @@ function ObjectClass:initialize(lhs, rhs)
     assert(rhs)
     self.m_lhs = lhs
     self.m_rhs = rhs
+
+    BT.debug("precondition xor initialize")
 end
 
 function ObjectClass:onEvaluate(input)

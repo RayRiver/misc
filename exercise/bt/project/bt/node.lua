@@ -5,6 +5,10 @@ local Common = BT.import(".common")
 
 local ObjectClass = Common.Class("Node")
 
+function ObjectClass:__tostring()
+    return string.format("{%s:%s}", self.class.name, self.m_name)
+end
+
 function ObjectClass:initialize(name, precondition)
     self.m_children = Common.createTable()
     self.m_name = name or ""
@@ -12,6 +16,8 @@ function ObjectClass:initialize(name, precondition)
     if precondition then
         self:setPrecondition(precondition)
     end
+
+    BT.debugFormat("node %s initialize %s", tostring(self), type(self))
 end
 
 function ObjectClass:setName(name)
@@ -35,15 +41,17 @@ function ObjectClass:setPrecondition(precondition)
 end
 
 function ObjectClass:evaluate(input)
+    BT.debugFormat("node %s evaluate", tostring(self))
     return (self.m_precondition == nil or self.m_precondition:onEvaluate(input)) and self:onInternalEvaluate(input)
 end
 
 function ObjectClass:transition(input)
+    BT.debugFormat("node %s transition", tostring(self))
     return self:onTransition(input)
 end
 
 function ObjectClass:update(input, output)
-    print("update node: " .. tostring(self.m_name))
+    BT.debugFormat("node %s update", tostring(self))
     return self:onUpdate(input, output)
 end
 

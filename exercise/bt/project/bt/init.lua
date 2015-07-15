@@ -116,14 +116,24 @@ local function import(moduleName, currentModuleName)
     return require(moduleFullName)
 end
 
+local function _debug_print(...)
+    print(...)
+end
+local function _debug_print_format(fmt, ...)
+    _debug_print(string.format(fmt, ...))
+end
+
 local _M = {}
 bt = _M
 
+_M.debug = _debug_print
+_M.debugFormat = _debug_print_format
+
 _M.import = import
 
-_M.Factory = import(".factory")
+_M.Factory = import(".factory"):instance()
 
-local factory = _M.Factory:instance()
+local factory = _M.Factory
 factory:registerNodeClass("PrioritySelectorNode", import(".priority_selector_node"))
 factory:registerNodeClass("NonPrioritySelectorNode", import(".non_priority_selector_node"))
 factory:registerNodeClass("SequenceNode", import(".sequence_node"))
@@ -132,12 +142,12 @@ factory:registerNodeClass("ParallelNode", import(".parallel_node"))
 
 factory:registerNodeClass("ActionNode", import(".action_node"))
 
-factory:registerCondClass("ConditionTRUE", import(".precondition_true"))
-factory:registerCondClass("ConditionFALSE", import(".precondition_false"))
-factory:registerCondClass("ConditionNOT", import(".precondition_not"))
-factory:registerCondClass("ConditionAND", import(".precondition_and"))
-factory:registerCondClass("ConditionOR", import(".precondition_or"))
-factory:registerCondClass("ConditionXOR", import(".precondition_xor"))
+factory:registerCondClass("PreconditionTRUE", import(".precondition_true"))
+factory:registerCondClass("PreconditionFALSE", import(".precondition_false"))
+factory:registerCondClass("PreconditionNOT", import(".precondition_not"))
+factory:registerCondClass("PreconditionAND", import(".precondition_and"))
+factory:registerCondClass("PreconditionOR", import(".precondition_or"))
+factory:registerCondClass("PreconditionXOR", import(".precondition_xor"))
 
 _M.Reader = import(".reader")
 

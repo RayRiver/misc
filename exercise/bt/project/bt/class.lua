@@ -157,8 +157,8 @@ end
 
 function Object:initialize() end
 
---function Object:__tostring() return "instance of " .. tostring(self.class) end
-function Object:__tostring() return self end
+function Object:__tostring() return "instance of " .. tostring(self.class) end
+--function Object:__tostring() return self end
 
 function Object:isInstanceOf(aClass)
   return type(self)                == 'table' and
