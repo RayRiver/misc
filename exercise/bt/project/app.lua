@@ -3,8 +3,10 @@ local function updateBT(root)
     local input = {}
     local output = {}
 
-    if root and root:evaluate(input) then
-        root:update(input, output)
+    for i = 1, 6 do
+        if root and root:evaluate(input) then
+            root:update(input, output)
+        end
     end
 end
 
@@ -15,7 +17,7 @@ function love.load()
     local factory = bt.Factory
 
     local root
-    if true then
+    if false then
         root = factory:createNode("PrioritySelectorNode", "root", factory:createCond("PreconditionTRUE"))
         root:addChild(
             factory:createNode("LoopNode", "loop", 3):addChild(

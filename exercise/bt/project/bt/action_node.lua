@@ -6,18 +6,18 @@ local Node = BT.import(".node")
 
 local ObjectClass = Common.Class("ActionNode", Node)
 
-function ObjectClass:initialize(precondition)
-    Node.initialize(self, precondition)
+function ObjectClass:initialize(name, precondition)
+    Node.initialize(self, name, precondition)
 
     self.m_is_running = false
 end
 
 function ObjectClass:onEnter(input)
-    BT.debugFormat("action %s onEnter...", tostring(self:getName()))
+    BT.debugFormat("action %s onEnter...", tostring(self))
 end
 
 function ObjectClass:onExit(input, state)
-    BT.debugFormat("action %s onExit...", tostring(self:getName()))
+    BT.debugFormat("action %s onExit...", tostring(self))
 end
 
 function ObjectClass:onExecute(input, output)

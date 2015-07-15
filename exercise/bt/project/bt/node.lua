@@ -17,7 +17,7 @@ function ObjectClass:initialize(name, precondition)
         self:setPrecondition(precondition)
     end
 
-    BT.debugFormat("node %s initialize %s", tostring(self), type(self))
+    BT.debugFormat("node %s initialize", tostring(self))
 end
 
 function ObjectClass:setName(name)

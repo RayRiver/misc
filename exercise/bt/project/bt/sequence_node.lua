@@ -11,44 +11,49 @@ function ObjectClass:initialize(name, precondition)
 end
 
 function ObjectClass:onInternalEvaluate(input)
-    local child
-    if self.m_current_select_child then
-        child = self.m_current_select_child
+    local index
+    if self.m_current_select_index then
+        index = self.m_current_select_index
     else
-        child = self.m_children[1]
+        index = 1
     end
 
+    local child = self.m_children[index]
     if child then
-        local result = self.m_current_select_child:evaluate(input)
+        local result = child:evaluate(input)
         if result then
-            self.m_current_select_child = child
+            self.m_current_select_index = index
         end
         return result
     end
 end
 
 function ObjectClass:onTransition(input)
-    if self.m_current_select_child then
-        self.m_current_select_child:transition(input)
-        self.m_current_select_child = nil
+    if self.m_current_select_index then
+        local child = self.m_children[self.m_current_select_index]
+        if child then
+            child:transition(input)
+            self.m_current_select_index = nil
+        end
     end
 end
 
 function ObjectClass:onUpdate(input, output)
-    if not self.m_current_select_child then
+    if not self.m_current_select_index then
         return
     end
 
-    local state = self.m_current_select_child:update(input, output)
+    local child = self.m_children[self.m_current_select_index]
+    local state = child:update(input, output)
     if state == Common.RunningStatus.Finish then
-        self.m_current_select_child = self.m_current_select_child + 1
-        if self.m_current_select_child > #self.m_children then
-            self.m_current_select_child = nil
+        self.m_current_select_index = self.m_current_select_index + 1
+        if self.m_current_select_index > #self.m_children then
+            self.m_current_select_index = nil
         else
             state = Common.RunningStatus.Executing
         end
     elseif state == Common.RunningStatus.Terminal then
-        self.m_current_select_child = nil
+        self.m_current_select_index = nil
     end
 
     return state
