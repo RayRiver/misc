@@ -1,6 +1,6 @@
 
 local lib = require("lib.init")
-local BT = require("lib.BT")
+local BT = require("lib.bt")
 
 local ObjectClass = BT.ActionNodeClass("NodePatrol")
 
