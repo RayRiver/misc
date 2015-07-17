@@ -1,10 +1,9 @@
 
-local BT = bt
+local lib = import("..init")
+local Constants = import(".constants")
+local Node = import(".node")
 
-local Common = BT.import(".common")
-local Node = BT.import(".node")
-
-local ObjectClass = Common.Class("PrioritySelectorNode", Node)
+local ObjectClass = lib.Class("PrioritySelectorNode", Node)
 
 function ObjectClass:initialize(name, precondition)
     Node.initialize(self, name, precondition)
@@ -30,7 +29,7 @@ end
 function ObjectClass:onUpdate(owner, input, output)
     if self.m_evaluate_select_child == nil then
         assert(false)
-        return Common.RunningStatus.Finish
+        return Constants.RunningStatus.Finish
     end
 
     -- transition node
@@ -42,14 +41,14 @@ function ObjectClass:onUpdate(owner, input, output)
     -- update node
     if self.m_current_select_child then
         local state = self.m_current_select_child:update(owner, input, output)
-        if state ~= Common.RunningStatus.Executing then
+        if state ~= Constants.RunningStatus.Executing then
             self.m_current_select_child = nil
         end
         return state
     end
 
     assert(false)
-    return Common.RunningStatus.Finish
+    return Constants.RunningStatus.Finish
 end
 
 return ObjectClass

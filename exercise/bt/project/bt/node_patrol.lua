@@ -1,7 +1,8 @@
 
-local bt = require("bt.init")
+local lib = require("lib.init")
+local BT = require("lib.BT")
 
-local ObjectClass = bt.ActionNodeClass("NodePatrol")
+local ObjectClass = BT.ActionNodeClass("NodePatrol")
 
 function ObjectClass:onEnter(owner, input)
     local x, y = owner:getPosition()
@@ -10,13 +11,13 @@ function ObjectClass:onEnter(owner, input)
     local ry = math.random(-50, 50)
     self.m_patrol_x, self.m_patrol_y = x + rx, y + ry
 
-    bt.debugFormat("patrol enter: x, y = %d, %d", math.floor(rx), math.floor(ry))
+    lib.debugFormat("patrol enter: x, y = %d, %d", math.floor(rx), math.floor(ry))
 end
 
 function ObjectClass:onExit(owner, input, state)
     self.m_patrol_x, self.m_patrol_y = nil, nil
 
-    bt.debugFormat("patrol exit")
+    lib.debugFormat("patrol exit")
 end
 
 function ObjectClass:onExecute(owner, input, output)
@@ -33,7 +34,7 @@ function ObjectClass:onExecute(owner, input, output)
 
     owner:setVelocity(dx, dy)
 
-    return bt.RunningStatus.Executing
+    return BT.RunningStatus.Executing
 end
 
 return ObjectClass

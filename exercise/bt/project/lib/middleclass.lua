@@ -1,3 +1,4 @@
+
 local middleclass = {
   _VERSION     = 'middleclass v3.0.1',
   _DESCRIPTION = 'Object Orientation for Lua',

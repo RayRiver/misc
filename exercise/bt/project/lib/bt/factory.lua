@@ -1,9 +1,13 @@
 
-local BT = bt
+local lib = import("..init")
 
-local Common = BT.import(".common")
+local ObjectClass = {
+    m_node_class_map = {},
+    m_cond_class_map = {},
+}
 
-local ObjectClass = Common.Class("Factory")
+--[[
+local ObjectClass = lib.Class("Factory")
 
 local s_instance
 function ObjectClass:instance()
@@ -17,6 +21,7 @@ function ObjectClass:initialize()
     self.m_node_class_map = {}
     self.m_cond_class_map = {}
 end
+--]]
 
 function ObjectClass:registerNodeClass(node_type, node_class)
     assert(node_type)

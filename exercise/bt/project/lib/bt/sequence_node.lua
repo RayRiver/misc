@@ -1,10 +1,9 @@
 
-local BT = bt
+local lib = import("..init")
+local Constants = import(".constants")
+local Node = import(".node")
 
-local Common = BT.import(".common")
-local Node = BT.import(".node")
-
-local ObjectClass = Common.Class("SequenceNode", Node)
+local ObjectClass = lib.Class("SequenceNode", Node)
 
 function ObjectClass:initialize(name, precondition)
     Node.initialize(self, name, precondition)
@@ -45,14 +44,14 @@ function ObjectClass:onUpdate(owner, input, output)
 
     local child = self.m_children[self.m_current_select_index]
     local state = child:update(owner, input, output)
-    if state == Common.RunningStatus.Finish then
+    if state == Constants.RunningStatus.Finish then
         self.m_current_select_index = self.m_current_select_index + 1
         if self.m_current_select_index > #self.m_children then
             self.m_current_select_index = nil
         else
-            state = Common.RunningStatus.Executing
+            state = Constants.RunningStatus.Executing
         end
-    elseif state == Common.RunningStatus.Terminal then
+    elseif state == Contants.RunningStatus.Terminal then
         self.m_current_select_index = nil
     end
 

@@ -1,22 +1,22 @@
 
-local BT = bt
+local Factory = import(".factory")
 
 local handleCond
 local handleNode
 
 local function handleCond0(cond_config)
-    return BT.Factory:createCond(cond_config.class)
+    return Factory:createCond(cond_config.class)
 end
 
 local function handleCond1(cond_config)
-    return BT.Factory:createCond(
+    return Factory:createCond(
         cond_config.class,
         handleCond(cond_config.lhs)
     )
 end
 
 local function handleCond2(cond_config)
-    return BT.Factory:createCond(
+    return Factory:createCond(
         cond_config.class,
         handleCond(cond_config.lhs),
         handleCond(cond_config.rhs)
@@ -52,19 +52,19 @@ handleCond = function(cond_config)
 end
 
 local function handleNode0(node_config)
-    return BT.Factory:createNode(node_config.class, node_config.name)
+    return Factory:createNode(node_config.class, node_config.name)
 end
 
 local function handleLoopNode(node_config)
-    return BT.Factory:createNode(node_config.class, node_config.name, node_config.loop_count)
+    return Factory:createNode(node_config.class, node_config.name, node_config.loop_count)
 end
 
 local function handleParallelNode(node_config)
-    return BT.Factory:createNode(node_config.class, node_config.name, node_config.finish_condition)
+    return Factory:createNode(node_config.class, node_config.name, node_config.finish_condition)
 end
 
 local function handleActionNode(node_config)
-    return BT.Factory:createNode(node_config.class, node_config.name, node_config.config)
+    return Factory:createNode(node_config.class, node_config.name, node_config.config)
 end
 
 local NODE_CLASSES = {
@@ -113,7 +113,7 @@ end
 
 local _M = {}
 
-function _M.loadString(str)
+function _M:loadString(str)
     local chunk = loadstring(str)
     if chunk then
         local t = chunk()
@@ -123,7 +123,7 @@ function _M.loadString(str)
     end
 end
 
-function _M.loadFile(file)
+function _M:loadFile(file)
     local t = require(file)
     if t then
         package.loaded[file] = nil

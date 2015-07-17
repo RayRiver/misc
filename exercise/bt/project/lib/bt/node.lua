@@ -1,23 +1,21 @@
 
-local BT = bt
+local lib = import("..init")
 
-local Common = BT.import(".common")
-
-local ObjectClass = Common.Class("Node")
+local ObjectClass = lib.Class("Node")
 
 function ObjectClass:__tostring()
     return string.format("{%s:%s}", self.class.name, self.m_name)
 end
 
 function ObjectClass:initialize(name, precondition)
-    self.m_children = Common.createTable()
+    self.m_children = {}
     self.m_name = name or ""
 
     if precondition then
         self:setPrecondition(precondition)
     end
 
-    BT.debugFormat("node %s initialize", tostring(self))
+    lib.debugFormat("node %s initialize", tostring(self))
 end
 
 function ObjectClass:setName(name)
@@ -41,31 +39,33 @@ function ObjectClass:setPrecondition(precondition)
 end
 
 function ObjectClass:evaluate(input)
-    BT.debugFormat("node %s evaluate", tostring(self))
+    lib.debugFormat("node %s evaluate", tostring(self))
     return (self.m_precondition == nil or self.m_precondition:onEvaluate(input)) and self:onInternalEvaluate(input)
 end
 
 function ObjectClass:transition(input)
-    BT.debugFormat("node %s transition", tostring(self))
+    lib.debugFormat("node %s transition", tostring(self))
     return self:onTransition(input)
 end
 
 function ObjectClass:update(owner, input, output)
-    BT.debugFormat("node %s update", tostring(self))
+    lib.debugFormat("node %s update", tostring(self))
     return self:onUpdate(owner, input, output)
 end
 
+-- override me
 function ObjectClass:onInternalEvaluate(input)
-    -- override me
     return true
 end
 
+-- override me
 function ObjectClass:onTransition(input)
-    -- override me
+
 end
 
+-- override me
 function ObjectClass:onUpdate(owner, input, output)
-    -- override me
+
 end
 
 return ObjectClass

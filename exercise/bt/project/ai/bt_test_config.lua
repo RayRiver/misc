@@ -7,7 +7,7 @@ return {
     },
     children = {
         {
-            class = "logic.node_patrol",
+            class = "bt.node_patrol",
             name = "patrol",
         },
         {

@@ -1,12 +1,12 @@
 
-local bt = require("bt.init")
 local lib = require("lib.init")
+local BT = require("lib.bt")
 
 local ObjectClass = lib.Class("Monster")
 
 function ObjectClass:initialize(config, blackboard)
     if config.ai then
-        self.m_ai = bt.Reader.loadFile(config.ai)
+        self.m_ai = BT.Reader:loadFile(config.ai)
     end
 
     self.m_blackboard = blackboard

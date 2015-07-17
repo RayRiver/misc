@@ -1,9 +1,7 @@
 
-local BT = bt
+local lib = import("..init")
 
-local Common = BT.import(".common")
-
-local ObjectClass = Common.Class("PreconditionOR")
+local ObjectClass = lib.Class("PreconditionOR")
 
 function ObjectClass:initialize(lhs, rhs)
     assert(lhs)
@@ -11,7 +9,7 @@ function ObjectClass:initialize(lhs, rhs)
     self.m_lhs = lhs
     self.m_rhs = rhs
 
-    BT.debug("precondition or initialize")
+    lib.debug("precondition or initialize")
 end
 
 function ObjectClass:onEvaluate(input)

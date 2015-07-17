@@ -1,10 +1,8 @@
 
-local BT = bt
+local lib = import("..init")
+local PrioritySelectorNode = import(".priority_selector_node")
 
-local Common = BT.import(".common")
-local PrioritySelectorNode = BT.import(".priority_selector_node")
-
-local ObjectClass = Common.Class("NonPrioritySelectorNode", PrioritySelectorNode)
+local ObjectClass = lib.Class("NonPrioritySelectorNode", PrioritySelectorNode)
 
 function ObjectClass:onInternalEvaluate(input)
     if self.m_evaluate_select_child then

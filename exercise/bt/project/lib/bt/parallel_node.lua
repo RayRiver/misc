@@ -1,33 +1,32 @@
 
-local BT = bt
-
-local Common = BT.import(".common")
-local Node = BT.import(".node")
+local lib = import("..init")
+local Constants = import(".constants")
+local Node = import(".node")
 
 local function init_status(self)
     for i, _ in ipairs(self.m_running_status) do
-        self.m_running_status[i] = Common.RunningStatus.Executing
+        self.m_running_status[i] = Constants.RunningStatus.Executing
     end
 end
 
-local ObjectClass = Common.Class("ParallelNode", Node)
+local ObjectClass = lib.Class("ParallelNode", Node)
 
 function ObjectClass:initialize(name, finish_condition, precondition)
     Node.initialize(self, name, precondition)
 
     if type(finish_condition) ~= "string" then
-        self.m_finish_condition = Common.FinishCondition.OR
+        self.m_finish_condition = Constants.FinishCondition.OR
     else
         local s = string.lower(finish_condition)
-        if s == Common.FinishCondition.AND or s == Common.FinishCondition.OR then
+        if s == Constants.FinishCondition.AND or s == Constants.FinishCondition.OR then
             self.m_finish_condition = s
         else
             assert(false)
-            self.m_finish_condition = Common.FinishCondition.OR
+            self.m_finish_condition = Constants.FinishCondition.OR
         end
     end
 
-    self.m_running_status = Common.createTable()
+    self.m_running_status = {}
 end
 
 function ObjectClass:onInternalEvaluate(input)
@@ -36,7 +35,7 @@ function ObjectClass:onInternalEvaluate(input)
 
     if status_count < child_count then
         for i, child in ipairs(self.m_children) do
-            self.m_running_status[i] = Common.RunningStatus.Executing
+            self.m_running_status[i] = Constants.RunningStatus.Executing
         end
     end
 
@@ -64,9 +63,9 @@ function ObjectClass:onUpdate(owner, input, output)
 
     for i, child in ipairs(self.m_children) do
         local state = self.m_running_status[i]
-        if self.m_finish_condition == Common.FinishCondition.OR then
+        if self.m_finish_condition == Constants.FinishCondition.OR then
             -- OR
-            if state == Common.RunningStatus.Executing then
+            if state == Constants.RunningStatus.Executing then
                 child:update(owner, input, output)
             else
                 finished_count = child_count
@@ -74,7 +73,7 @@ function ObjectClass:onUpdate(owner, input, output)
             end
         else
             -- AND
-            if state == Common.RunningStatus.Executing then
+            if state == Constants.RunningStatus.Executing then
                 child:update(input, output)
             else
                 finished_count = finished_count + 1
@@ -84,9 +83,9 @@ function ObjectClass:onUpdate(owner, input, output)
 
     if finished_count == child_count then
         init_status(self)
-        return Common.RunningStatus.Finish
+        return Constants.RunningStatus.Finish
     else
-        return Common.RunningStatus.Executing
+        return Constants.RunningStatus.Executing
     end
 end
 

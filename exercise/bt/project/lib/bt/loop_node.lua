@@ -1,10 +1,9 @@
 
-local BT = bt
+local lib = import("..init")
+local Constants = import(".constants")
+local Node = import(".node")
 
-local Common = BT.import(".common")
-local Node = BT.import(".node")
-
-local ObjectClass = Common.Class("LoopNode", Node)
+local ObjectClass = lib.Class("LoopNode", Node)
 
 function ObjectClass:initialize(name, loop_count, precondition)
     Node.initialize(self, name, precondition)
@@ -32,25 +31,25 @@ function ObjectClass:onTransition(input)
 end
 
 function ObjectClass:onUpdate(owner, input, output)
-    local state = Common.RunningStatus.Finish
+    local state = Constants.RunningStatus.Finish
 
     local child = self.m_children[1]
     if child then
         state = child:update(owner, input, output)
-        if state == Common.RunningStatus.Finish then
+        if state == Constants.RunningStatus.Finish then
             if self.m_loop_count then
                 self.m_current_loop_count = self.m_current_loop_count + 1
                 if self.m_current_loop_count < self.m_loop_count then
-                    state = Common.RunningStatus.Executing
+                    state = Constants.RunningStatus.Executing
                 end
             else
                 -- infinite
-                state = Common.RunningStatus.Executing
+                state = Constants.RunningStatus.Executing
             end
         end
     end
 
-    if state ~= Common.RunningStatus.Executing then
+    if state ~= Constants.RunningStatus.Executing then
         self.m_current_loop_count = 0
     end
 

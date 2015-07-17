@@ -1,10 +1,9 @@
 
-local BT = bt
+local lib = import("..init")
+local Constants = import(".constants")
+local Node = import(".node")
 
-local Common = BT.import(".common")
-local Node = BT.import(".node")
-
-local ObjectClass = Common.Class("ActionNode", Node)
+local ObjectClass = lib.Class("ActionNode", Node)
 
 function ObjectClass:initialize(name, config, precondition)
     Node.initialize(self, name, precondition)
@@ -17,22 +16,24 @@ function ObjectClass:getNodeConfig()
     return self.m_config
 end
 
+-- override me
 function ObjectClass:onEnter(owner, input)
-    BT.debugFormat("action %s onEnter...", tostring(self))
+    lib.debugFormat("action %s onEnter...", tostring(self))
 end
 
+-- override me
 function ObjectClass:onExit(owner, input, state)
-    BT.debugFormat("action %s onExit...", tostring(self))
+    lib.debugFormat("action %s onExit...", tostring(self))
 end
 
+-- override me
 function ObjectClass:onExecute(owner, input, output)
-    -- override me
-    return Common.RunningStatus.Finish
+    return Constants.RunningStatus.Finish
 end
 
 function ObjectClass:onTransition(input)
     if self.m_is_running then
-        self:onExit(input, Common.RunningStatus.Terminal)
+        self:onExit(input, Constants.RunningStatus.Terminal)
         self.m_is_running = false
     end
 end
@@ -44,7 +45,7 @@ function ObjectClass:onUpdate(owner, input, output)
     end
 
     local state = self:onExecute(owner, input, output)
-    if state == Common.RunningStatus.Executing then
+    if state == Constants.RunningStatus.Executing then
         return state
     else
         self.m_is_running = false
