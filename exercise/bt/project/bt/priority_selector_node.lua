@@ -27,7 +27,7 @@ function ObjectClass:onTransition(input)
     end
 end
 
-function ObjectClass:onUpdate(input, output)
+function ObjectClass:onUpdate(owner, input, output)
     if self.m_evaluate_select_child == nil then
         assert(false)
         return Common.RunningStatus.Finish
@@ -41,7 +41,7 @@ function ObjectClass:onUpdate(input, output)
 
     -- update node
     if self.m_current_select_child then
-        local state = self.m_current_select_child:update(input, output)
+        local state = self.m_current_select_child:update(owner, input, output)
         if state ~= Common.RunningStatus.Executing then
             self.m_current_select_child = nil
         end

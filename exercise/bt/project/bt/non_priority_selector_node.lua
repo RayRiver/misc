@@ -12,7 +12,7 @@ function ObjectClass:onInternalEvaluate(input)
             return true
         end
     end
-    return PrioritySelectorNode.onInternalEvaluate(input)
+    return PrioritySelectorNode.onInternalEvaluate(self, input)
 end
 
 return ObjectClass

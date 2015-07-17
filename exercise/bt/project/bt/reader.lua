@@ -64,8 +64,7 @@ local function handleParallelNode(node_config)
 end
 
 local function handleActionNode(node_config)
-    -- todo
-    return BT.Factory:createNode(node_config.class, node_config.name)
+    return BT.Factory:createNode(node_config.class, node_config.name, node_config.config)
 end
 
 local NODE_CLASSES = {
@@ -74,7 +73,6 @@ local NODE_CLASSES = {
     SequenceNode = handleNode0,
     LoopNode = handleLoopNode,
     ParallelNode = handleParallelNode,
-    ActionNode = handleActionNode,
 }
 handleNode = function(node_config)
     if not node_config then
@@ -89,8 +87,7 @@ handleNode = function(node_config)
     if handler then
         node = handler(node_config)
     else
-        assert(false, "node class: " .. tostring(node_class))
-        return
+        node = handleActionNode(node_config)
     end
 
     local cond = handleCond(node_config.precondition)

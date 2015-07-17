@@ -30,7 +30,13 @@ function ObjectClass:createNode(node_type, ...)
     if node_class then
         return node_class:create(...)
     else
-        return nil
+        local node_class = require(node_type)
+        if node_class then
+            self:registerNodeClass(node_type, node_class)
+            return node_class:create(...)
+        else
+            return nil
+        end
     end
 end
 

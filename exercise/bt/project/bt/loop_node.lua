@@ -31,12 +31,12 @@ function ObjectClass:onTransition(input)
     self.m_current_loop_count = 0
 end
 
-function ObjectClass:onUpdate(input, output)
+function ObjectClass:onUpdate(owner, input, output)
     local state = Common.RunningStatus.Finish
 
     local child = self.m_children[1]
     if child then
-        state = child:update(input, output)
+        state = child:update(owner, input, output)
         if state == Common.RunningStatus.Finish then
             if self.m_loop_count then
                 self.m_current_loop_count = self.m_current_loop_count + 1

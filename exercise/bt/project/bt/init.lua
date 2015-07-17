@@ -151,5 +151,21 @@ factory:registerCondClass("PreconditionXOR", import(".precondition_xor"))
 
 _M.Reader = import(".reader")
 
+_M.Class = import(".class")
+_M.ActionNode = import(".action_node")
+
+local Class = import(".class")
+local ActionNode = import(".action_node")
+_M.ActionNodeClass = function(name)
+    return Class(name, ActionNode)
+end
+_M.CondtitionClass = function(name)
+    local class = Class(name)
+    return class
+end
+
+local Common = import(".common")
+_M.RunningStatus = Common.RunningStatus
+
 return _M
 

@@ -1,11 +1,15 @@
 
 return {
-    class = "PrioritySelectorNode",
+    class = "NonPrioritySelectorNode",
     name = "priority node",
     precondition = {
         class = "PreconditionTRUE",
     },
     children = {
+        {
+            class = "logic.node_patrol",
+            name = "patrol",
+        },
         {
             class = "SequenceNode",
             name = "sequence node",

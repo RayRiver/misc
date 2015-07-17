@@ -1,22 +1,14 @@
 
-local function updateBT(root)
-    local input = {}
-    local output = {}
-
-    for i = 1, 6 do
-        if root and root:evaluate(input) then
-            root:update(input, output)
-        end
-    end
-end
+local monster
+local blackboard = {}
 
 function love.load()
     print("load...")
-    local bt = require("bt.init")
 
+    --[[
+    local bt = require("bt.init")
     local factory = bt.Factory
 
-    local root
     if false then
         root = factory:createNode("PrioritySelectorNode", "root", factory:createCond("PreconditionTRUE"))
         root:addChild(
@@ -28,16 +20,19 @@ function love.load()
         root = bt.Reader.loadFile("bt_test_config")
         print("root: ", tostring(root))
     end
+    --]]
 
-    updateBT(root)
+    monster = require("monster"):create({ai="ai.bt_test_config"}, blackboard)
 end
 
 function love.update(dt)
     if love.keyboard.isDown('escape') then
         love.event.push('quit')
     end
+
+    monster:update(dt)
 end
 
 function love.draw()
-
+    monster:draw()
 end

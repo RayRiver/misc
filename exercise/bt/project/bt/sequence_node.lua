@@ -38,13 +38,13 @@ function ObjectClass:onTransition(input)
     end
 end
 
-function ObjectClass:onUpdate(input, output)
+function ObjectClass:onUpdate(owner, input, output)
     if not self.m_current_select_index then
         return
     end
 
     local child = self.m_children[self.m_current_select_index]
-    local state = child:update(input, output)
+    local state = child:update(owner, input, output)
     if state == Common.RunningStatus.Finish then
         self.m_current_select_index = self.m_current_select_index + 1
         if self.m_current_select_index > #self.m_children then

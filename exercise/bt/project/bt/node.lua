@@ -50,9 +50,9 @@ function ObjectClass:transition(input)
     return self:onTransition(input)
 end
 
-function ObjectClass:update(input, output)
+function ObjectClass:update(owner, input, output)
     BT.debugFormat("node %s update", tostring(self))
-    return self:onUpdate(input, output)
+    return self:onUpdate(owner, input, output)
 end
 
 function ObjectClass:onInternalEvaluate(input)
@@ -64,7 +64,7 @@ function ObjectClass:onTransition(input)
     -- override me
 end
 
-function ObjectClass:onUpdate(input, output)
+function ObjectClass:onUpdate(owner, input, output)
     -- override me
 end
 

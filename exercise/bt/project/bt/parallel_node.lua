@@ -58,7 +58,7 @@ function ObjectClass:onTransition(input)
     end
 end
 
-function ObjectClass:onUpdate(input, output)
+function ObjectClass:onUpdate(owner, input, output)
     local finished_count = 0
     local child_count = #self.m_children
 
@@ -67,7 +67,7 @@ function ObjectClass:onUpdate(input, output)
         if self.m_finish_condition == Common.FinishCondition.OR then
             -- OR
             if state == Common.RunningStatus.Executing then
-                child:update(input, output)
+                child:update(owner, input, output)
             else
                 finished_count = child_count
                 break
