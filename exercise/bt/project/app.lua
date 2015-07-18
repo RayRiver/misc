@@ -5,24 +5,20 @@ local blackboard = {}
 function love.load()
     print("load...")
 
-    --[[
-    local bt = require("bt.init")
-    local factory = bt.Factory
-
-    if false then
-        root = factory:createNode("PrioritySelectorNode", "root", factory:createCond("PreconditionTRUE"))
-        root:addChild(
-            factory:createNode("LoopNode", "loop", 3):addChild(
-                factory:createNode("ActionNode", "action")
-            )
-        )
-    else
-        root = bt.Reader.loadFile("bt_test_config")
-        print("root: ", tostring(root))
-    end
-    --]]
-
-    monster = require("monster"):create({ai="ai.bt_test_config"}, blackboard)
+    local config = {
+        eyeshot = 50,
+        components = {
+            {
+                class = "components.behavior_tree",
+                config = {
+                    bt = "ai.bt_test_config",
+                    interval = 1,
+                },
+            },
+        },
+    }
+    monster = require("objects.monster"):create(config, blackboard)
+    monster:setPosition(300, 200)
 end
 
 function love.update(dt)
