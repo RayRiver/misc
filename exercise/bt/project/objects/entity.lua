@@ -4,10 +4,10 @@ local BT = require("lib.bt")
 
 local ObjectClass = lib.Class("Entity")
 
-function ObjectClass:initialize(config, blackboard)
-    config = config or {}
+function ObjectClass:initialize(config, id, world, blackboard)
     self.m_config = config
-
+    self.m_id = id
+    self.m_world = world
     self.m_blackboard = blackboard
 
     self.m_x, self.m_y = 0, 0
@@ -23,6 +23,13 @@ end
 
 function ObjectClass:destroy()
     self:removeAllComponents()
+
+    self.m_config = nil
+    self.m_blackboard = nil
+end
+
+function ObjectClass:getId()
+    return self.m_id
 end
 
 function ObjectClass:addComponent(class_name, config)

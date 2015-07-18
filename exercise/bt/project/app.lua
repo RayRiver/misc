@@ -17,7 +17,13 @@ function love.load()
             },
         },
     }
-    monster = require("objects.monster"):create(config, blackboard)
+
+    local config = require("data.objects.test_monster")
+    local entity_manager = require("objects.entity_manager"):instance()
+    entity_manager:setWorld(nil)
+    entity_manager:setBlackboard(blackboard)
+
+    monster = entity_manager:createEntity(config)
     monster:setPosition(300, 200)
 end
 
