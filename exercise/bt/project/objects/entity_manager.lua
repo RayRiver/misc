@@ -61,7 +61,9 @@ function ObjectClass:destroyEntityById(entity_id)
 end
 
 function ObjectClass:destroyAllEntities()
-
+    for _, entity in pairs(self.m_entities) do
+        self:destroyEntity(entity)
+    end
 end
 
 return ObjectClass

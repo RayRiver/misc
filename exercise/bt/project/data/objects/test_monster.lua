@@ -1,7 +1,11 @@
 
 return {
     class = "objects.monster",
-    eyeshot = 50,
+    size = {
+        width = 10,
+        height = 10,
+    },
+    eyeshot = 150,
     components = {
         {
             class = "components.behavior_tree",

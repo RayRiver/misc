@@ -12,6 +12,11 @@ function ObjectClass:initialize(config, id, world, blackboard)
 
     self.m_x, self.m_y = 0, 0
     self.m_vx, self.m_vy = 0, 0
+    self.m_w, self.m_h = self.m_config.size.width, self.m_config.size.height
+
+    if self.m_world then
+        self.m_world:add(self, self.m_x, self.m_y, self.m_w, self.m_h)
+    end
 
     if config.components then
         self.m_components = {}
@@ -26,6 +31,10 @@ function ObjectClass:destroy()
 
     self.m_config = nil
     self.m_blackboard = nil
+
+    if self.m_world then
+        self.m_world:remove(self)
+    end
 end
 
 function ObjectClass:getId()
@@ -75,8 +84,10 @@ function ObjectClass:getBlackboard()
 end
 
 function ObjectClass:update(dt)
-    self.m_x = self.m_x + self.m_vx * dt
-    self.m_y = self.m_y + self.m_vy * dt
+    local x = self.m_x + self.m_vx * dt
+    local y = self.m_y + self.m_vy * dt
+
+    self:setPosition(x, y)
 
     if self.m_components then
         for _, com in pairs(self.m_components) do
@@ -87,14 +98,18 @@ end
 
 function ObjectClass:draw()
     if self.m_config.eyeshot then
-        love.graphics.setColor(100, 255, 100, 40)
-        love.graphics.circle("fill", self.m_x, self.m_y, self.m_config.eyeshot, 32)
-        love.graphics.setColor(100, 255, 100, 80)
-        love.graphics.circle("line", self.m_x, self.m_y, self.m_config.eyeshot, 32)
+        local x = self.m_x + self.m_w / 2
+        local y = self.m_y + self.m_h / 2
+        love.graphics.setColor(100, 255, 100, 30)
+        love.graphics.circle("fill", x, y, self.m_config.eyeshot, 32)
+        love.graphics.setColor(100, 255, 100, 60)
+        love.graphics.circle("line", x, y, self.m_config.eyeshot, 32)
     end
 
+    love.graphics.setColor(255, 100, 100, 155)
+    love.graphics.rectangle("fill", self.m_x, self.m_y, self.m_w, self.m_h)
     love.graphics.setColor(255, 100, 100)
-    love.graphics.circle("fill", self.m_x, self.m_y, 5, 32)
+    love.graphics.rectangle("line", self.m_x, self.m_y, self.m_w, self.m_h)
 end
 
 function ObjectClass:getPosition()
@@ -103,6 +118,10 @@ end
 
 function ObjectClass:setPosition(x, y)
     self.m_x, self.m_y = x, y
+
+    if self.m_world then
+        self.m_world:update(self, self.m_x, self.m_y)
+    end
 end
 
 function ObjectClass:getVelocity()

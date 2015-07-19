@@ -129,5 +129,9 @@ lib.debugFormat = function(fmt, ...)
 end
 
 lib.Class = import(".middleclass")
+lib.Bump = import(".bump")
+lib.BumpDebug = import(".bump_debug")
+lib.Gamera = import(".gamera")
+lib.ShakyCam = import(".shakycam")
 
 return lib
