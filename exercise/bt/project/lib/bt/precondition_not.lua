@@ -10,8 +10,8 @@ function ObjectClass:initialize(lhs)
     lib.debug("precondition not initialize")
 end
 
-function ObjectClass:onEvaluate(input)
-    return not self.m_lhs:onEvaluate(input)
+function ObjectClass:onEvaluate(owner, input)
+    return not self.m_lhs:onEvaluate(owner, input)
 end
 
 return ObjectClass

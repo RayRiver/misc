@@ -1,6 +1,7 @@
 
 local lib = require("lib.init")
 
+local drawDebug = false
 local camera
 local player
 local monster
@@ -20,6 +21,8 @@ function love.load()
     player = entity_manager:createEntity(config)
     player:setPosition(100, 100)
 
+    blackboard.player = player
+
     local config = require("data.objects.test_monster")
     monster = entity_manager:createEntity(config)
     monster:setPosition(300, 200)
@@ -31,8 +34,12 @@ function love.load()
 end
 
 function love.update(dt)
-    if love.keyboard.isDown('escape') then
-        love.event.push('quit')
+    function love.keypressed(key, unicdoe)
+        if key == "tab" then
+            drawDebug = not drawDebug
+        elseif key == "escape" then
+            love.event.push('quit')
+        end
     end
 
     player:update(dt)
@@ -44,7 +51,9 @@ end
 
 function love.draw()
     camera:draw(function(x, y, w, h)
-        lib.BumpDebug.draw()
+        if drawDebug then
+            lib.BumpDebug.draw()
+        end
         player:draw()
         monster:draw()
     end)

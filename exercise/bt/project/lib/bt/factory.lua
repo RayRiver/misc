@@ -57,7 +57,13 @@ function ObjectClass:createCond(cond_type, ...)
     if cond_class then
         return cond_class:create(...)
     else
-        return nil
+        local cond_class = require(cond_type)
+        if cond_class then
+            self:registerCondClass(cond_type, cond_class)
+            return cond_class:create(...)
+        else
+            return nil
+        end
     end
 end
 

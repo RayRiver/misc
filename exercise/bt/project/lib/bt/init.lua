@@ -16,7 +16,7 @@ local ActionNode = import(".action_node")
 _M.ActionNodeClass = function(name)
     return Class(name, ActionNode)
 end
-_M.CondtitionClass = function(name)
+_M.ConditionClass = function(name)
     local class = Class(name)
     return class
 end

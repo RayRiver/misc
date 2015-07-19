@@ -38,13 +38,26 @@ function ObjectClass:setPrecondition(precondition)
     self.m_precondition = precondition
 end
 
-function ObjectClass:evaluate(input)
-    lib.debugFormat("node %s evaluate", tostring(self))
-    return (self.m_precondition == nil or self.m_precondition:onEvaluate(input)) and self:onInternalEvaluate(input)
+function ObjectClass:evaluate(owner, input)
+    --lib.debugFormat("node %s evaluate", tostring(self))
+    if self.m_precondition == nil and self:onInternalEvaluate(owner, input) then
+        return true
+    else
+        local result = self.m_precondition:onEvaluate(owner, input)
+        lib.debugFormat("node %s evaluate by condition[%s] return [%s]",
+            tostring(self), self.m_precondition, result and "true" or "false")
+        if result and self:onInternalEvaluate(owner, input) then
+            return true
+        else
+            return false
+        end
+    end
+
+    --return (self.m_precondition == nil or self.m_precondition:onEvaluate(owner, input)) and self:onInternalEvaluate(owner, input)
 end
 
 function ObjectClass:transition(input)
-    lib.debugFormat("node %s transition", tostring(self))
+    --lib.debugFormat("node %s transition", tostring(self))
     return self:onTransition(input)
 end
 
@@ -54,7 +67,7 @@ function ObjectClass:update(owner, input, output)
 end
 
 -- override me
-function ObjectClass:onInternalEvaluate(input)
+function ObjectClass:onInternalEvaluate(owner, input)
     return true
 end
 

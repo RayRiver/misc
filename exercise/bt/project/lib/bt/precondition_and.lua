@@ -12,8 +12,8 @@ function ObjectClass:initialize(lhs, rhs)
     lib.debug("precondition and initialize")
 end
 
-function ObjectClass:onEvaluate(input)
-    return self.m_lhs:onEvaluate(input) and self.m_rhs:onEvaluate(input)
+function ObjectClass:onEvaluate(owner, input)
+    return self.m_lhs:onEvaluate(owner, input) and self.m_rhs:onEvaluate(owner, input)
 end
 
 return ObjectClass

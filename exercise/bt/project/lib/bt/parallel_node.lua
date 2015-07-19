@@ -29,7 +29,7 @@ function ObjectClass:initialize(name, finish_condition, precondition)
     self.m_running_status = {}
 end
 
-function ObjectClass:onInternalEvaluate(input)
+function ObjectClass:onInternalEvaluate(owner, input)
     local status_count = #self.m_running_status
     local child_count = #self.m_children
 
@@ -40,7 +40,7 @@ function ObjectClass:onInternalEvaluate(input)
     end
 
     for _, child in ipairs(self.m_children) do
-        local result = child:evaluate(input)
+        local result = child:evaluate(owner, input)
         if not result then
             return false
         end

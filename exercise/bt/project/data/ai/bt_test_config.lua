@@ -1,11 +1,18 @@
 
 return {
-    class = "NonPrioritySelectorNode",
+    class = "PrioritySelectorNode",
     name = "priority node",
     precondition = {
         class = "PreconditionTRUE",
     },
     children = {
+        {
+            class = "bt.node_chevy",
+            name = "chevy",
+            precondition = {
+                class = "bt.cond_found_target",
+            },
+        },
         {
             class = "bt.node_patrol",
             name = "patrol",

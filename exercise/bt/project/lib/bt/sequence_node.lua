@@ -9,7 +9,7 @@ function ObjectClass:initialize(name, precondition)
     Node.initialize(self, name, precondition)
 end
 
-function ObjectClass:onInternalEvaluate(input)
+function ObjectClass:onInternalEvaluate(owner, input)
     local index
     if self.m_current_select_index then
         index = self.m_current_select_index
@@ -19,7 +19,7 @@ function ObjectClass:onInternalEvaluate(input)
 
     local child = self.m_children[index]
     if child then
-        local result = child:evaluate(input)
+        local result = child:evaluate(owner, input)
         if result then
             self.m_current_select_index = index
         end

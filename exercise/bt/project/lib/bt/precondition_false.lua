@@ -7,7 +7,7 @@ function ObjectClass:initialize()
     lib.debug("precondition false initialize")
 end
 
-function ObjectClass:onEvaluate(input)
+function ObjectClass:onEvaluate(owner, input)
     return false
 end
 

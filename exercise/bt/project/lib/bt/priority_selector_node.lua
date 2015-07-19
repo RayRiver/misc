@@ -9,9 +9,9 @@ function ObjectClass:initialize(name, precondition)
     Node.initialize(self, name, precondition)
 end
 
-function ObjectClass:onInternalEvaluate(input)
+function ObjectClass:onInternalEvaluate(owner, input)
     for _, child in ipairs(self.m_children) do
-        if child:evaluate(input) then
+        if child:evaluate(owner, input) then
             self.m_evaluate_select_child = child
             return true
         end

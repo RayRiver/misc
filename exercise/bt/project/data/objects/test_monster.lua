@@ -5,7 +5,7 @@ return {
         width = 10,
         height = 10,
     },
-    eyeshot = 150,
+    eyeshot = 200,
     components = {
         {
             class = "components.behavior_tree",

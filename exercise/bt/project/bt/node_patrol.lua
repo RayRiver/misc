@@ -6,6 +6,7 @@ local ObjectClass = BT.ActionNodeClass("NodePatrol")
 
 function ObjectClass:onEnter(owner, input)
     local x, y = owner:getPosition()
+    owner:setVelocity(0, 0)
 
     local rx = math.random(-50, 50)
     local ry = math.random(-50, 50)

@@ -12,10 +12,10 @@ function ObjectClass:initialize(name, loop_count, precondition)
     self.m_current_loop_count = 0
 end
 
-function ObjectClass:onInternalEvaluate(input)
+function ObjectClass:onInternalEvaluate(owner, input)
     if self.m_loop_count == nil or self.m_current_loop_count < self.m_loop_count then
         local child = self.m_children[1]
-        if child and child:evaluate(input) then
+        if child and child:evaluate(owner, input) then
             return true
         end
     end

@@ -23,8 +23,8 @@ local function handleCond2(cond_config)
     )
 end
 
-local function handleCondCUSTOM(cond_config)
-    -- todo
+local function handleCustomCondition(cond_config)
+    return Factory:createCond(cond_config.class, cond_config)
 end
 
 local COND_CLASSES = {
@@ -34,7 +34,6 @@ local COND_CLASSES = {
     PreconditionAND = handleCond2,
     PreconditionOR = handleCond2,
     PreconditionXOR = handleCond2,
-    PreconditionCUSTOM = handleCondCUSTOM,
 }
 handleCond = function(cond_config)
     if not cond_config then
@@ -47,7 +46,7 @@ handleCond = function(cond_config)
     if handler then
         return handler(cond_config)
     else
-        assert(false)
+        return handleCustomCondition(cond_config)
     end
 end
 

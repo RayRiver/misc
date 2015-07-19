@@ -34,7 +34,7 @@ function ObjectClass:updateBehavior()
 
         local input = blackboard
         local output = blackboard
-        if bt:evaluate(input) then
+        if bt:evaluate(owner, input) then
             bt:update(owner, input, output)
         end
     end
