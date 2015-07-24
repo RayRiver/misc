@@ -6,6 +6,7 @@ return {
         height = 10,
     },
     eyeshot = 200,
+    attack_area = 50,
     components = {
         {
             class = "components.behavior_tree",

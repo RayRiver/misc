@@ -1,5 +1,8 @@
 
+require("init")
+
 local lib = require("lib.init")
+local utils = require("utils.init")
 
 local drawDebug = false
 local camera
@@ -41,6 +44,8 @@ function love.update(dt)
             love.event.push('quit')
         end
     end
+
+    utils.CronMgr:update(dt)
 
     player:update(dt)
     monster:update(dt)

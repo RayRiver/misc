@@ -7,6 +7,13 @@ return {
     },
     children = {
         {
+            class = "bt.node_attack",
+            name = "attack",
+            precondition = {
+                class = "bt.cond_can_attack_target",
+            },
+        },
+        {
             class = "bt.node_chevy",
             name = "chevy",
             precondition = {
