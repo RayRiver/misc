@@ -16,24 +16,25 @@ function love.load()
     local world = lib.Bump.newWorld()
     lib.BumpDebug.setWorld(world)
 
-    local entity_manager = require("objects.entity_manager"):instance()
-    entity_manager:setWorld(world)
-    entity_manager:setBlackboard(blackboard)
+    utils.EntityMgr:setWorld(world)
+    utils.EntityMgr:setBlackboard(blackboard)
 
     local config = require("data.objects.test_player")
-    player = entity_manager:createEntity(config)
+    player = utils.EntityMgr:createEntity(config)
     player:setPosition(100, 100)
 
     blackboard.player = player
 
     local config = require("data.objects.test_monster")
-    monster = entity_manager:createEntity(config)
+    monster = utils.EntityMgr:createEntity(config)
     monster:setPosition(300, 200)
 
     local width = 1000
     local height = 1000
     local gamera_cam = lib.Gamera.new(0, 0, width, height)
     camera = lib.ShakyCam.new(gamera_cam)
+
+    utils.Camera = camera.camera
 end
 
 function love.update(dt)
@@ -47,8 +48,7 @@ function love.update(dt)
 
     utils.CronMgr:update(dt)
 
-    player:update(dt)
-    monster:update(dt)
+    utils.EntityMgr:update(dt)
 
     camera:setPosition(player:getPosition())
     camera:update(dt)
@@ -59,7 +59,7 @@ function love.draw()
         if drawDebug then
             lib.BumpDebug.draw()
         end
-        player:draw()
-        monster:draw()
+
+        utils.EntityMgr:draw()
     end)
 end

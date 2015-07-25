@@ -6,21 +6,10 @@ local function generateEntityId(self)
     return self.m_generated_entity_id
 end
 
-local ObjectClass = lib.Class("EntityManager")
-
-local s_instance
-function ObjectClass:instance()
-    if not s_instance then
-        s_instance = ObjectClass:create()
-    end
-    return s_instance
-end
-
-function ObjectClass:initialize()
-    self.m_entities = {}
-
-    self.m_generated_entity_id = 0
-end
+local ObjectClass = {
+    m_entities = {},
+    m_generated_entity_id = 0,
+}
 
 function ObjectClass:destroy()
     self:destroyAllEntities()
@@ -37,6 +26,18 @@ end
 
 function ObjectClass:setBlackboard(blackboard)
     self.m_blackboard = blackboard
+end
+
+function ObjectClass:update(dt)
+    for _, entity in pairs(self.m_entities) do
+        entity:update(dt)
+    end
+end
+
+function ObjectClass:draw()
+    for _, entity in pairs(self.m_entities) do
+        entity:draw()
+    end
 end
 
 function ObjectClass:createEntity(config)

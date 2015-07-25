@@ -28,6 +28,10 @@ function ObjectClass:update(dt)
     self:onUpdate(dt)
 end
 
+function ObjectClass:draw()
+    self:onDraw()
+end
+
 -- override me
 function ObjectClass:onAttached()
 
@@ -40,6 +44,11 @@ end
 
 -- override me
 function ObjectClass:onUpdate(dt)
+
+end
+
+-- override me
+function ObjectClass:onDraw()
 
 end
 

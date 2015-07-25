@@ -119,6 +119,12 @@ function ObjectClass:draw()
     love.graphics.rectangle("fill", self.m_x, self.m_y, self.m_w, self.m_h)
     love.graphics.setColor(255, 100, 100)
     love.graphics.rectangle("line", self.m_x, self.m_y, self.m_w, self.m_h)
+
+    if self.m_components then
+        for _, com in pairs(self.m_components) do
+            com:draw()
+        end
+    end
 end
 
 function ObjectClass:setData(key, val)
@@ -139,6 +145,10 @@ function ObjectClass:setPosition(x, y)
     if self.m_world then
         self.m_world:update(self, self.m_x, self.m_y)
     end
+end
+
+function ObjectClass:getSize()
+    return self.m_w, self.m_h
 end
 
 function ObjectClass:getVelocity()
@@ -171,6 +181,21 @@ function ObjectClass:hit()
         self.m_hp = 0
         self:setData("dead", true)
     end
+end
+
+function ObjectClass:fire(x, y)
+    local config = require("data.objects.test_bullet")
+    local bullet = utils.EntityMgr:createEntity(config)
+    print("create bullet: " .. tostring(bullet))
+    bullet:setPosition(self.m_x, self.m_y)
+
+    local dx = x - self.m_x
+    local dy = y - self.m_y
+    local n = math.sqrt(dx * dx + dy * dy)
+
+    local speed = 100
+    local vx, vy = dx / n * speed, dy / n * speed
+    bullet:setVelocity(vx, vy)
 end
 
 return ObjectClass
