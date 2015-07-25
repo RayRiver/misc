@@ -1,5 +1,6 @@
 
 local lib = require("lib.init")
+local utils = require("utils.init")
 local BT = require("lib.bt")
 
 local ObjectClass = lib.Class("Entity")
@@ -9,6 +10,8 @@ function ObjectClass:initialize(config, id, world, blackboard)
     self.m_id = id
     self.m_world = world
     self.m_blackboard = blackboard
+
+    self.m_data = {}
 
     self.m_x, self.m_y = 0, 0
     self.m_vx, self.m_vy = 0, 0
@@ -31,6 +34,8 @@ function ObjectClass:destroy()
 
     self.m_config = nil
     self.m_blackboard = nil
+
+    self.m_data = {}
 
     if self.m_world then
         self.m_world:remove(self)
@@ -75,6 +80,10 @@ function ObjectClass:removeAllComponents()
     end
 end
 
+function ObjectClass:hasComponent(class_name)
+    return self.m_components[class_name] and true or false
+end
+
 function ObjectClass:getConfig()
     return self.m_config
 end
@@ -112,6 +121,14 @@ function ObjectClass:draw()
     love.graphics.rectangle("line", self.m_x, self.m_y, self.m_w, self.m_h)
 end
 
+function ObjectClass:setData(key, val)
+    self.m_data[key] = val
+end
+
+function ObjectClass:getData(key)
+    return self.m_data[key]
+end
+
 function ObjectClass:getPosition()
     return self.m_x, self.m_y
 end
@@ -130,6 +147,30 @@ end
 
 function ObjectClass:setVelocity(vx, vy)
     self.m_vx, self.m_vy = vx, vy
+end
+
+function ObjectClass:attack(target)
+    if self.m_attack_cool_down then
+        return
+    end
+
+    print("attack")
+    target:hit()
+
+    self.m_attack_cool_down = true
+    utils.CronMgr:after(2, function()
+        self.m_attack_cool_down = false
+    end)
+end
+
+function ObjectClass:hit()
+    self.m_hp = self.m_hp or 3
+    self.m_hp = self.m_hp - 1
+    print("hit, hp = " .. tostring(self.m_hp))
+    if self.m_hp <= 0 then
+        self.m_hp = 0
+        self:setData("dead", true)
+    end
 end
 
 return ObjectClass

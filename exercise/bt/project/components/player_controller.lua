@@ -13,6 +13,11 @@ function ObjectClass:onDetached()
 end
 
 function ObjectClass:onUpdate(dt)
+    local owner = self:getOwner()
+    if owner:getData("dead") then
+        return
+    end
+
     local vx, vy = 0, 0
     if love.keyboard.isDown("a") then
         vx = -1
@@ -26,7 +31,6 @@ function ObjectClass:onUpdate(dt)
     end
 
     local speed = 500
-    local owner = self:getOwner()
     if vx == 0 and vy == 0 then
         owner:setVelocity(0, 0)
     else

@@ -10,6 +10,10 @@ function ObjectClass:onEvaluate(owner, input)
         return false
     end
 
+    if target:getData("dead") then
+        return false
+    end
+
     local eyeshot = owner:getConfig().eyeshot
     if not eyeshot then
         return false

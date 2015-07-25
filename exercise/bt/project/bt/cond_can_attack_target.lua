@@ -10,6 +10,10 @@ function ObjectClass:onEvaluate(owner, input)
         return false
     end
 
+    if target:getData("dead") then
+        return false
+    end
+
     local attack_area = owner:getConfig().attack_area
     if not attack_area then
         return false
