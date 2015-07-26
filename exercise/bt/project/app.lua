@@ -8,10 +8,13 @@ local drawDebug = false
 local camera
 local player
 local monster
+local map
 local blackboard = {}
 
 function love.load()
     print("load...")
+
+    love.graphics.setDefaultFilter("nearest", "nearest")
 
     local world = lib.Bump.newWorld()
     lib.BumpDebug.setWorld(world)
@@ -35,6 +38,10 @@ function love.load()
     camera = lib.ShakyCam.new(gamera_cam)
 
     utils.Camera = camera.camera
+
+    --utils.Camera:setScale(2)
+
+    map = lib.STI.new("maps/map2")
 end
 
 function love.update(dt)
@@ -46,6 +53,8 @@ function love.update(dt)
         end
     end
 
+    map:update(dt)
+
     utils.CronMgr:update(dt)
 
     utils.EntityMgr:update(dt)
@@ -56,6 +65,8 @@ end
 
 function love.draw()
     camera:draw(function(x, y, w, h)
+        map:draw()
+
         if drawDebug then
             lib.BumpDebug.draw()
         end
