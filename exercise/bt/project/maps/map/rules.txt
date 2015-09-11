@@ -1,0 +1,8 @@
+./rules/rule_basic.tmx
+./rules/rule_stone.tmx
+./rules/rule_grass.tmx
+./rules/rule_road.tmx
+./rules/rule_road_single.tmx
+./rules/rule_fence.tmx
+./rules/rule_hill.tmx
+./rules/rule_tree.tmx

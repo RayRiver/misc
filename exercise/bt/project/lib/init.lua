@@ -19,4 +19,6 @@ lib.Cron = import(".cron")
 lib.Gamera = import(".gamera")
 lib.ShakyCam = import(".shakycam")
 
+lib.STI = import(".sti.init")
+
 return lib
